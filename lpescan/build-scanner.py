@@ -19,6 +19,22 @@ TABLES = os.path.join(HERE, "tables.py")
 SCANNER_SRC = os.path.join(HERE, "lpescan.py")
 MARKER = "# %%TABLES%%"
 
+# ---- klasifikasi kelas container-escape (runc/containerd/buildkit/docker/kernel) ----
+ESCAPE_PRODUCTS = {
+    "docker:docker", "linuxfoundation:runc", "linuxfoundation:containerd",
+    "mobyproject:buildkit", "podman_project:podman", "linuxcontainers:lxc",
+}
+ESCAPE_DESC_KW = ("container escape", "escape the container", "container breakout",
+                  "container filesystem breakout", "docker escape", "host root access")
+
+
+def is_escape_class(r):
+    """True bila CVE berpotensi escape container ke host (runc/containerd/kernel)."""
+    d = (r.get("description") or "").lower()
+    if any(k in d for k in ESCAPE_DESC_KW):
+        return True
+    return any(a.split(" [")[0] in ESCAPE_PRODUCTS for a in (r.get("affected") or []))
+
 
 def main():
     os.makedirs(DIST, exist_ok=True)
@@ -31,7 +47,10 @@ def main():
             "id": r["id"], "published": r["published"], "score": r.get("score"),
             "severity": r.get("severity"), "description": r.get("description", ""),
             "affected": r.get("affected") or [], "os": r["os"], "kev": bool(r.get("kev")),
+            "escape": is_escape_class(r),
         })
+    n_esc = sum(1 for c in cves if c["escape"])
+    print(f"[*] dataset: {len(cves)} CVE, {n_esc} kelas container-escape")
 
     # ---- 2) slim poc map ----
     pocs = {}

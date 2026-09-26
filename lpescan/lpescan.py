@@ -26,8 +26,13 @@ import sys
 import time
 from datetime import datetime
 
-SCANNER_VERSION = "1.1.0"
+SCANNER_VERSION = "1.2.0"
 DATA_FILENAME = "lpe-data.json.gz"
+
+try:  # mode source: tables.py ada di sebelah lpescan.py
+    from tables import PKG_TO_CPE, DISTRO_TO_CPE, WIN_RELEASE_TO_BUILD, GTFO_SUIDS
+except ImportError:
+    pass  # mode dist: tables di-splice oleh build-scanner di bawah
 
 # %%TABLES%%
 
@@ -299,6 +304,20 @@ def sh_out(cmd, timeout=15):
 # Facts collection
 # ======================================================================
 
+def _in_container():
+    """Deteksi apakah scanner berjalan di dalam container (/.dockerenv atau cgroup)."""
+    if os.path.exists("/.dockerenv"):
+        return True
+    try:
+        with open("/proc/1/cgroup") as f:
+            cg = f.read()
+        if any(k in cg for k in ("docker", "kubepods", "lxc", "libpod")):
+            return True
+    except OSError:
+        pass
+    return False
+
+
 def collect_facts_linux():
     distro = {}
     try:
@@ -362,6 +381,7 @@ def collect_facts_linux():
                    "pretty": distro.get("PRETTY_NAME", "")},
         "debian_version": debian_version,
         "packages": packages,
+        "in_container": _in_container(),
     }
 
 
@@ -512,6 +532,8 @@ def _add_match(res, ci, cve, tier, conf, cpe, raw, installed, backported=False):
             res[ci]["confidence"] = "high"
     if backported:
         res[ci]["likely_backported"] = True
+    if cve.get("escape"):
+        res[ci]["escape_class"] = True
     res[ci]["matches"].append({"cpe": cpe, "constraint": raw, "installed": installed})
 
 
@@ -1346,6 +1368,7 @@ def build_report(facts, data, cve_res, peas_findings):
             "published": r.get("published"), "kev": bool(r.get("kev")),
             "matched_by": m["tier"], "confidence": m["confidence"],
             "likely_backported": bool(m.get("likely_backported")),
+            "escape_class": bool(m.get("escape_class")),
             "matches": m["matches"],
             "description": (r.get("description") or "")[:600],
             "has_poc": r["id"] in pocs,
@@ -1365,6 +1388,7 @@ def build_report(facts, data, cve_res, peas_findings):
             "cve_total": len(cve_findings),
             "kev": sum(1 for f in cve_findings if f["kev"]),
             "backport_flagged": sum(1 for f in cve_findings if f["likely_backported"]),
+            "escape_flagged": sum(1 for f in cve_findings if f["escape_class"]),
             "by_tier": {t: sum(1 for f in cve_findings if f["matched_by"] == t) for t in order},
             "by_severity": {},
         },
@@ -1404,6 +1428,9 @@ def print_report(report, color=True):
         if tg["distro"].get("pretty"):
             print(f"  distro   : {tg['distro']['pretty']}")
         print(f"  packages : {len(tg['packages'])} terpasang")
+        if tg.get("in_container"):
+            print(paint("  container: YA (/.dockerenv/cgroup) — match [ESC] bisa menyentuh host",
+                        "\033[1;35m"))
     else:
         w = tg["windows"]
         print(f"  windows  : {w['product_name']} build {w['full_build']} ({w['display_version']})")
@@ -1434,6 +1461,8 @@ def print_report(report, color=True):
             line += paint("  [PoC]", C["g"])
         if f.get("likely_backported"):
             line += paint("  [BP]", "\033[33m")
+        if f.get("escape_class"):
+            line += paint("  [ESC]", "\033[35m")
         print(line)
     if st["cve_total"] > 40:
         print(paint(f"  ... {st['cve_total'] - 40} CVE lagi (lihat file report)", C["dim"]))
@@ -1443,6 +1472,19 @@ def print_report(report, color=True):
                     f" dipublikasikan. Nomor versi kernel distro (ABI) tidak setara patch"
                     f" level upstream — verifikasi patch status distro (USN/dsa) sebelum"
                     f" menyimpulkan vulnerable.", C["dim"]))
+
+    esc = [f for f in report["findings"]["cve"] if f.get("escape_class")]
+    if esc:
+        ids = ", ".join(f["id"] for f in esc[:8])
+        print(paint(f"\n[ ! ] {len(esc)} match kelas container-escape (runc/containerd/kernel): {ids}"
+                    + (" ..." if len(esc) > 8 else ""), "\033[1;35m"))
+        if tg.get("in_container"):
+            print(paint("      target DI DALAM container — bila terverifikasi vulnerable, eksploitasi"
+                        " bisa menyentuh HOST (runtime runc/containerd atau kernel host)."
+                        " Verifikasi versi runtime host dari sisi host.", C["dim"]))
+        else:
+            print(paint("      target bukan container — relevan bila host ini menjalankan container"
+                        " (runc/containerd/buildkit); di luar itu perlakukan sebagai LPE/DoS biasa.", C["dim"]))
 
     print(paint(f"\n[ PEAS CHECKS ] {st['peas_total']} temuan", C["b"]))
     by_cat = {}
@@ -1546,6 +1588,29 @@ def selftest():
         not _likely_backported("2026-08-01", datetime(2026, 8, 7)))
     chk("backport: tanggal hilang -> False",
         not _likely_backported("", None) and not _likely_backported("2022-01-01", None))
+
+    print("[*] selftest container-escape...")
+    chk("_in_container deterministik (host dev = False)", _in_container() is False)
+    res = {}
+    _add_match(res, 0, {"id": "CVE-TEST-ESC", "escape": True, "kev": False},
+               "kernel", "high", "x:y", "[all]", "1.0")
+    _add_match(res, 1, {"id": "CVE-TEST-NO", "escape": False, "kev": False},
+               "kernel", "high", "x:y", "[all]", "1.0")
+    chk("flag escape_class terpropagasi di match",
+        res[0].get("escape_class") is True, str(res[0]))
+    chk("cve non-escape tanpa flag escape_class",
+        not res[1].get("escape_class"), str(res[1]))
+    # simulasi alur penuh: record escape + facts container
+    fake_data = {"cves": [{"id": "CVE-TEST-ESC", "escape": True, "kev": False,
+                           "affected": ["linux:linux_kernel [>=3.0 <9.0]"],
+                           "published": "2022-01-01", "score": 7.0, "severity": "HIGH",
+                           "description": "container escape"}],
+                 "pocs": {}, "generated": "", "count": 1}
+    fake_facts = {"kernel": "5.15.0", "kernel_build": {}, "distro": {"id": "", "version_id": ""},
+                  "packages": {}, "debian_version": "", "os": "linux", "in_container": True}
+    m = match_cves(fake_facts, fake_data)
+    chk("match di dalam container membawa escape_class",
+        m.get(0, {}).get("escape_class") is True, str(m))
 
     print(f"\n[*] selftest selesai: {ok} OK, {fail} FAIL")
     return fail == 0

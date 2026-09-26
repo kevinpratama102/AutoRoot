@@ -5,7 +5,7 @@ dalam satu alur kerja: arsip CVE lokal, scanner ala LinPEAS/WinPEAS, dan bundler
 
 | Komponen | Isi |
 |---|---|
-| **cve-lpe** | Arsip **23.834 CVE** LPE (NVD API 2.0 + CISA KEV) + indeks **1.298 repo PoC publik**: 508 biner ELF terkompilasi, 1.594 sumber Linux, 623 sumber Windows |
+| **cve-lpe** | Arsip **23.847 CVE** LPE (NVD API 2.0 + CISA KEV) + indeks **1.302 repo PoC publik**: 508 biner ELF terkompilasi, 1.594 sumber Linux, 623 sumber Windows |
 | **lpescan** | Scanner full enumerasi (versi + misconfig, ±42 cek Linux / ±27 cek Windows) yang mencocokkan hasilnya ke dataset CVE. Python stdlib-only, **read-only**, tanpa jaringan |
 | **buildkit** | Merakit kit per target: biner/sumber PoC yang cocok + resep kompilasi + manifest, jadi satu zip |
 
@@ -37,7 +37,7 @@ jalankan PoC di VM uji (REMnux / FLARE VM)
 AutoRoot/
 ├── README.md                  # dokumen ini
 ├── cve-lpe/                   # arsip dataset CVE LPE
-│   ├── cve-lpe-full.json      # 23.834 record (format ringkas 9 key)
+│   ├── cve-lpe-full.json      # 23.847 record (format ringkas 9 key)
 │   ├── cve-lpe-full.csv
 │   ├── linux/ windows/ other/ # split per OS per tahun
 │   ├── pocs/                  # PoC publik: bin/ src/ src-windows/ poc-index.csv
@@ -55,14 +55,14 @@ AutoRoot/
 ## Dataset — cve-lpe
 
 - **Sumber**: NVD API 2.0 (query keyword variants + daftar cveId kurasi) + CISA KEV
-- **23.834 CVE** (1989–2026): linux 3.958 / windows 6.114 / other 13.762
-- Severity: CRITICAL 1.940 · HIGH 16.277 · MEDIUM 5.375 · LOW 239
+- **23.847 CVE** (1989–2026): linux 3.971 / windows 6.114 / other 13.762
+- Severity: CRITICAL 1.942 · HIGH 16.283 · MEDIUM 5.380 · LOW 239
 - **KEV** (CISA Known Exploited Vulnerabilities): **299** record — diprioritaskan di report
 - Record tanpa `affected[]`: 2.843 (di-skip saat matching)
 - Format record: `id, published, score, severity, description, affected[], os, kev`
 - `affected[]` = CPE 2.3 `vendor:product [range]` — range bisa `[all]`, exact `[6.8]` / `[7.0_s390x]`,
   atau bound `[<10.0.22631.4751]`
-- PoC: `pocs/poc-index.csv` (3.734 baris → 1.298 CVE) dipetakan ke `pocs/bin/` (ELF),
+- PoC: `pocs/poc-index.csv` (3.738 baris → 1.302 CVE) dipetakan ke `pocs/bin/` (ELF),
   `pocs/src/` (repo Linux), `pocs/src-windows/` (repo Windows)
 
 ## lpescan — scanner
@@ -76,6 +76,11 @@ Matching CVE 4 tier, prioritas **kernel > package > os-build > distro-pin**:
 | os-build | build Windows (`10.0.22631.4751`) vs bound NVD + tabel release→build | high |
 | distro-pin | os-release vs `debian:debian_linux` / `canonical:ubuntu_linux` dll. | possible |
 
+Kelas **container-escape** (`[ESC]`): CVE runc/containerd/buildkit/docker/kernel
+yang berpotensi escape container → host di-flag `escape_class` di report. Bila
+scanner berjalan di dalam container, blok TARGET memberi catatan bahwa match
+`[ESC]` bisa menyentuh host (verifikasi versi runtime dari sisi host).
+
 PEAS checks — **±42 cek Linux**: system info (ASLR, kptr, userns), users/groups, sudo
 (NOPASSWD/env_keep), SUID/SGID + daftar GTFOBins, capabilities berbahaya, PATH writable,
 cron (wildcard injection), perms passwd/shadow, docker/kube, port root + redis no-auth,
@@ -88,7 +93,7 @@ stored credentials (cmdkey/vault/SAM/autologon/GPP cpassword), UAC, autoruns, DL
 ```bash
 # mesin arsip — setelah dataset di-update
 python3 build-scanner.py                    # regen dist/ + laporan coverage tabel
-python3 dist/lpescan.py --selftest          # 23 asersi version engine
+python3 dist/lpescan.py --selftest          # 35 asersi (version engine + backport + container-escape)
 
 # target Linux
 python3 lpescan.py                          # output konsol berwarna + scan-report-*.json
@@ -153,6 +158,8 @@ Ringkasan vektor LPE klasik dan di mana lpescan mendeteksinya:
 - Dataset di-refresh lewat pipeline NVD (keyword + cveId kurasi — keyword murni melesetkan
   CVE kernel 2026 dengan pola deskripsi "In the Linux kernel..." seperti DirtyFrag/CopyFail);
   setelah refresh tinggal jalankan ulang `build-scanner.py`
+- cveId kurasi juga menutup lubang keyword untuk **runc/containerd/buildkit**
+  (13 CVE: CVE-2019-5736, CVE-2024-21626, CVE-2021-30465, dll.) — dasar kelas `[ESC]`
 - `--selftest` memvalidasi version engine terhadap bentuk string dataset nyata
   (arch suffix `7.0_s390x`, patch-level `1.9.5p2`, build Windows, pin exact `[6.8]`, dll.)
 

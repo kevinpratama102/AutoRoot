@@ -1,7 +1,7 @@
 # lpescan — Scanner LPE ala PEAS + Kit Bundler PoC
 
 Scanner LPE ala LinPEAS/WinPEAS yang terhubung ke arsip CVE lokal
-(`../cve-lpe/`, 23.834 CVE). Alur kerja end-to-end:
+(`../cve-lpe/`, 23.847 CVE). Alur kerja end-to-end:
 
 ```
 [MESIN ARSIP]                            [SERVER TARGET]
@@ -32,7 +32,7 @@ python3 buildkit.py --report scan-report-*.json
 ```bash
 python3 build-scanner.py
 # -> dist/lpescan.py + dist/lpe-data.json.gz ; laporan coverage PKG_TO_CPE
-python3 dist/lpescan.py --selftest   # 23 asersi version engine
+python3 dist/lpescan.py --selftest   # 35 asersi (version engine + backport + container-escape)
 ```
 
 ### 2. Scan target
@@ -56,6 +56,13 @@ Apa yang di-scan:
   hampir pasti sudah di-backport → confidence turun ke `possible` + flag
   `likely_backported` di report. CVE yang dipublikasikan dekat/setelah
   build date TIDAK di-flag (perlu verifikasi manual).
+- **Deteksi container escape** (`[ESC]`): dataset menandai kelas CVE
+  container-escape (runc/containerd/buildkit/docker/kernel — deskripsi
+  "container escape" atau product yang relevan). Match yang masuk kelas ini
+  di-flag `escape_class` di report + `[ESC]` di konsol. Bila scanner berjalan
+  **di dalam container** (terdeteksi lewat `/.dockerenv`/cgroup), blok TARGET
+  memberi catatan bahwa match `[ESC]` bisa menyentuh host — verifikasi versi
+  runtime host dari sisi host.
 - **PEAS checks**: ±42 cek Linux (SUID, sudo, capabilities, cron, kredensial,
   docker, NFS, systemd, dll) / ±27 cek Windows (token privilege, unquoted
   service path, AlwaysInstallElevated, stored creds, UAC, autoruns, dll).
@@ -79,7 +86,9 @@ tapi belum ada binernya ditandai *source-only*. Windows: sumber di-zip dari
 
 ## Catatan
 
-- Dataset = snapshot NVD + CISA KEV yang di-generate per `2026-09-26`.
+- Dataset = snapshot NVD + CISA KEV yang di-generate per `2026-09-26`,
+  ditambah 13 CVE runc/containerd/buildkit/docker kurasi manual
+  (CVE-2019-5736, CVE-2024-21626, dll.) yang terlewat keyword pipeline NVD.
 - `--selftest` memvalidasi version engine terhadap bentuk string dataset nyata.
 - Jalankan ulang `build-scanner.py` + re-copy `dist/` setiap kali dataset
   berubah (mis. setelah pipeline followup selesai).
