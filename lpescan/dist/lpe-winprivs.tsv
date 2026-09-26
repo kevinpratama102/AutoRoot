@@ -1,0 +1,10 @@
+SeImpersonatePrivilege	Potato family (JuicyPotato/PrintSpoofer/GodPotato)
+SeAssignPrimaryTokenPrivilege	Potato family (JuicyPotato/PrintSpoofer)
+SeBackupPrivilege	robocopy /b atau reg save SAM/SYSTEM + secretsdump
+SeRestorePrivilege	tulis file sistem (ganti driver/service binary)
+SeDebugPrivilege	injeksi ke proses SYSTEM (mimikatz / token steal)
+SeTakeOwnershipPrivilege	ambil kepemilikan file sistem lalu modifikasi
+SeLoadDriverPrivilege	load driver rentan (Capcom / BYOVD)
+SeCreateTokenPrivilege	buat token sendiri (potensi SYSTEM)
+SeTcbPrivilege	bertindak sebagai bagian OS (setara SYSTEM)
+SeEnableDelegationPrivilege	delegasi token (relay/kerberoast vector)

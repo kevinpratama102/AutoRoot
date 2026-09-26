@@ -6,7 +6,7 @@ dalam satu alur kerja: arsip CVE lokal, scanner ala LinPEAS/WinPEAS, dan bundler
 | Komponen | Isi |
 |---|---|
 | **cve-lpe** | Arsip **23.847 CVE** LPE (NVD API 2.0 + CISA KEV) + indeks **1.302 repo PoC publik**: 508 biner ELF terkompilasi, 1.594 sumber Linux, 623 sumber Windows |
-| **lpescan** | Scanner full enumerasi (versi + misconfig, ±42 cek Linux / ±27 cek Windows) yang mencocokkan hasilnya ke dataset CVE. Python stdlib-only, **read-only**, tanpa jaringan |
+| **lpescan** | Scanner full enumerasi (versi + misconfig, ±42 cek Linux / ±27 cek Windows) yang mencocokkan hasilnya ke dataset CVE. Tiga implementasi: Python stdlib-only (referensi), **bash** (Linux tanpa python), **PowerShell 5.1** (Windows tanpa python) — full parity. **Read-only**, tanpa jaringan |
 | **buildkit** | Merakit kit per target: biner/sumber PoC yang cocok + resep kompilasi + manifest, jadi satu zip |
 
 > ⚠️ **HANYA UNTUK RISET TERAUTORISASI** — lab sendiri, CTF, atau target dengan izin tertulis.
@@ -43,13 +43,15 @@ AutoRoot/
 │   ├── pocs/                  # PoC publik: bin/ src/ src-windows/ poc-index.csv
 │   └── README.md              # statistik dataset per OS/tahun
 └── lpescan/                   # scanner + bundler
-    ├── lpescan.py             # scanner (source, hand-maintained)
+    ├── lpescan.py             # scanner (source, hand-maintained) — REFERENSI
+    ├── lpescan.sh             # port bash (Linux tanpa python, bash4+awk POSIX)
+    ├── lpescan.ps1            # port PowerShell 5.1 (Windows tanpa python)
     ├── tables.py              # tabel mapping: pkg→CPE, distro→CPE, release→build, GTFO-SUID
-    ├── build-scanner.py       # regen dist/ dari dataset terkini (idempoten)
+    ├── build-scanner.py       # regen dist/ dari dataset terkini (idempoten) + emit TSV port
     ├── buildkit.py            # bundler kit PoC (mesin arsip saja)
-    ├── dist/                  # UNIT DEPLOY: lpescan.py + lpe-data.json.gz (2.5 MB)
+    ├── dist/                  # UNIT DEPLOY: python = 2 file; bash/PS = scanner + TSV
     ├── kits/                  # output kit zip (generated)
-    └── README.md              # workflow detail per langkah
+    └── README.md              # workflow detail per langkah + matriks deploy per impl
 ```
 
 ## Dataset — cve-lpe
@@ -104,6 +106,27 @@ python3 lpescan.py --report /tmp/r.json --no-color
 python3 lpescan.py --report scan-win.json
 ```
 
+**Tanpa python di target** — dua port full-parity (matching + PEAS + report JSON
+identik, buildkit tetap jalan): `lpescan.sh` untuk Linux (bash 4+ + awk POSIX)
+dan `lpescan.ps1` untuk Windows (PowerShell 5.1). Flag sama:
+`--report/--json-only/--no-color/--selftest`.
+
+```bash
+bash lpescan.sh --selftest                              # 30 asersi
+pwsh -NoProfile -File lpescan.ps1 -Selftest             # 37 asersi (cross-platform)
+
+# deploy Linux tanpa python: lpescan.sh + 7 TSV (lpe-cves-linux, -meta, -pkgmap,
+#   -distromap, -gtfo, -pocs, -info)
+# deploy Windows tanpa python: lpescan.ps1 + 6 TSV (lpe-cves-win, -meta, -pocs,
+#   -winrelease, -winprivs, -info)
+# Windows:
+powershell -ExecutionPolicy Bypass -File lpescan.ps1 -Report scan-win.json
+```
+
+Divergence terdokumentasi (kosmetik): `description` di report bash/PS dibatasi
+600 char (meta TSV), urutan listing SUID/glob bisa beda (find vs os.walk) —
+himpunan temuan identik. Detail lengkap: `lpescan/README.md`.
+
 ## buildkit — bundler kit
 
 ```bash
@@ -151,6 +174,7 @@ Ringkasan vektor LPE klasik dan di mana lpescan mendeteksinya:
 
 - Python **3.8+** — **stdlib only, tanpa pip, tanpa jaringan** di target (unit deploy = 2 file)
 - Target Linux apa pun (dpkg/rpm) atau Windows dengan python3 (mis. FLARE VM)
+- **Tanpa python**: `lpescan.sh` (bash 4+ + awk POSIX, tanpa jq) atau `lpescan.ps1` (Windows PowerShell 5.1)
 - Kompilasi PoC Windows: FLARE VM dengan msbuild (resep dicetak otomatis oleh buildkit)
 
 ## Catatan pengembangan

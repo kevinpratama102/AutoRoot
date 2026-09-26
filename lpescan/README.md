@@ -18,11 +18,13 @@ python3 buildkit.py --report scan-report-*.json
 
 | File | Fungsi |
 |---|---|
-| `lpescan.py` | Scanner (source, hand-maintained). Marker `# %%TABLES%%` diisi otomatis. |
+| `lpescan.py` | Scanner (source, hand-maintained). Marker `# %%TABLES%%` diisi otomatis. **Referensi** — behaviour port bash/PS mengejarnya. |
+| `lpescan.sh` | Port **bash** untuk Linux tanpa python (bash 4+, awk POSIX) — full parity |
+| `lpescan.ps1` | Port **PowerShell 5.1** untuk Windows tanpa python — full parity |
 | `tables.py` | Tabel data: `PKG_TO_CPE` (nama paket -> CPE), `DISTRO_TO_CPE`, `WIN_RELEASE_TO_BUILD`, `GTFO_SUIDS` |
-| `build-scanner.py` | Regen `dist/` dari dataset terkini (jalankan ulang SETELAH dataset di-refresh) |
+| `build-scanner.py` | Regen `dist/` dari dataset terkini (jalankan ulang SETELAH dataset di-refresh); emit 10 TSV untuk port bash/PS + copy `lpescan.sh`/`lpescan.ps1` |
 | `buildkit.py` | Bundel biner PoC yang cocok jadi kit zip (mesin arsip saja) |
-| `dist/` | Unit deploy: `lpescan.py` + `lpe-data.json.gz` (2 file, stdlib-only, tanpa jaringan) |
+| `dist/` | Unit deploy: per implementasi — python = `lpescan.py` + `lpe-data.json.gz`; bash/PS = scanner + TSV (lihat matriks di bawah) |
 | `kits/` | Output kit zip |
 
 ## Cara pakai
@@ -83,6 +85,51 @@ python3 buildkit.py --report scan-report-{host}-{ts}.json
 Linux: biner diambil dari `../cve-lpe/pocs/bin/` (508 ELF). CVE yang punya repo
 tapi belum ada binernya ditandai *source-only*. Windows: sumber di-zip dari
 `../cve-lpe/pocs/src-windows/`, kompilasi di FLARE VM (`msbuild ...`).
+
+## Port tanpa python — lpescan.sh (bash) & lpescan.ps1 (PowerShell 5.1)
+
+Banyak target tidak punya python3 (server minimal, Windows tanpa python). Dua port
+full-parity 1:1: matching 4-tier + flag KEV/`[BP]`/`[ESC]` + semua PEAS checks
+(16 Linux / 10 Windows) + report JSON schema identik, sehingga `buildkit.py`
+tetap jalan tanpa perubahan. `lpescan.py` adalah referensi (semua gate parity
+diuji terhadapnya).
+
+| Implementasi | Target | Runtime | Unit deploy (copy ke target) |
+|---|---|---|---|
+| `lpescan.py` | Linux/Windows dgn python3 | python 3.8+ stdlib-only | `lpescan.py` + `lpe-data.json.gz` (2 file) |
+| `lpescan.sh` | Linux tanpa python | bash 4+ + awk POSIX (mawk/busybox ok), tanpa jq | `lpescan.sh` + `lpe-cves-linux.tsv` + `lpe-cve-meta.tsv` + `lpe-pkgmap.tsv` + `lpe-distromap.tsv` + `lpe-gtfo.tsv` + `lpe-pocs.tsv` + `lpe-info.tsv` (8 file, ±2 MB) |
+| `lpescan.ps1` | Windows tanpa python | Windows PowerShell 5.1+ | `lpescan.ps1` + `lpe-cves-win.tsv` + `lpe-cve-meta.tsv` + `lpe-pocs.tsv` + `lpe-winrelease.tsv` + `lpe-winprivs.tsv` + `lpe-info.tsv` (7 file, ±4,5 MB) |
+
+Flag identik: `--report PATH`, `--json-only`, `--no-color`, `--selftest`
+(PS: `-Report PATH -JsonOnly -NoColor -Selftest`; `--selftest` bisa dijalankan
+cross-platform — pwsh lokal di mesin arsip).
+
+```bash
+# selftest per impl (mesin arsip)
+python3 dist/lpescan.py --selftest                       # 35 asersi (referensi)
+bash dist/lpescan.sh --selftest                          # 30 asersi
+pwsh -NoProfile -File dist/lpescan.ps1 -Selftest         # 37 asersi
+
+# target Windows tanpa python — dari cmd/PS:
+powershell -ExecutionPolicy Bypass -File lpescan.ps1 -Report scan-win.json
+```
+
+PEAS checks sama 1:1: 16 cek Linux (`chk_linux_*`) dan 10 cek Windows
+(`chk_win_*` — os/hotfixes/services/alwaysinstalled/privs/creds/uac/autoruns/
+dll/defense); kategori, severity, judul, dan field `check` (= nama fungsi)
+identik dengan python.
+
+### Divergence terdokumentasi (kosmetik — tidak mengubah hasil buildkit)
+
+- `description` di report bash/PS = **600 char pertama** (`lpe-cve-meta.tsv`,
+  di-flatten saat build); python memakai deskripsi utuh dari `lpe-data.json.gz`.
+- Urutan listing SUID/glob bisa beda (find = urutan readdir vs `os.walk` python)
+  — himpunan temuan sama, urutan baris saja.
+- Pesan teks `check ... gagal` memakai exception lokal (platform bisa beda kalimat;
+  python memakai `str(e)`).
+- PS: cek "writable" pakai atribut `ReadOnly` (`[System.IO.File]::GetAttributes`)
+  — ini persis semantik `os.access` CPython di Windows (`win32_access`), bukan
+  probe tulis, jadi scanner tetap 100% read-only.
 
 ## Catatan
 

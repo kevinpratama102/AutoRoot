@@ -1,0 +1,37 @@
+windows_10	1507	10240
+windows_10	1511	10586
+windows_10	1607	14393
+windows_10	1703	15063
+windows_10	1709	16299
+windows_10	1803	17134
+windows_10	1809	17763
+windows_10	1903	18362
+windows_10	1909	18363
+windows_10	2004	19041
+windows_10	20h2	19042
+windows_10	21h1	19043
+windows_10	21h2	19044
+windows_10	22h2	19045
+windows_11	21h2	22000
+windows_11	22h2	22621
+windows_11	23h2	22631
+windows_11	24h2	26100
+windows_11	25h2	26100
+windows_11	26h1	26100
+windows_server_2008	sp2	6002
+windows_server_2008_r2	sp1	7601
+windows_server_2012		9200
+windows_server_2012_r2		9600
+windows_server_2016	1607	14393
+windows_server_2016	1809	17763
+windows_server_2016	1903	18362
+windows_server_2016	1909	18363
+windows_server_2019	1809	17763
+windows_server_2019	1903	18362
+windows_server_2019	1909	18363
+windows_server_2022	21h2	20348
+windows_server_2022_23h2	23h2	25398
+windows_server_2025	24h2	26100
+windows_7	sp1	7601
+windows_8.1		9600
+windows_rt_8.1		9600

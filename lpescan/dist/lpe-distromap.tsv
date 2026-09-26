@@ -1,0 +1,12 @@
+debian	debian:debian_linux
+ubuntu	canonical:ubuntu_linux
+fedora	fedoraproject:fedora
+rhel	redhat:enterprise_linux_server
+rhel	redhat:enterprise_linux_desktop
+rhel	redhat:enterprise_linux_workstation
+redhat	redhat:enterprise_linux_server
+centos	redhat:enterprise_linux_server
+opensuse-leap	opensuse:leap
+opensuse	opensuse:opensuse
+sles	suse:suse_linux
+kali	debian:debian_linux
