@@ -26,7 +26,7 @@ import sys
 import time
 from datetime import datetime
 
-SCANNER_VERSION = "1.0.0"
+SCANNER_VERSION = "1.1.0"
 DATA_FILENAME = "lpe-data.json.gz"
 
 # %%TABLES%%
@@ -155,6 +155,95 @@ def candidate_versions(pkgver):
 
 
 # ======================================================================
+# Distro-kernel / backport detection
+# ======================================================================
+
+BACKPORT_GRACE_DAYS = 60
+_KERNEL_DISTRO_SUFFIXES = (
+    "-generic", "-amd64", "-cloud", "-azure", "-aws", "-gke", "-gcp",
+    "-oracle", "-lowlatency", "-realtime", "-rt", "-raspi", "-server",
+    "-desktop", "-oem", "+kali", "-kali", "-xanmod", "-liquorix",
+)
+_DISTRO_KEYWORDS = ("ubuntu", "debian", "kali", "fedora", "redhat", "suse",
+                    "arch", "manjaro", "centos", "rocky", "almalinux", "alma",
+                    "oracle", "mint", "raspbian")
+_MONTHS = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+           "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12}
+
+
+def _parse_proc_version_date(text):
+    """Ambil build date dari /proc/version. Dua format:
+    - Ubuntu: '... #201-Ubuntu SMP Fri Aug 7 18:39:04 UTC 2026'
+    - Debian/Kali: '... Kali 7.1.5-1kali1 (2026-07-29)'
+    -> datetime. None jika gagal. Parsing manual (bukan strptime) supaya
+    kebal locale bulan non-Inggris."""
+    m = re.search(r"\b\w{3} (\w{3})\s+(\d{1,2}) (\d{1,2}):(\d{2}):(\d{2}) \w{3,5} (\d{4})\b",
+                  text or "")
+    if m:
+        mon = _MONTHS.get(m.group(1).lower())
+        if mon is not None:
+            try:
+                return datetime(int(m.group(6)), mon, int(m.group(2)),
+                                int(m.group(3)), int(m.group(4)), int(m.group(5)))
+            except ValueError:
+                pass
+    m = re.search(r"\((\d{4})-(\d{2})-(\d{2})\)", text or "")
+    if m:
+        try:
+            return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            pass
+    return None
+
+
+def _kernel_build_info(kernel, proc_version):
+    """Deteksi kernel distro (bukan vanilla upstream) + build date-nya.
+    Nomor versi kernel distro ('5.15.0-191') memakai skema ABI sendiri
+    sehingga TIDAK bisa dibandingkan langsung dengan patch level upstream
+    ('5.15.204') — match terhadap rentang NVD jadi rawan false positive."""
+    kl = kernel.lower()
+    pv = (proc_version or "").lower()
+    suffix_hit = any(kl.endswith(s) for s in _KERNEL_DISTRO_SUFFIXES) or \
+        "-ubuntu" in kl or "-debian" in kl
+    # prioritas: keyword di NAMA KERNEL dulu ('+kali', '-xanmod', ...), baru
+    # di /proc/version (hindari false-hit seperti gcc '(Debian 14.2.0-19)')
+    name = None
+    for d in _DISTRO_KEYWORDS:
+        if d in kl:
+            name = d
+            break
+    if name is None:
+        for d in _DISTRO_KEYWORDS:
+            if d in pv:
+                name = d
+                break
+    if suffix_hit and name is None:
+        name = "ubuntu" if ("-generic" in kl or "-ubuntu" in kl) else "debian"
+    if not suffix_hit and name is None:
+        return {"distro_kernel": False, "distro_name": None,
+                "build_date": None, "source": None}
+    return {"distro_kernel": True, "distro_name": name,
+            "build_date": _parse_proc_version_date(pv) if pv else None,
+            "source": "/proc/version" if pv else None}
+
+
+def _likely_backported(published, build_date, grace_days=BACKPORT_GRACE_DAYS):
+    """CVE yang dipublikasikan >grace_days SEBELUM kernel distro di-build
+    hampir pasti sudah masuk backport distro. Return bool (False juga jika
+    tanggal tidak bisa diparse)."""
+    if not published or not build_date:
+        return False
+    try:
+        pub = datetime.strptime(str(published)[:10], "%Y-%m-%d").date()
+    except ValueError:
+        return False
+    bd = build_date.date() if isinstance(build_date, datetime) else build_date
+    if not isinstance(bd, type(pub)):
+        return False
+    return (bd - pub).days > grace_days
+
+
+# ======================================================================
 # Data loading
 # ======================================================================
 
@@ -250,11 +339,23 @@ def collect_facts_linux():
             debian_version = f.read().strip()
     except OSError:
         pass
+    kernel_str = platform.release()
+    proc_version = ""
+    try:
+        with open("/proc/version") as f:
+            proc_version = f.read().strip()
+    except OSError:
+        pass
+    if not proc_version:
+        r = run_cmd("uname -v")
+        if r and r.returncode == 0:
+            proc_version = r.stdout.strip()
     return {
         "hostname": socket.gethostname(),
         "os": "linux",
         "arch": platform.machine(),
-        "kernel": platform.release(),
+        "kernel": kernel_str,
+        "kernel_build": _kernel_build_info(kernel_str, proc_version),
         "distro": {"id": distro.get("ID", "").lower(),
                    "version_id": distro.get("VERSION_ID", ""),
                    "codename": distro.get("VERSION_CODENAME", ""),
@@ -398,7 +499,9 @@ def collect_facts():
 
 TIER = {"kernel": 0, "package": 1, "os_build": 2, "distro_pin": 3}
 
-def _add_match(res, ci, cve, tier, conf, cpe, raw, installed):
+def _add_match(res, ci, cve, tier, conf, cpe, raw, installed, backported=False):
+    if backported and conf == "high":
+        conf = "possible"
     cur = res.get(ci)
     if cur is None or TIER[tier] < TIER[cur["tier"]]:
         res[ci] = {"tier": tier, "confidence": conf, "matches": []}
@@ -407,6 +510,8 @@ def _add_match(res, ci, cve, tier, conf, cpe, raw, installed):
     else:
         if conf == "high":
             res[ci]["confidence"] = "high"
+    if backported:
+        res[ci]["likely_backported"] = True
     res[ci]["matches"].append({"cpe": cpe, "constraint": raw, "installed": installed})
 
 
@@ -420,15 +525,22 @@ def match_cves(facts, data):
 
     # ---- tier kernel ----
     knorm = normalize_num(facts["kernel"])
+    kb = facts.get("kernel_build") or {}
+    kb_flag = bool(kb.get("distro_kernel"))
+    kb_date = kb.get("build_date")
     for ci, pi, cons, raw in idx.get("linux:linux_kernel", []):
         if is_all(cons):
             if cves[ci].get("kev"):
                 _add_match(res, ci, cves[ci], "kernel", "possible",
-                           "linux:linux_kernel", raw, facts["kernel"])
+                           "linux:linux_kernel", raw, facts["kernel"],
+                           backported=kb_flag and _likely_backported(
+                               cves[ci].get("published"), kb_date))
             continue
         if eval_constraint(None, cons, installed_toks=knorm):
             _add_match(res, ci, cves[ci], "kernel", "high",
-                       "linux:linux_kernel", raw, facts["kernel"])
+                       "linux:linux_kernel", raw, facts["kernel"],
+                       backported=kb_flag and _likely_backported(
+                           cves[ci].get("published"), kb_date))
 
     # ---- tier package ----
     for name, ver in facts["packages"].items():
@@ -1233,6 +1345,7 @@ def build_report(facts, data, cve_res, peas_findings):
             "id": r["id"], "score": r.get("score"), "severity": r.get("severity"),
             "published": r.get("published"), "kev": bool(r.get("kev")),
             "matched_by": m["tier"], "confidence": m["confidence"],
+            "likely_backported": bool(m.get("likely_backported")),
             "matches": m["matches"],
             "description": (r.get("description") or "")[:600],
             "has_poc": r["id"] in pocs,
@@ -1251,6 +1364,7 @@ def build_report(facts, data, cve_res, peas_findings):
             "peas_total": len(peas_findings),
             "cve_total": len(cve_findings),
             "kev": sum(1 for f in cve_findings if f["kev"]),
+            "backport_flagged": sum(1 for f in cve_findings if f["likely_backported"]),
             "by_tier": {t: sum(1 for f in cve_findings if f["matched_by"] == t) for t in order},
             "by_severity": {},
         },
@@ -1279,7 +1393,14 @@ def print_report(report, color=True):
     print(paint("[ TARGET ]", C["b"]))
     print(f"  hostname : {tg['hostname']}   os: {tg['os']}   arch: {tg['arch']}")
     if tg["os"] == "linux":
-        print(f"  kernel   : {tg['kernel']}")
+        kb = tg.get("kernel_build") or {}
+        kline = f"  kernel   : {tg['kernel']}"
+        if kb.get("distro_kernel"):
+            bd = kb.get("build_date")
+            kline += paint(f"  [distro-kernel: {kb.get('distro_name') or '?'}"
+                           + (f" build {bd.strftime('%Y-%m-%d')}" if bd else "")
+                           + "]", C["dim"])
+        print(kline)
         if tg["distro"].get("pretty"):
             print(f"  distro   : {tg['distro']['pretty']}")
         print(f"  packages : {len(tg['packages'])} terpasang")
@@ -1293,7 +1414,8 @@ def print_report(report, color=True):
     if kev_cves:
         print(paint(f"\n[ !!! ] {len(kev_cves)} CVE KEV (known exploited) TERDETEKSI !!!", "\033[1;31m"))
         for f in kev_cves[:10]:
-            print(paint(f"  {f['id']} ({f['severity']} {f['score']}) — {f['matched_by']}", C["r"]))
+            bp = " [BP]" if f.get("likely_backported") else ""
+            print(paint(f"  {f['id']} ({f['severity']} {f['score']}) — {f['matched_by']}{bp}", C["r"]))
 
     print(paint(f"\n[ CVE MATCH ] {st['cve_total']} CVE (by tier: "
                 f"{', '.join(f'{k}={v}' for k, v in st['by_tier'].items() if v)})", C["b"]))
@@ -1310,9 +1432,17 @@ def print_report(report, color=True):
                 f"{f['matched_by']:<10} {cons:<28} {inst}")
         if f["has_poc"]:
             line += paint("  [PoC]", C["g"])
+        if f.get("likely_backported"):
+            line += paint("  [BP]", "\033[33m")
         print(line)
     if st["cve_total"] > 40:
         print(paint(f"  ... {st['cve_total'] - 40} CVE lagi (lihat file report)", C["dim"]))
+    if st.get("backport_flagged"):
+        print(paint(f"\n[ i ] {st['backport_flagged']} match di-flag [BP] = kemungkinan ter-backport:"
+                    f" kernel distro di-build >{BACKPORT_GRACE_DAYS} hari setelah CVE"
+                    f" dipublikasikan. Nomor versi kernel distro (ABI) tidak setara patch"
+                    f" level upstream — verifikasi patch status distro (USN/dsa) sebelum"
+                    f" menyimpulkan vulnerable.", C["dim"]))
 
     print(paint(f"\n[ PEAS CHECKS ] {st['peas_total']} temuan", C["b"]))
     by_cat = {}
@@ -1387,6 +1517,35 @@ def selftest():
         str(candidate_versions("2.0-1ubuntu2")))
     chk("candidate epoch strip", "1.9.5" in candidate_versions("1:1.9.5-2"),
         str(candidate_versions("1:1.9.5-2")))
+
+    print("[*] selftest distro-kernel / backport...")
+    kb = _kernel_build_info("5.15.0-191-generic",
+                            "Linux version 5.15.0-191-generic (buildd@lcy02-amd64-091) "
+                            "(gcc (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0) #201-Ubuntu "
+                            "SMP Fri Aug 7 18:39:04 UTC 2026")
+    chk("distro kernel ubuntu terdeteksi",
+        kb["distro_kernel"] and kb["distro_name"] == "ubuntu", str(kb))
+    chk("build date terparse",
+        kb["build_date"] == datetime(2026, 8, 7, 18, 39, 4), str(kb["build_date"]))
+    chk("kernel vanilla bukan distro",
+        not _kernel_build_info("5.15.191", "")["distro_kernel"],
+        str(_kernel_build_info("5.15.191", "")))
+    kb3 = _kernel_build_info("7.1.5+kali-amd64",
+                             "Linux version 7.1.5+kali-amd64 (root@kali) "
+                             "(gcc-14 (Debian 14.2.0-19) 14.2.0) #1 SMP PREEMPT_DYNAMIC "
+                             "Tue Sep 22 12:00:00 UTC 2026")
+    chk("suffix +kali terdeteksi",
+        kb3["distro_kernel"] and kb3["distro_name"] == "kali", str(kb3))
+    chk("backport: lama -> True",
+        _likely_backported("2022-03-07", datetime(2026, 8, 7)))
+    chk("format tanggal debian/kali terparse",
+        _parse_proc_version_date("Linux version 7.1.5+kali-amd64 (devel@kali.org) "
+                                 "#1 SMP PREEMPT_DYNAMIC Kali 7.1.5-1kali1 (2026-07-29)")
+        == datetime(2026, 7, 29))
+    chk("backport: dekat build -> False",
+        not _likely_backported("2026-08-01", datetime(2026, 8, 7)))
+    chk("backport: tanggal hilang -> False",
+        not _likely_backported("", None) and not _likely_backported("2022-01-01", None))
 
     print(f"\n[*] selftest selesai: {ok} OK, {fail} FAIL")
     return fail == 0

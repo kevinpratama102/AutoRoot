@@ -48,6 +48,14 @@ Apa yang di-scan:
   kernel vs `uname -r`, paket terpasang (dpkg/rpm) vs tabel CPE, distro pin
   vs `/etc/os-release`, Windows build vs bound NVD (`<10.0.22631.4751`),
   plus flag KEV (CISA known-exploited) dan peta repo PoC publik.
+- **Deteksi backport distro** (`[BP]`): kernel distro (Ubuntu/Debian/Kali/…,
+  suffix `-generic`/`-amd64`/`+kali` dll) memakai nomor ABI sendiri
+  (`5.15.0-191` ≠ patch level upstream `5.15.191`) sehingga match rentang
+  NVD rawan false positive. Scanner membaca build date dari `/proc/version`
+  dan menandai match yang CVE-nya dipublikasikan >60 hari sebelum build —
+  hampir pasti sudah di-backport → confidence turun ke `possible` + flag
+  `likely_backported` di report. CVE yang dipublikasikan dekat/setelah
+  build date TIDAK di-flag (perlu verifikasi manual).
 - **PEAS checks**: ±42 cek Linux (SUID, sudo, capabilities, cron, kredensial,
   docker, NFS, systemd, dll) / ±27 cek Windows (token privilege, unquoted
   service path, AlwaysInstallElevated, stored creds, UAC, autoruns, dll).

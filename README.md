@@ -71,7 +71,7 @@ Matching CVE 4 tier, prioritas **kernel > package > os-build > distro-pin**:
 
 | Tier | Cara kerja | Confidence |
 |---|---|---|
-| kernel | `uname -r` vs range/pin `linux:linux_kernel` (8.000+ entry, `[all]` di-skip kecuali KEV) | high |
+| kernel | `uname -r` vs range/pin `linux:linux_kernel` (8.000+ entry, `[all]` di-skip kecuali KEV); kernel distro (Ubuntu/Debian/Kali dll.) di-flag `[BP]` bila CVE dipublikasikan >60 hari sebelum build date — nomor ABI distro (`5.15.0-191`) tidak setara patch level upstream | high, turun ke possible jika `[BP]` |
 | package | dpkg/rpm vs tabel `PKG_TO_CPE` (sudo, glibc, polkit, openssl, systemd, firefox, dll.) | high |
 | os-build | build Windows (`10.0.22631.4751`) vs bound NVD + tabel release→build | high |
 | distro-pin | os-release vs `debian:debian_linux` / `canonical:ubuntu_linux` dll. | possible |
