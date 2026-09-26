@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build binary (dockerized Go build)
+        run: docker run --rm -v "$PWD":/app -w /app golang:alpine sh -c "apk add --no-cache upx && go build -ldflags='-s -w' -o cve_2026_frag_family_fix cve_2026_frag_family_fix.go && upx --best --ultra-brute cve_2026_frag_family_fix"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: cve_2026_frag_family_fix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

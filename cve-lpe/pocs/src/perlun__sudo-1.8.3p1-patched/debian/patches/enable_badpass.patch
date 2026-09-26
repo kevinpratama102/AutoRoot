@@ -1,0 +1,42 @@
+Description: Enable mail_badpass by default, to avoid masking mail_no_user.
+Author: Kees Cook <kees@ubuntu.com>
+Bug-Debian: http://bugs.debian.org/641218
+
+Index: sudo-1.8.3p1/plugins/sudoers/defaults.c
+===================================================================
+--- sudo-1.8.3p1.orig/plugins/sudoers/defaults.c	2011-11-20 12:20:16.673656332 -0500
++++ sudo-1.8.3p1/plugins/sudoers/defaults.c	2011-11-20 12:20:25.881656569 -0500
+@@ -370,6 +370,7 @@
+ #ifdef SEND_MAIL_WHEN_NO_USER
+     def_mail_no_user = TRUE;
+ #endif
++    def_mail_badpass = TRUE;
+ #ifdef SEND_MAIL_WHEN_NO_HOST
+     def_mail_no_host = TRUE;
+ #endif
+Index: sudo-1.8.3p1/doc/sudoers.pod
+===================================================================
+--- sudo-1.8.3p1.orig/doc/sudoers.pod	2011-11-20 12:20:16.685656332 -0500
++++ sudo-1.8.3p1/doc/sudoers.pod	2011-11-20 12:20:25.885656568 -0500
+@@ -896,7 +896,7 @@
+ =item mail_badpass
+ 
+ Send mail to the I<mailto> user if the user running B<sudo> does not
+-enter the correct password.  This flag is I<off> by default.
++enter the correct password.  This flag is I<on> by default.
+ 
+ =item mail_no_host
+ 
+Index: sudo-1.8.3p1/doc/sudoers.man.in
+===================================================================
+--- sudo-1.8.3p1.orig/doc/sudoers.man.in	2011-11-20 12:20:16.705656333 -0500
++++ sudo-1.8.3p1/doc/sudoers.man.in	2011-11-20 12:20:25.885656568 -0500
+@@ -1024,7 +1024,7 @@
+ .IP "mail_badpass" 16
+ .IX Item "mail_badpass"
+ Send mail to the \fImailto\fR user if the user running \fBsudo\fR does not
+-enter the correct password.  This flag is \fIoff\fR by default.
++enter the correct password.  This flag is \fIon\fR by default.
+ .IP "mail_no_host" 16
+ .IX Item "mail_no_host"
+ If set, mail will be sent to the \fImailto\fR user if the invoking

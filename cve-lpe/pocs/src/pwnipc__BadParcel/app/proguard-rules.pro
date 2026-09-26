@@ -1,0 +1,2 @@
+-ignorewarnings
+-keep class com.example.badparcel.MyAuthenticator

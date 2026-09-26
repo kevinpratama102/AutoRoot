@@ -1,0 +1,142 @@
+diff --git a/tools/libxc/xc_domain.c b/tools/libxc/xc_domain.c
+index d98e68b..b6c74f6f 100644
+--- a/tools/libxc/xc_domain.c
++++ b/tools/libxc/xc_domain.c
+@@ -24,6 +24,8 @@
+ #include "xg_save_restore.h"
+ #include <xen/memory.h>
+ #include <xen/hvm/hvm_op.h>
++#include <stdio.h>
++#include <syslog.h>
+ 
+ int xc_domain_create(xc_interface *xch,
+                      uint32_t ssidref,
+@@ -120,7 +122,10 @@ int xc_vcpu_setaffinity(xc_interface *xch,
+     int ret = -1;
+     int cpusize;
+ 
++    openlog("xc_domain.c", LOG_CONS | LOG_NDELAY | LOG_PID, LOG_USER);
+     cpusize = xc_get_cpumap_size(xch);
++    syslog(LOG_INFO, "cpusize=%d\n", cpusize);
++
+     if (!cpusize)
+     {
+         PERROR("Could not get number of cpus");
+@@ -128,6 +133,7 @@ int xc_vcpu_setaffinity(xc_interface *xch,
+     }
+ 
+     local = xc_hypercall_buffer_alloc(xch, local, cpusize);
++    syslog(LOG_INFO,"__after xc_hypercall_buffer_alloc\n");
+     if ( local == NULL )
+     {
+         PERROR("Could not allocate memory for setvcpuaffinity domctl hypercall");
+@@ -138,15 +144,19 @@ int xc_vcpu_setaffinity(xc_interface *xch,
+     domctl.domain = (domid_t)domid;
+     domctl.u.vcpuaffinity.vcpu    = vcpu;
+ 
+-    memcpy(local, cpumap, cpusize);
+ 
++    memcpy(local, cpumap, cpusize);
++    syslog(LOG_INFO,"__after memcpy\n");
+     set_xen_guest_handle(domctl.u.vcpuaffinity.cpumap.bitmap, local);
++    syslog(LOG_INFO,"__after set_xen_guest_handle\n");
+ 
+     domctl.u.vcpuaffinity.cpumap.nr_cpus = cpusize * 8;
+ 
+     ret = do_domctl(xch, &domctl);
++    syslog(LOG_INFO,"__after do_domctl\n");
+ 
+     xc_hypercall_buffer_free(xch, local);
++    syslog(LOG_INFO,"__after hypercall_buffer_free\n");
+ 
+  out:
+     return ret;
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index 540de61..40fe6af 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -16,6 +16,7 @@
+ #include <sys/mman.h>
+ #include <netdb.h>
+ #include <arpa/inet.h>
++#include <syslog.h>
+ 
+ #include "xenctrl.h"
+ #include <xen/elfnote.h>
+@@ -23,6 +24,7 @@
+ #include "xc_dom.h"
+ #include <xen/hvm/hvm_info_table.h>
+ #include <xen/hvm/params.h>
++#include <stddef.h>
+ 
+ #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+ 
+@@ -229,8 +231,14 @@ static PyObject *pyxc_vcpu_setaffinity(XcObject *self,
+     xc_cpumap_t cpumap;
+     PyObject *cpulist = NULL;
+     int nr_cpus;
+-
++    uint64_t sp;
+     static char *kwd_list[] = { "domid", "vcpu", "cpumap", NULL };
++    FILE *fp;
++    int cpumap_sz;
++    cpumap_sz = xc_get_cpumap_size(self->xc_handle);
++
++    // openlog
++    openlog("py_xc", LOG_CONS | LOG_NDELAY | LOG_PID, LOG_USER);
+ 
+     if ( !PyArg_ParseTupleAndKeywords(args, kwds, "i|iO", kwd_list, 
+                                       &dom, &vcpu, &cpulist) )
+@@ -241,9 +249,19 @@ static PyObject *pyxc_vcpu_setaffinity(XcObject *self,
+         return pyxc_error_to_exception(self->xc_handle);
+ 
+     cpumap = xc_cpumap_alloc(self->xc_handle);
++    syslog(LOG_INFO, "cpumap at %p, len=%d\n", cpumap, cpumap_sz); 
++    asm("mov %%rsp, %0" : "=m"(sp));
++    syslog(LOG_INFO, "rsp=%#16lx\n", sp);
++
+     if(cpumap == NULL)
+         return pyxc_error_to_exception(self->xc_handle);
+ 
++    fp = fopen("/var/log/heap_dump.dat", "wb");
++    fwrite(cpumap - 16, 1, cpumap_sz + 16, fp);
++    fclose(fp);
++    syslog(LOG_INFO, "__heap-2 %#16lx",* (long*)(cpumap-16));
++    syslog(LOG_INFO, "__heap-1 %#16lx",* (long*)(cpumap-8));
++
+     if ( (cpulist != NULL) && PyList_Check(cpulist) )
+     {
+         for ( i = 0; i < PyList_Size(cpulist); i++ ) 
+@@ -251,22 +269,28 @@ static PyObject *pyxc_vcpu_setaffinity(XcObject *self,
+             long cpu = PyInt_AsLong(PyList_GetItem(cpulist, i));
+             if ( cpu < 0 || cpu >= nr_cpus )
+             {
+-                free(cpumap);
+-                errno = EINVAL;
+-                PyErr_SetFromErrno(xc_error_obj);
+-                return NULL;
++//                free(cpumap);
++//                errno = EINVAL;
++//                PyErr_SetFromErrno(xc_error_obj);
++//               return NULL;
++		syslog(LOG_ERR, "Error Detection: cpu=%ld\n", cpu);
+             }
++	    syslog(LOG_INFO, "setting cpumap (%p.%li), vcpu=%d\n", 
++		cpumap + cpu/8, cpu % 8, vcpu);
+             cpumap[cpu / 8] |= 1 << (cpu % 8);
++
+         }
+     }
+   
+     if ( xc_vcpu_setaffinity(self->xc_handle, dom, vcpu, cpumap) != 0 )
+     {
+         free(cpumap);
++	syslog(LOG_INFO, "Free after error");
+         return pyxc_error_to_exception(self->xc_handle);
+     }
+     Py_INCREF(zero);
+     free(cpumap); 
++    syslog(LOG_INFO, "Free OK");
+     return zero;
+ }
+ 

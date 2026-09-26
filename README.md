@@ -1,72 +1,168 @@
-# AutoRoot
-NOTE: PENJELASAN LENGKAP LOCAL PRIVILEGE ESCALATION (LPE) DAN 20 METODE EKSPLOITASI
+# AutoRoot — Toolkit Riset LPE: CVE → Scan → Kit PoC
 
-1. PENGERTIAN LOCAL PRIVILEGE ESCALATION (LPE)
-Local Privilege Escalation adalah tahap di mana attacker yang sudah memiliki akses awal (sebagai user biasa atau user service seperti www-data) mencari celah keamanan untuk meningkatkan hak aksesnya menjadi root atau user dengan level lebih tinggi. LPE biasanya memanfaatkan kerentanan pada kernel, kesalahan konfigurasi sistem, atau kecerobohan admin (human error).
-=========================================================
-2. DAFTAR 20 METODE EKSPLOITASI LPE DAN MISKONFIGURASI
+AutoRoot adalah toolkit riset **local privilege escalation (LPE)** yang merangkai tiga komponen
+dalam satu alur kerja: arsip CVE lokal, scanner ala LinPEAS/WinPEAS, dan bundler kit PoC.
 
-Berikut adalah 20 metode yang sering digunakan dalam proses penetrasi sistem Linux:
+| Komponen | Isi |
+|---|---|
+| **cve-lpe** | Arsip **23.834 CVE** LPE (NVD API 2.0 + CISA KEV) + indeks **1.298 repo PoC publik**: 508 biner ELF terkompilasi, 1.594 sumber Linux, 623 sumber Windows |
+| **lpescan** | Scanner full enumerasi (versi + misconfig, ±42 cek Linux / ±27 cek Windows) yang mencocokkan hasilnya ke dataset CVE. Python stdlib-only, **read-only**, tanpa jaringan |
+| **buildkit** | Merakit kit per target: biner/sumber PoC yang cocok + resep kompilasi + manifest, jadi satu zip |
 
-Metode 1: Eksploitasi Kernel (uname -a)
-Mencari bug pada versi kernel OS. Jika kernel belum di-patch, attacker menggunakan exploit (seperti Dirty Pipe atau Dirty COW) untuk mendapatkan akses root.
+> ⚠️ **HANYA UNTUK RISET TERAUTORISASI** — lab sendiri, CTF, atau target dengan izin tertulis.
+> Scanner tidak pernah mengeksekusi PoC; buildkit hanya menyalin/meng-zip.
+> Mengeksploitasi sistem tanpa izin adalah ilegal.
 
-Metode 2: SUID Binaries (GTFOBins)
-Mencari file binary dengan bit SUID aktif yang memungkinkan file dijalankan dengan hak akses pemiliknya (root). Contoh: binari find, vim, atau nano yang salah konfigurasi.
+## Alur kerja
 
-Metode 3: Sudo Tanpa Password (sudo -l)
-Memeriksa perintah apa saja yang bisa dijalankan user dengan sudo tanpa memerlukan password (NOPASSWD). Jika binari seperti python atau perl ada di daftar, akses root bisa didapat instan.
+```
+NVD API 2.0 + CISA KEV
+        │  fetch → cve-lpe/ (dataset + indeks PoC)
+        ▼
+build-scanner.py → dist/lpescan.py + dist/lpe-data.json.gz      ◄── mesin arsip
+        │  copy 2 file ke target (scp/flashdisk)
+        ▼
+lpescan.py → scan-report-{host}-{ts}.json                       ◄── server target (read-only)
+        │  bawa pulang report
+        ▼
+buildkit.py → kits/lpe-kit-{host}-{ts}.zip                      ◄── mesin arsip
+        │  review kit → deploy ke target lab
+        ▼
+jalankan PoC di VM uji (REMnux / FLARE VM)
+```
 
-Metode 4: Localhost Web Service (No Auth)
-Mengakses layanan web internal yang hanya bisa diakses via 127.0.0.1. Jika layanan tersebut jalan sebagai root dan memiliki fitur eksekusi perintah (RCE) tanpa login, sistem bisa ditembus.
+## Struktur repositori
 
-Metode 5: Docker Daemon (Port 2375)
-Memanfaatkan docker socket yang terbuka di localhost. User biasa bisa menjalankan container yang me-mount filesystem host ke dalam container untuk memodifikasi file root.
+```
+AutoRoot/
+├── README.md                  # dokumen ini
+├── cve-lpe/                   # arsip dataset CVE LPE
+│   ├── cve-lpe-full.json      # 23.834 record (format ringkas 9 key)
+│   ├── cve-lpe-full.csv
+│   ├── linux/ windows/ other/ # split per OS per tahun
+│   ├── pocs/                  # PoC publik: bin/ src/ src-windows/ poc-index.csv
+│   └── README.md              # statistik dataset per OS/tahun
+└── lpescan/                   # scanner + bundler
+    ├── lpescan.py             # scanner (source, hand-maintained)
+    ├── tables.py              # tabel mapping: pkg→CPE, distro→CPE, release→build, GTFO-SUID
+    ├── build-scanner.py       # regen dist/ dari dataset terkini (idempoten)
+    ├── buildkit.py            # bundler kit PoC (mesin arsip saja)
+    ├── dist/                  # UNIT DEPLOY: lpescan.py + lpe-data.json.gz (2.5 MB)
+    ├── kits/                  # output kit zip (generated)
+    └── README.md              # workflow detail per langkah
+```
 
-Metode 6: Redis Misconfiguration
-Redis yang jalan sebagai root di localhost tanpa password bisa dimanfaatkan untuk menulis authorized_keys atau membuat cronjob backconnect.
+## Dataset — cve-lpe
 
-Metode 7: Credential Access via Shell History
-Mengecek file .bash_history atau .zsh_history. Sering ditemukan admin menuliskan password database atau password sudo secara tidak sengaja di terminal.
+- **Sumber**: NVD API 2.0 (query keyword variants + daftar cveId kurasi) + CISA KEV
+- **23.834 CVE** (1989–2026): linux 3.958 / windows 6.114 / other 13.762
+- Severity: CRITICAL 1.940 · HIGH 16.277 · MEDIUM 5.375 · LOW 239
+- **KEV** (CISA Known Exploited Vulnerabilities): **299** record — diprioritaskan di report
+- Record tanpa `affected[]`: 2.843 (di-skip saat matching)
+- Format record: `id, published, score, severity, description, affected[], os, kev`
+- `affected[]` = CPE 2.3 `vendor:product [range]` — range bisa `[all]`, exact `[6.8]` / `[7.0_s390x]`,
+  atau bound `[<10.0.22631.4751]`
+- PoC: `pocs/poc-index.csv` (3.734 baris → 1.298 CVE) dipetakan ke `pocs/bin/` (ELF),
+  `pocs/src/` (repo Linux), `pocs/src-windows/` (repo Windows)
 
-Metode 8: SSH Key Hijacking
-Mengambil private key (id_rsa) dari direktori .ssh user lain yang memiliki akses ke root atau ke server lain via localhost.
+## lpescan — scanner
 
-Metode 9: TTY Inject (Persistence)
-Menggunakan tool seperti ttyinject untuk membajak sesi terminal. Saat root login ke user yang kita pegang, kita bisa otomatis mengambil alih sesi tersebut menjadi root.
+Matching CVE 4 tier, prioritas **kernel > package > os-build > distro-pin**:
 
-Metode 10: Pkexec (CVE-2021-4034)
-Eksploitasi pada PolicyKit (PoliKit) yang belum di-update. Ini adalah salah satu cara paling stabil untuk mendapatkan root pada distro Linux lama.
+| Tier | Cara kerja | Confidence |
+|---|---|---|
+| kernel | `uname -r` vs range/pin `linux:linux_kernel` (8.000+ entry, `[all]` di-skip kecuali KEV) | high |
+| package | dpkg/rpm vs tabel `PKG_TO_CPE` (sudo, glibc, polkit, openssl, systemd, firefox, dll.) | high |
+| os-build | build Windows (`10.0.22631.4751`) vs bound NVD + tabel release→build | high |
+| distro-pin | os-release vs `debian:debian_linux` / `canonical:ubuntu_linux` dll. | possible |
 
-Metode 11: Writable /etc/passwd
-Jika file /etc/passwd bisa ditulis oleh user biasa, attacker bisa menambahkan user baru dengan UID 0 atau menghapus password root langsung dari file tersebut.
+PEAS checks — **±42 cek Linux**: system info (ASLR, kptr, userns), users/groups, sudo
+(NOPASSWD/env_keep), SUID/SGID + daftar GTFOBins, capabilities berbahaya, PATH writable,
+cron (wildcard injection), perms passwd/shadow, docker/kube, port root + redis no-auth,
+systemd unit writable, NFS `no_root_squash`, kredensial (history, ssh keys, .aws, .env,
+wp-config, .git-credentials), sesi tmux/screen, ld.so.preload/LD_PRELOAD.
+**±27 cek Windows**: build/UBR/EditionID, hotfix, unquoted service path + dir biner writable,
+AlwaysInstallElevated, token privilege (`whoami /priv` → saran Potato/PrintSpoofer/robocopy),
+stored credentials (cmdkey/vault/SAM/autologon/GPP cpassword), UAC, autoruns, DLL/path, defense.
 
-Metode 12: Wildcard Injection pada Cronjob
-Memanfaatkan cronjob yang menggunakan tanda bintang (*) dalam perintahnya (misal: tar). Attacker bisa membuat file dengan nama yang menyerupai flag perintah untuk mengeksekusi script.
+```bash
+# mesin arsip — setelah dataset di-update
+python3 build-scanner.py                    # regen dist/ + laporan coverage tabel
+python3 dist/lpescan.py --selftest          # 23 asersi version engine
 
-Metode 13: LD_PRELOAD Sudo Exploit
-Jika env_keep mengandung LD_PRELOAD, attacker bisa memuat library shared object (.so) buatan sendiri saat menjalankan perintah sudo untuk mendapatkan shell root.
+# target Linux
+python3 lpescan.py                          # output konsol berwarna + scan-report-*.json
+python3 lpescan.py --json-only              # hanya tulis report
+python3 lpescan.py --report /tmp/r.json --no-color
 
-Metode 14: D-Bus Service Exploitation
-Mengirim perintah ke layanan sistem melalui D-Bus API di localhost yang tidak membatasi akses user biasa.
+# target Windows (mis. FLARE VM — butuh python3 di target)
+python3 lpescan.py --report scan-win.json
+```
 
-Metode 15: NFS No_Root_Squash
-Jika sistem berbagi folder via NFS dengan opsi no_root_squash, attacker bisa me-mount folder tersebut dari mesin luar, memasukkan binary SUID, dan menjalankannya di mesin target.
+## buildkit — bundler kit
 
-Metode 16: Capabilities Exploitation
-Mengecek file yang memiliki "Capabilities" khusus (getcap). Misalnya, binari python dengan CAP_SETUID bisa dimanfaatkan untuk mengubah UID menjadi 0.
+```bash
+python3 buildkit.py --report scan-report-*.json [--include-possible]
+# → kits/lpe-kit-{host}-{ts}.zip
+#    binaries/       ELF PoC terkompilasi (Linux)
+#    linux-src/      zip sumber + petunjuk build (make/gcc)
+#    windows-src/    zip sumber + resep kompilasi (msbuild — jalankan di FLARE VM)
+#    KIT-README.md   per-CVE: constraint vs versi terdeteksi, deskripsi, repo, path kit
+#    manifest.csv
+```
 
-Metode 17: Password Reuse (Database Config)
-Mengambil password dari file konfigurasi aplikasi (seperti wp-config.php) dan mencoba password tersebut untuk user sistem atau root.
+Seleksi: hanya CVE yang punya PoC publik, urut **KEV dulu → score tertinggi**.
+Match confidence `possible` (distro-pin/`[all]`) tidak disertakan kecuali `--include-possible`.
+**Buildkit tidak pernah mengeksekusi apa pun** — murni copy/zip/markdown.
 
-Metode 18: Python Library Hijacking
-Jika script root mengimpor library python dari direktori yang bisa ditulis oleh user biasa, attacker bisa menaruh library palsu berisi kode jahat.
+## 20 metode LPE yang diotomasi
 
-Metode 19: Exploiting Writable PATH
-Jika direktori di dalam variable $PATH (seperti /usr/local/bin) bisa ditulis, attacker bisa menaruh binari palsu (seperti ls atau cat) yang akan dijalankan oleh user lain atau root.
+Ringkasan vektor LPE klasik dan di mana lpescan mendeteksinya:
 
-Metode 20: Automated Recon (LinPeas)
-Menggunakan script LinPeas untuk memindai semua celah di atas secara otomatis. Script ini memberikan laporan detail mengenai jalur tercepat untuk menjadi root.
-===================================================
-3. KESIMPULAN
-LPE bukan hanya soal exploit canggih, tapi sering kali soal ketelitian dalam melihat celah kecil pada konfigurasi lokal. Di wilayah seperti Indonesia dan Thailand, kecerobohan admin dalam mengatur password dan layanan localhost adalah pintu masuk yang paling sering berhasil ditembus.
+| # | Metode | Dideteksi lpescan? |
+|---|---|---|
+| 1 | Eksploitasi kernel (`uname -a`) | ✅ tier kernel |
+| 2 | SUID binaries (GTFOBins) | ✅ cek SUID + daftar GTFO |
+| 3 | Sudo tanpa password (`sudo -l`) | ✅ cek NOPASSWD/ALL/env_keep |
+| 4 | Web service localhost tanpa auth | ✅ port proses root + redis no-auth |
+| 5 | Docker daemon (port 2375 / socket) | ✅ cek docker.sock + grup docker |
+| 6 | Redis misconfiguration | ✅ cek redis no-auth |
+| 7 | Kredensial di shell history | ✅ grep history (passw/token) |
+| 8 | SSH key hijacking | ✅ cari id_* / .pem / .key |
+| 9 | TTY inject / session hijack | ✅ cek socket tmux/screen |
+| 10 | Pkexec (CVE-2021-4034) | ✅ tier package polkit |
+| 11 | Writable `/etc/passwd` | ✅ cek perms passwd/shadow |
+| 12 | Wildcard injection cron | ✅ cek cron + pola `tar *` |
+| 13 | LD_PRELOAD via sudo | ✅ cek env_keep + ld.so.preload |
+| 14 | D-Bus service exploitation | ⚠️ sebagian (unit systemd writable) |
+| 15 | NFS `no_root_squash` | ✅ cek /etc/exports |
+| 16 | Capabilities (`getcap`) | ✅ getcap + cap berbahaya |
+| 17 | Password reuse (wp-config/db) | ✅ cek wp-config/.env/.git-credentials |
+| 18 | Python library hijacking | ✅ cek PATH writable |
+| 19 | Writable PATH | ✅ cek isi + perms PATH |
+| 20 | Automated recon (LinPEAS) | ✅ **lpescan ini dia** |
+
+## Requirements
+
+- Python **3.8+** — **stdlib only, tanpa pip, tanpa jaringan** di target (unit deploy = 2 file)
+- Target Linux apa pun (dpkg/rpm) atau Windows dengan python3 (mis. FLARE VM)
+- Kompilasi PoC Windows: FLARE VM dengan msbuild (resep dicetak otomatis oleh buildkit)
+
+## Catatan pengembangan
+
+- Dataset di-refresh lewat pipeline NVD (keyword + cveId kurasi — keyword murni melesetkan
+  CVE kernel 2026 dengan pola deskripsi "In the Linux kernel..." seperti DirtyFrag/CopyFail);
+  setelah refresh tinggal jalankan ulang `build-scanner.py`
+- `--selftest` memvalidasi version engine terhadap bentuk string dataset nyata
+  (arch suffix `7.0_s390x`, patch-level `1.9.5p2`, build Windows, pin exact `[6.8]`, dll.)
+
+## Disclaimer
+
+Tool ini dibuat untuk **pendidikan dan riset keamanan terautorisasi** (lab pribadi, CTF,
+pentest dengan izin). Penulis tidak bertanggung jawab atas penggunaan yang melanggar hukum.
+Review setiap PoC sebelum dijalankan — verifikasi offset, arsitektur, dan constraint versi.
+
+## Lisensi
+
+TBD — tentukan sebelum publikasi (dataset berasal dari NVD/CISA, domain publik;
+kode tool bisa MIT).

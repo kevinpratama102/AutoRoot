@@ -1,0 +1,2 @@
+ABI := armeabi
+APP_PLATFORM := android-14

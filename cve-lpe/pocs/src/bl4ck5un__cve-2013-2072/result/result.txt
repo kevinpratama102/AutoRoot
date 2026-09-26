@@ -1,0 +1,117 @@
+===domInfo===
+<domain id=0 name=Domain-0 memory=991420416 state=running>
+
+
+===cpus===
+[[0, 1], [0, 1]]
+
+
+==all vms==
+[<domain id=0 name=Domain-0 memory=991420416 state=running>]
+
+
+==dom0.info==
+{'HVM_boot_params': {},
+ 'HVM_boot_policy': '',
+ 'PV_args': '',
+ 'PV_bootloader': '',
+ 'PV_bootloader_args': '',
+ 'PV_kernel': '',
+ 'PV_ramdisk': '',
+ 'VCPUs_at_startup': 1,
+ 'VCPUs_live': 2,
+ 'VCPUs_max': 2,
+ 'actions_after_crash': 'restart',
+ 'actions_after_reboot': 'restart',
+ 'actions_after_shutdown': 'destroy',
+ 'actions_after_suspend': '',
+ 'auto_power_on': False,
+ 'blocked': 0,
+ 'console_refs': [],
+ 'cpu_time': 16.646526583,
+ 'cpus': [[0, 1], [0, 1]],
+ 'crashed': 0,
+ 'description': '',
+ 'devices': {},
+ 'domid': 0,
+ 'dying': 0,
+ 'features': '',
+ 'is_a_template': False,
+ 'is_control_domain': True,
+ 'memory_dynamic_max': 991420416L,
+ 'memory_dynamic_min': 991420416L,
+ 'memory_sharing': 0,
+ 'memory_static_max': 17592186040320L,
+ 'memory_static_min': 0,
+ 'name_label': 'Domain-0',
+ 'on_xend_start': 'ignore',
+ 'on_xend_stop': 'ignore',
+ 'online_vcpus': 2,
+ 'other_config': {},
+ 'paused': 0,
+ 'platform': {'nomigrate': '0', 'tsc_mode': '0'},
+ 'pool_name': 'Pool-0',
+ 'running': 0,
+ 'shadow_memory': 0,
+ 'shutdown': 0,
+ 'shutdown_reason': 255,
+ 'superpages': '0',
+ 'target': 0,
+ 'use_tmp_kernel': False,
+ 'use_tmp_ramdisk': False,
+ 'uuid': '00000000-0000-0000-0000-000000000000',
+ 'vbd_refs': [],
+ 'vcpu_avail': 3,
+ 'vcpus_params': {},
+ 'vif_refs': [],
+ 'vtpm_refs': []}
+
+
+==dom0.info['vcpus_params']==
+{}
+
+
+===xeninfo===
+{'cc_compile_by': 'root',
+ 'cc_compile_date': 'Mon Dec 16 20:30:32 CST 2013',
+ 'cc_compile_domain': '',
+ 'cc_compiler': 'gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3',
+ 'platform_params': 'virt_start=0xffff800000000000',
+ 'xen_caps': 'xen-3.0-x86_64 xen-3.0-x86_32p ',
+ 'xen_changeset': 'unavailable',
+ 'xen_commandline': 'placeholder',
+ 'xen_extra': '.3',
+ 'xen_major': 4,
+ 'xen_minor': 2,
+ 'xen_pagesize': 4096}
+
+
+===domain_getinfo===
+[{'blocked': 0,
+  'cpu_time': 16709365083L,
+  'cpupool': 0,
+  'crashed': 0,
+  'domid': 0,
+  'dying': 0,
+  'handle': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  'hvm': 0,
+  'max_vcpu_id': 1,
+  'maxmem_kb': 17179869180L,
+  'mem_kb': 968184L,
+  'online_vcpus': 2,
+  'paused': 0,
+  'running': 1,
+  'shutdown': 0,
+  'shutdown_reason': 255,
+  'ssidref': 0}]
+
+
+===vcpu_getinfo===
+{'blocked': 0,
+ 'cpu': 0,
+ 'cpu_time': 9038609874L,
+ 'cpumap': [0, 1],
+ 'online': 1,
+ 'running': 1}
+
+

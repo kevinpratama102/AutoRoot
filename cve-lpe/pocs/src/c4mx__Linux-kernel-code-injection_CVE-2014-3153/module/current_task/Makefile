@@ -1,0 +1,13 @@
+obj-m += current.o
+
+
+KDIR := /home/c4mx/Projects/linux-modules/debug-kernel/linux-zedboard_zynq7-standard-build
+
+PWD := $(shell pwd)
+
+default:
+	$(MAKE) ARCH=arm CROSS_COMPILE=arm-none-eabi- -C $(KDIR) XTRA_CFLAGS=-fno-pic M=$(PWD) modules
+
+clean:
+	rm -f *.o *.mod.c Module.symvers Module.markers modules.order \.*.o.cmd \.*.ko.cmd \.*.o.d
+	rm -rf \.tmp_versions

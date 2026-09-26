@@ -1,0 +1,19 @@
+A flaw was found in the Linux kernel, where unauthorized access to the execution of the setuid file with capabilities was found in the Linux kernel’s OverlayFS subsystem in how a user copies a capable file from a nosuid mount into another mount. This uid mapping bug allows a local user to escalate their privileges on the system.
+
+see : https://ubuntu.com/security/CVE-2023-0386
+
+Compile
+```bash
+make all
+```
+# Use
+Start two terminals and enter in the first terminal
+```bash
+./fuse ./ovlcap/lower ./gc
+```
+In the second terminal enter
+```bash
+./exp
+```
+# Effect
+Privilege escalation

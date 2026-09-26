@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: shell
+  script: test/bootstrap-ubuntu.sh
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: centos-6.8
+    provisioner:
+      script: test/bootstrap-centos.sh
+
+verifier:
+  name: inspec
+  inspec_tests:
+    - ./
+
+suites:
+  - name: default

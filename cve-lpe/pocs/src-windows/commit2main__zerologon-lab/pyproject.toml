@@ -1,0 +1,10 @@
+[project]
+name = "zerologon-lab"
+version = "0.1.0"
+description = "Scripts for a lab environment demonstrating the Zerologon (CVE-2020-1472) vulnerability."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "impacket>=0.13.0",
+    "tqdm>=4.67.1",
+]

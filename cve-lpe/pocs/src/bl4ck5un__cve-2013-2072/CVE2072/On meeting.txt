@@ -1,0 +1,36 @@
+git://xenbits.xen.org/xen.git
+
+git log -- [filename]
+
+commit 34e2c78baa7eff6369595adc7e51e70a4a0c8727
+Author: Petr Matousek <pmatouse@redhat.com>
+Date:   Fri May 31 12:24:18 2013 +0200
+
+    libxc: limit cpu values when setting vcpu affinity
+    
+    When support for pinning more than 64 cpus was added, check for cpu
+    out-of-range values was removed. This can lead to subsequent
+    out-of-bounds cpumap array accesses in case the cpu number is higher
+    than the actual count.
+    
+    This patch returns the check.
+    
+    This is CVE-2013-2072 / XSA-56
+    
+    Signed-off-by: Petr Matousek <pmatouse@redhat.com>
+    master commit: 41abbadef60e5fccdfd688579dd458f7f7887cf5
+    master date: 2013-05-29 15:49:22 +010
+    
+git log --pretty=%P -n 1 34e2c78baa7eff6369595adc7e51e70a4a0c8727
+
+We got: 857e2b43715ba86ee660924cfe1d772fa052c54d
+
+
+
+主要参考了
+http://wiki.xenproject.org/wiki/Xen_Repositories
+http://wiki.xen.org/wiki/Compiling_Xen
+http://wiki.xen.org/wiki/Compiling_Xen_From_Source
+https://help.ubuntu.com/community/Xen
+
+http://xen.1045712.n5.nabble.com/A-question-about-libxl-td3408341.html

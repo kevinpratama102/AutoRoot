@@ -1,0 +1,11 @@
+typo-in-classic-insults.diff
+paths-in-samples.diff
+keep_home_by_default.patch
+enable_badpass.patch
+CVE-2012-0809.patch
+lp927828-fix-abort-in-pam-modules-when-timestamp-valid.patch
+CVE-2012-2337.patch
+pam_env_merge.patch
+CVE-2013-1775.patch
+CVE-2014-0106.patch
+CVE-2014-9680.patch

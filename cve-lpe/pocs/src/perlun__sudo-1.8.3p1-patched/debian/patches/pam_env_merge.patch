@@ -1,0 +1,146 @@
+Description: Merge the PAM environment into the user environment
+ Variables unique to the PAM environment are merged into the user
+ environment. None of the user's environment is overwritten.
+Origin: backport, http://www.sudo.ws/repos/sudo/rev/15abe30f755d
+Origin: backport, http://www.sudo.ws/repos/sudo/rev/3319c6cce1e7
+Origin: backport, http://www.sudo.ws/repos/sudo/rev/078bee18fec1
+
+Index: sudo-1.8.3p1/config.h.in
+===================================================================
+--- sudo-1.8.3p1.orig/config.h.in	2012-05-17 13:28:18.805606789 -0500
++++ sudo-1.8.3p1/config.h.in	2012-05-17 13:28:25.245638726 -0500
+@@ -377,6 +377,9 @@
+ /* Define to 1 if you use PAM authentication. */
+ #undef HAVE_PAM
+ 
++/* Define to 1 if you have the `pam_getenvlist' function. */
++#undef HAVE_PAM_GETENVLIST
++
+ /* Define to 1 if you use a specific PAM session for sudo -i. */
+ #undef HAVE_PAM_LOGIN
+ 
+Index: sudo-1.8.3p1/configure
+===================================================================
+--- sudo-1.8.3p1.orig/configure	2012-05-17 13:28:18.817606850 -0500
++++ sudo-1.8.3p1/configure	2012-05-17 13:28:25.257638788 -0500
+@@ -17899,6 +17899,21 @@
+ done
+ 
+     if test "$with_pam" = "yes"; then
++	# Older PAM implementations lack pam_getenvlist
++	OLIBS="$LIBS"
++	LIBS="$LIBS -lpam $lt_cv_dlopen_libs"
++	for ac_func in pam_getenvlist
++do :
++  ac_fn_c_check_func "$LINENO" "pam_getenvlist" "ac_cv_func_pam_getenvlist"
++if test "x$ac_cv_func_pam_getenvlist" = xyes; then :
++  cat >>confdefs.h <<_ACEOF
++#define HAVE_PAM_GETENVLIST 1
++_ACEOF
++
++fi
++done
++
++	LIBS="$OLIBS"
+ 	$as_echo "#define HAVE_PAM 1" >>confdefs.h
+ 
+ 	AUTH_OBJS="$AUTH_OBJS pam.lo";
+Index: sudo-1.8.3p1/configure.in
+===================================================================
+--- sudo-1.8.3p1.orig/configure.in	2012-05-17 13:28:18.741606474 -0500
++++ sudo-1.8.3p1/configure.in	2012-05-17 13:28:25.265638824 -0500
+@@ -2365,6 +2365,11 @@
+     dnl
+     AC_CHECK_HEADERS([security/pam_appl.h] [pam/pam_appl.h], [with_pam=yes; break])
+     if test "$with_pam" = "yes"; then
++	# Older PAM implementations lack pam_getenvlist
++	OLIBS="$LIBS"
++	LIBS="$LIBS -lpam $lt_cv_dlopen_libs"
++	AC_CHECK_FUNCS(pam_getenvlist)
++	LIBS="$OLIBS"
+ 	AC_DEFINE(HAVE_PAM)
+ 	AUTH_OBJS="$AUTH_OBJS pam.lo";
+ 	AUTH_EXCL=PAM
+Index: sudo-1.8.3p1/plugins/sudoers/sudoers.c
+===================================================================
+--- sudo-1.8.3p1.orig/plugins/sudoers/sudoers.c	2012-05-17 13:28:18.789606714 -0500
++++ sudo-1.8.3p1/plugins/sudoers/sudoers.c	2012-05-17 13:28:25.269638848 -0500
+@@ -582,7 +582,7 @@
+ 	    NewArgv[1] = "--login";
+ 	}
+ 
+-#if defined(__linux__) || defined(_AIX)
++#if defined(_AIX) || (defined(__linux__) && !defined(HAVE_PAM))
+ 	/* Insert system-wide environment variables. */
+ 	read_env_file(_PATH_ENVIRONMENT, TRUE);
+ #endif
+Index: sudo-1.8.3p1/plugins/sudoers/auth/pam.c
+===================================================================
+--- sudo-1.8.3p1.orig/plugins/sudoers/auth/pam.c	2012-05-17 13:28:18.761606572 -0500
++++ sudo-1.8.3p1/plugins/sudoers/auth/pam.c	2012-05-17 13:28:25.269638848 -0500
+@@ -195,6 +195,9 @@
+ int
+ pam_begin_session(struct passwd *pw, sudo_auth *auth)
+ {
++#ifdef HAVE_PAM_GETENVLIST
++    char **pam_envp;
++#endif
+     int status = PAM_SUCCESS;
+ 
+     /*
+@@ -226,6 +229,20 @@
+      */
+     (void) pam_setcred(pamh, PAM_ESTABLISH_CRED);
+ 
++#ifdef HAVE_PAM_GETENVLIST
++    /*
++     * Update environment based on what is stored in pamh.
++     * If no authentication is done we will only have environment
++     * variables if pam_env is called via session.
++     */
++    if ((pam_envp = pam_getenvlist(pamh)) != NULL) {
++	/* Merge pam env with user env but do not overwrite. */
++	env_merge(pam_envp, FALSE);
++	efree(pam_envp);
++	/* XXX - we leak any duplicates that were in pam_envp */
++    }
++#endif /* HAVE_PAM_GETENVLIST */
++
+ #ifndef NO_PAM_SESSION
+     status = pam_open_session(pamh, 0);
+     if (status != PAM_SUCCESS) {
+Index: sudo-1.8.3p1/plugins/sudoers/env.c
+===================================================================
+--- sudo-1.8.3p1.orig/plugins/sudoers/env.c	2012-05-17 13:28:18.749606510 -0500
++++ sudo-1.8.3p1/plugins/sudoers/env.c	2012-05-17 13:28:25.273638863 -0500
+@@ -323,6 +323,18 @@
+ }
+ 
+ /*
++ * Merge another environment with our private copy.
++ */
++void
++env_merge(char * const envp[], int overwrite)
++{
++    char * const *ep;
++ 
++    for (ep = envp; *ep != NULL; ep++)
++	sudo_putenv(*ep, TRUE, overwrite);
++}
++
++/*
+  * Check the env_delete blacklist.
+  * Returns TRUE if the variable was found, else false.
+  */
+Index: sudo-1.8.3p1/plugins/sudoers/sudoers.h
+===================================================================
+--- sudo-1.8.3p1.orig/plugins/sudoers/sudoers.h	2012-05-17 13:28:18.777606649 -0500
++++ sudo-1.8.3p1/plugins/sudoers/sudoers.h	2012-05-17 13:28:25.273638863 -0500
+@@ -303,6 +303,7 @@
+ /* env.c */
+ char **env_get(void);
+ void env_init(char * const envp[]);
++void env_merge(char * const envp[], int overwrite);
+ void init_envtables(void);
+ void insert_env_vars(char * const envp[]);
+ void read_env_file(const char *, int);

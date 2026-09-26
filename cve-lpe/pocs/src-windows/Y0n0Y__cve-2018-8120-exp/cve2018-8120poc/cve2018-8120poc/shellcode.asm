@@ -1,0 +1,13 @@
+
+public	NtUserSetImeInfoEx
+_TEXT	SEGMENT
+NtUserSetImeInfoEx PROC
+		mov r10,rcx;
+		mov eax,4871;
+		syscall;
+		ret;
+NtUserSetImeInfoEx ENDP
+
+_TEXT	ENDS
+
+END

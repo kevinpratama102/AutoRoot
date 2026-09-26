@@ -1,0 +1,65 @@
+===domain_getinfo===
+paused:0
+cpu_time:50130357501
+ssidref:0
+hvm:0
+shutdown_reason:255
+dying:0
+mem_kb:968184
+domid:0
+max_vcpu_id:1
+crashed:0
+running:1
+maxmem_kb:17179869180
+shutdown:0
+online_vcpus:2
+handle:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+cpupool:0
+blocked:0
+===physinfo===
+scrub_memory:0
+total_memory:1048124
+hw_caps:178bfbff:28100800:00000000:00000140:00000201:00000000:00000001:00000000
+cores_per_socket:2
+nr_cpus:2
+free_memory:64784
+cpu_khz:2235228
+nr_nodes:1
+virt_caps:
+threads_per_core:1
+===topologyinfo===
+max_cpu_index:1
+cpu_to_socket:[0, 0]
+cpu_to_node:[0, 0]
+cpu_to_core:[0, 1]
+===cpupool_getinfo===
+n_dom:1
+sched:5
+cpulist:[0, 1]
+cpupool:0
+===xeninfo===
+cc_compile_domain:
+cc_compile_date:Sat Nov 30 21:58:29 CST 2013
+xen_minor:2
+xen_pagesize:4096
+xen_caps:xen-3.0-x86_64 xen-3.0-x86_32p 
+cc_compiler:gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+xen_extra:.3
+xen_changeset:unavailable
+platform_params:virt_start=0xffff800000000000
+xen_commandline:placeholder
+cc_compile_by:xen
+xen_major:4
+===numainfo===
+node_to_node_dist:[[10]]
+node_memfree:[63]
+node_memsize:[1023]
+max_node_index:0
+node_to_dma32_mem:[63]
+===vcpu_getinfo===
+cpu_time:24595832616
+running:1
+online:1
+cpumap:[0, 1]
+cpu:0
+blocked:0

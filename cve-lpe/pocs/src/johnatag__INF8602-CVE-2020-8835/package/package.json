@@ -1,0 +1,24 @@
+{
+  "name": "inf8602-cve-2020-8835",
+  "version": "1.0.0",
+  "description": "School project to test out CVE-2020-8835",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnatag/INF8602-CVE-2020-8835.git"
+  },
+  "keywords": [
+    "School",
+    "Malware",
+    "Testing"
+  ],
+  "author": "Johnatan Gao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnatag/INF8602-CVE-2020-8835/issues"
+  },
+  "homepage": "https://github.com/johnatag/INF8602-CVE-2020-8835#readme"
+}

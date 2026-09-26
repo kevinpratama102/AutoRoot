@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<account-authenticator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:label="BadParcel"
+    android:icon="@android:mipmap/sym_def_app_icon"
+    android:accountType="com.example.badparcel"
+    android:smallIcon="@android:mipmap/sym_def_app_icon" />

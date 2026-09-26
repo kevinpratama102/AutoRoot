@@ -1,0 +1,115 @@
+
+14. ep_remove_wait_queue /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:612
+13. ep_unregister_pollwait+0x160/0x1bd /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:630
+12. ep_free+0x8b/0x181 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:847
+11. ep_eventpoll_release+0x48/0x54 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:879
+
+3. SyS_exit_group+0x14/0x14 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/kernel/exit.c:987
+
+===
+3. process is exited, eventually the event poll file is released
+===
+11.
+===
+static int ep_eventpoll_release(struct inode *inode, struct file *file)
+{
+	struct eventpoll *ep = file->private_data; // -> file is the eventpoll file
+
+	if (ep)
+		ep_free(ep);
+
+	return 0;
+}
+
+===
+12.
+===
+static void ep_free(struct eventpoll *ep)
+{
+	struct rb_node *rbp;
+	struct epitem *epi;
+...
+	/*
+	 * Walks through the whole tree by unregistering poll callbacks.
+	 */
+	for (rbp = rb_first(&ep->rbr); rbp; rbp = rb_next(rbp)) {
+		epi = rb_entry(rbp, struct epitem, rbn); // -> find our epitem which was inserted during eventpoll on binder file descripter in ep_insert() (see commented allocation)
+
+		ep_unregister_pollwait(ep, epi);
+		cond_resched();
+	}
+...
+}
+
+===
+13.
+===
+static void ep_unregister_pollwait(struct eventpoll *ep, struct epitem *epi)
+{
+	struct list_head *lsthead = &epi->pwqlist;
+	struct eppoll_entry *pwq;
+
+	while (!list_empty(lsthead)) {
+		pwq = list_first_entry(lsthead, struct eppoll_entry, llink); // -> pwq is the list which points into the binder_thread which is already freed
+
+		list_del(&pwq->llink);
+		ep_remove_wait_queue(pwq); // -> use will happen in this call
+		kmem_cache_free(pwq_cache, pwq);
+	}
+}
+
+===
+14.
+===
+static void ep_remove_wait_queue(struct eppoll_entry *pwq)
+{
+	wait_queue_head_t *whead;
+
+	rcu_read_lock();
+	/*
+	 * If it is cleared by POLLFREE, it should be rcu-safe.
+	 * If we read NULL we need a barrier paired with
+	 * smp_store_release() in ep_poll_callback(), otherwise
+	 * we rely on whead->lock.
+	 */
+	whead = smp_load_acquire(&pwq->whead); // -> whead is a pointer into binder_thread struct (wait member)
+	if (whead)
+		remove_wait_queue(whead, &pwq->wait); // -> wait is a pointer into binder_thread struct (wait member)
+	rcu_read_unlock();
+}
+
+===
+remove_wait_queue()
+===
+
+// v wq_whead and wq_entry are both pointers into the binder struct, basically the wait queue is removed from the queue
+// v moreover: writes pointer into the binder_thread struct itself into the struct -> important for exploitation
+static inline void
+__remove_wait_queue(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_entry)
+{
+	list_del(&wq_entry->entry);
+}
+
+static inline void list_del(struct list_head *entry)
+{
+	__list_del_entry(entry);
+	entry->next = LIST_POISON1;
+	entry->prev = LIST_POISON2;
+}
+
+static inline void __list_del_entry(struct list_head *entry)
+{
+	if (!__list_del_entry_valid(entry))
+		return;
+
+	__list_del(entry->prev, entry->next);
+}
+
+static inline void __list_del(struct list_head * prev, struct list_head * next)
+{
+	next->prev = prev;
+	WRITE_ONCE(prev->next, next);
+}
+
+===
+how to trigger ep_unregister_pollwait()? -> EPOLL_CTL_DEL, similar to EPOLL_CTL_ADD with binder file -> yes

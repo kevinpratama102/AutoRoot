@@ -1,0 +1,26 @@
+   - name: Get the sudo version
+     command: "sudo --version"
+     register: sudo_old
+     tags:
+       - 'ssh-update'
+   - name: Update sudo
+     ignore_errors: yes
+     yum:
+        name:
+          - sudo
+        state: present
+        update_cache: true
+     register: kubelet_installed
+     tags:
+       - 'ssh-update'
+   - name: Get the sudo version
+     command: "sudo --version"
+     register: sudo_new
+     tags:
+       - 'ssh-update'
+   - debug: msg="{{ sudo_old.stdout }}"
+     tags:
+       - 'ssh-update'
+   - debug: msg="{{ sudo_new.stdout }}"
+     tags:
+       - 'ssh-update'

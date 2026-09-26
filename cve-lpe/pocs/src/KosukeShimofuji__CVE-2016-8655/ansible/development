@@ -1,0 +1,4 @@
+[core]
+
+CVE-2016-8655.test ansible_ssh_user=ubuntu ansible_ssh_private_key_file=./.vagrant/machines/CVE-2016-8655/virtualbox/private_key
+

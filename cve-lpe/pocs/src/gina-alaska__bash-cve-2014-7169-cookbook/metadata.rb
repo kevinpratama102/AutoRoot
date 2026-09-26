@@ -1,0 +1,10 @@
+name             'bash-cve-2014-7169'
+maintainer       'UAF-GINA'
+maintainer_email 'support+chef@gina.alaska.edu'
+license          'Apache 2.0'
+description      'Installs/Configures bash-cve-2014-7169'
+long_description 'Installs/Configures bash-cve-2014-7169'
+version          '0.4.1'
+
+depends 'ohai'
+depends 'yum'

@@ -1,0 +1,4 @@
+push {r4, lr}
+ldr r4, =#0xc03e4a7c
+blx r4
+pop {r4, pc}

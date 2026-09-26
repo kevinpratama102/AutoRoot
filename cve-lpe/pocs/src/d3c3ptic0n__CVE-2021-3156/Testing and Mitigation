@@ -1,0 +1,35 @@
+# A heap-based buffer overflow was found in the way sudo parses command line arguments. This flaw is exploitable by any local user who can execute the sudo command # (by default, any local user can execute sudo) without authentication.
+
+# Affected:
+          # Legacy versions of: 1.8.2 – 1.8.31p2
+          # Stable versions of: 1.9.0 – 1.9.5p1
+          
+#Test for vulnerability
+sudo --version
+sudoedit -s '\' `perl -e 'print "A" x 65536'` 
+
+# Segmentation fault” or “malloc(): corrupted top size” then the system is vulnerable.
+
+# If vulnerable:
+
+          # Download the patched sudo 1.9.5p2 version
+          wget https://www.sudo.ws/dist/sudo-1.9.5p2.tar.gz
+
+          # Extract the downloaded file
+          tar xvzf sudo-1.9.5p2.tar.gz
+
+          # Install the make utility
+          cd sudo-19.5p2
+          sudo apt install make
+
+          # Install the build-essential packages.
+          sudo apt update
+          sudo apt install build-essential
+
+          # Configure all the files inside the sudo directory
+          sudo ./configure
+          
+ # Check patched version of sudo and verify:
+ sudoedit -s /
+ 
+ # Voilà! You're good to go! : wq!

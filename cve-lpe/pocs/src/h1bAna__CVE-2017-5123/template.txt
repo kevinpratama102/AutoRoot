@@ -1,0 +1,35 @@
+Report Template
+1. Overview về thành phần có lỗi.
+2. mô tả về lỗi
++ Loại lỗi
++ Mã giả /đoạn code lỗi.
++ Chỉ ra điều kiện mà đoạn code xử lý lỗi.
+Optional: 
++ Cách giao tiếp.
++ Stacktrace
++ context lúc lỗi.
++ Thành phần key trong poc để trigger code path.
+3. Exploitation.
++ Tiềm năng của lỗi ( Overflow bao nhiêu byte, use after free trên chunk bao nhiêu byte ntn trên vùng heap/pool/stack thế nào , lỗi logic dẫn tới gì ).
++ Hướng khai thác lỗi (Dùng pool fengshui thì nêu rõ dùng object gì , sau đó làm gì xử lý trạng thái pool thế nào, bypass các mitigation thế nào, xử lý logic lỗi dẫn tới load một dll dưới quyền system, dll cần phải thế nào).
+Optional:  Các vấn đề của hướng khai thác lỗi hiện tại ,optional: hướng xử lý  ( vd hardcode offset các địa chỉ gadget thì làm sao để stable nó ).
+4. Affect range
++ Lỗi ảnh hưởng từ phiên bản nào, build nào. 
++ Lỗi xuất hiện từ bản  (commit) nào ( Xác định version + ngày release).
+5. The patch. 
++ Lỗi được vá ( mitigate ) như thế nào.
++ Bản vá là bản nào. 
++ Lỗi đã được vá hết chưa. 
++ Đánh giá các biến thể của lỗi vendor đã vá
+6. Kết luận.
++Đánh giá sơ lược về bug ( lỗi có thể làm được gì, chain với các loại lỗi nào vd adobe sandbox escape, chrome sandbox escape, tích hợp với các malware để tự nâng quyền từ bình thường lên system) .
+7. Acknowledgement / Reference
++ Tài liệu liên quan bỏ vào đây.
+8. Tệp đính kèm.
+Cung cấp mã khai thác có 3 mức độ
++ poc tối giản ( hit path poc/ minimal poc).
++ Poc khai thác ( Exploit poc)
++ Mã khai thác tác chiến (Weaponlized exploit (work everytime every where) ) 
+Optional: 
++Phân tích biến thể. 
++Reference

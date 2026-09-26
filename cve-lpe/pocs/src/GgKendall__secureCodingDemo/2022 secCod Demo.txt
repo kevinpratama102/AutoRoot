@@ -1,0 +1,65 @@
+Improper Privilege Management
+CVE-2019-13272
+
+//info//
+https://packetstormsecurity.com/files/154957/Linux-Polkit-pkexec-Helper-PTRACE_TRACEME-Local-Root.html
+https://nvd.nist.gov/vuln/detail/CVE-2019-13272
+//info//
+
+In the Linux kernel before 5.1.17, ptrace_link in kernel/ptrace.c mishandles the recording of the credentials of a process that wants to create a ptrace relationship, which allows local users to obtain root access by leveraging certain scenarios with a parent-child process relationship, where a parent drops privileges and calls execve (potentially allowing control by an attacker).
+
+//
+
+Used an 'ubuntu server'
+kernel 5.1.16 (less than the 5.1.17 kernel of the bug)
+
+How to easily change your current kernel:
+- https://www.how2shout.com/linux/how-to-change-default-kernel-in-ubuntu-22-04-20-04-lts/
+took a bit of time to download the kernel, updates and all
+make sure choosing correct kernel on start up. was originally getting 'kernel panic' and automatically forcing an exit
+
+// did this then changed mind as a separate user was not needed//
+for purpose of demo, made a temporary user ID. not sudo ID.
+- https://unix.stackexchange.com/questions/80968/how-can-i-create-automatically-expiring-user-accounts
+adduser someuser
+echo usermod --lock someuser | at now + 10 minutes
+// did this then changed mind as a separate user was not needed//
+
+sudo -v to check for sudo right
+
+created a text file in sudo directory
+- sudo apt-get install vim (just to check that vim was indeed installed)
+chmod o-r demo.txt (took away everyones read permission)
+- https://www.pluralsight.com/blog/it-ops/linux-file-permissions
+
+chmod u-r demo.txt (likely didnt need to)
+sudo chown root:root demo.txt
+
+checked i was unable to read my file anymore
+
+- sudo chmod 700 demo.txt
+
+still unable to read file
+
+ran the
+- wget https://github.com/jas502n/CVE-2019-13272
+- gcc -s CVE-2019-13272 -o pwned
+-even moved it to /usr/local/bin due to trying to fix errors... failed!! needed to do the below instead.
+
+(dont forget the 'n' at the end of jas502n)
+
+likely should of run
+- wget https://raw.githubusercontent.com/jas502n/CVE-2019-13272/master/CVE-2019-13272.c
+^^^ WORKED was able to run the
+- gcc -s CVE-2019-13272.c -o pwned
+although i did make sure gcc was up to date previously (do need gcc for compiling .c)
+- https://linuxhint.com/install_gcc_ubuntu/
+
+even tried git clone
+- https://github.com/jas502n/CVE-2019-13272.git
+
+
+DESPITE pulling a grep command on the only similar file ( "/usr/lib/x86_64-linux-gnu/xfce4/session/xfsm-shutdown-helper",) path.. (/usr/lib/x86_64-linux-gnu/) neither kernel had any of the desegnated compatible helpers.
+perhaps unable to fully separate from the new kernel?
+
+had NO compatible helpers. unable to find anything useful in the package-system-locked, nor the blacklists. was not risking messing up blacklisted drivers.

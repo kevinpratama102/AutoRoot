@@ -1,0 +1,2 @@
+# 2008
+Linux Kernel Exploits -> CVE-2008-0600 + CVE-2008-0900 + CVE-2008-4210 

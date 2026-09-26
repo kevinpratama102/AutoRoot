@@ -1,0 +1,101 @@
+From: TJ <ubuntu@tjworld.net>
+Description: Fix Abort in some PAM modules when timestamp is valid
+Origin: backport, http://www.gratisoft.us/bugzilla/show_bug.cgi?id=553#c5
+Forwarded: not-needed
+Author: Todd C Miller <todd.miller@courtesan.com>
+Bug-Debian: http://bugs.debian.org/648698
+Bug-Ubuntu: https://launchpad.net/bugs/927828
+Bug: http://www.gratisoft.us/bugzilla/show_bug.cgi?id=553
+
+--- sudo-1.8.3p1.orig/src/sudo.c
++++ sudo-1.8.3p1/src/sudo.c
+@@ -135,8 +135,6 @@ static int policy_list(struct plugin_con
+     char * const argv[], int verbose, const char *list_user);
+ static int policy_validate(struct plugin_container *plugin);
+ static void policy_invalidate(struct plugin_container *plugin, int remove);
+-static int policy_init_session(struct plugin_container *plugin,
+-    struct passwd *pwd);
+ 
+ /* I/O log plugin convenience functions. */
+ static int iolog_open(struct plugin_container *plugin, char * const settings[],
+@@ -903,13 +901,6 @@ exec_setup(struct command_details *detai
+     aix_restoreauthdb();
+ #endif
+ 
+-    /*
+-     * Call policy plugin's session init before other setup occurs.
+-     * The session init code is expected to print an error as needed.
+-     */
+-    if (policy_init_session(&policy_plugin, pw) != TRUE)
+-	goto done;
+-
+ #ifdef HAVE_SELINUX
+     if (ISSET(details->flags, CD_RBAC_ENABLED)) {
+ 	if (selinux_setup(details->selinux_role, details->selinux_type,
+@@ -1157,11 +1148,20 @@ policy_invalidate(struct plugin_containe
+     plugin->u.policy->invalidate(remove);
+ }
+ 
+-static int
+-policy_init_session(struct plugin_container *plugin, struct passwd *pwd)
++int
++policy_init_session(struct command_details *details)
+ {
+-    if (plugin->u.policy->init_session)
+-	return plugin->u.policy->init_session(pwd);
++    struct passwd *pw;
++    if (policy_plugin.u.policy->init_session) {
++#ifdef HAVE_SETAUTHDB
++        aix_setauthdb(IDtouser(details->euid));
++#endif
++        pw = getpwuid(details->euid);
++#ifdef HAVE_SETAUTHDB
++        aix_restoreauthdb();
++#endif
++	return policy_plugin.u.policy->init_session(pw);
++    }
+     return TRUE;
+ }
+ 
+--- sudo-1.8.3p1.orig/src/exec_pty.c
++++ sudo-1.8.3p1/src/exec_pty.c
+@@ -567,6 +567,13 @@ fork_pty(struct command_details *details
+ 	}
+     }
+ 
++    /*
++     * The policy plugin's session init must be run before we fork
++     * or certain pam modules won't be able to track their state.
++     */
++    if (policy_init_session(details) != TRUE)
++       exit(1); /* XXX */
++
+     child = fork();
+     switch (child) {
+     case -1:
+--- sudo-1.8.3p1.orig/src/exec.c
++++ sudo-1.8.3p1/src/exec.c
+@@ -119,6 +119,13 @@ static int fork_cmnd(struct command_deta
+     sa.sa_handler = handler;
+     sigaction(SIGCONT, &sa, NULL);
+ 
++    /*
++     * The policy plugin's session init must be run before we fork
++     * or certain pam modules won't be able to track their state.
++     */
++    if (policy_init_session(details) != TRUE)
++       exit(1); /* XXX */
++
+     child = fork();
+     switch (child) {
+     case -1:
+--- sudo-1.8.3p1.orig/src/sudo.h
++++ sudo-1.8.3p1/src/sudo.h
+@@ -201,6 +201,7 @@ void get_ttysize(int *rowp, int *colp);
+ 
+ /* sudo.c */
+ int exec_setup(struct command_details *details, const char *ptyname, int ptyfd);
++int policy_init_session(struct command_details *details);
+ int run_command(struct command_details *details);
+ void sudo_debug(int level, const char *format, ...) __printflike(2, 3);
+ extern int debug_level;

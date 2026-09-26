@@ -1,0 +1,323 @@
+\documentclass[t]{beamer}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[adobefonts, noindent]{ctex}
+
+\lstset{
+	language=C++,
+	columns=fullflexible,
+	basicstyle=\footnotesize\ttfamily,
+	%numbers=left,
+	%numbersep=6pt,
+	frame=L,
+	xleftmargin=0pt,
+	showstringspaces=false,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{magenta}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+	tabsize=2,
+   	keepspaces=true,
+}
+
+
+\makeatletter
+\def\verbatim@font{\linespread{1}\normalfont\ttfamily}
+\makeatother
+\begin{document}
+\title{CVE-2013-2072}
+\subtitle{\textit{从溢出的角度}}
+\author{张帆}
+\date{2013-12-24}
+
+% titlepage
+\frame{\titlepage}
+
+% TOC
+\frame{\frametitle{Outline}
+\tableofcontents
+}
+
+\section{Heap Overflow}
+\subsection{vulnerable code}
+\begin{frame}[fragile]
+\frametitle{\kaishu 溢出现场}
+
+\begin{lstlisting}[basicstyle=\footnotesize]
+225     xc_cpumap_t cpumap; 
+239     cpumap = xc_cpumap_alloc(self->xc_handle); 
+245         for ( i = 0; i < PyList_Size(cpulist); i++ )
+246         {
+247             long cpu = PyInt_AsLong(PyList_GetItem(cpulist, i));
+248             /*if ( cpu < 0 || cpu >= nr_cpus )
+249             { return ...
+254             }*/
+255             cpumap[cpu / 8] |= 1 << (cpu % 8);  /* overflow */
+256         }
+257     }
+\end{lstlisting}
+
+\begin{enumerate}
+\item 写入\texttt{cpumap[cpu/8]}时没有检查边界
+\item \texttt{cpu}是外部参数，可以通过\texttt{xm vcpu-pin}传入
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Heap Overflow}
+
+准确来说，是``堆''缓存溢出。
+
+\begin{lstlisting}
+354 typedef uint8_t *xc_cpumap_t; // cpumap ~ uint8_t *
+
+ 86 xc_cpumap_t xc_cpumap_alloc(xc_interface *xch){
+ 88     int sz;
+ 90     sz = xc_get_cpumap_size(xch);
+ 91     if (sz == 0)
+ 92         return NULL;
+ 93     return calloc(1, sz); // allocate mem from heap
+ 94 }
+\end{lstlisting}
+cpumap是堆中的buffer，大小为sz。cpumap即为\texttt{uint8\_t *}。
+\end{frame}
+
+\subsection{capability}
+\begin{frame}[fragile]
+\frametitle{\kaishu 能做什么}
+\begin{lstlisting}
+long cpu = cpulist[i];
+//cpumap[cpu / 8] |= 1 << (cpu % 8);
+*(cpumap + cpu / 8) |= 1 << (cpu % 8);
+\end{lstlisting}
+
+
+实际上，上面的赋值将\texttt{cpumap}之后的\textbf{第cpu个bit置为1}。
+
+因此，通过操纵cpu，可以任意修改cpumap（堆中）。
+\end{frame}
+
+\subsection{DOS}
+\begin{frame}[fragile]
+\frametitle{\kaishu 实现了DOS}
+\begin{verbatim}
+> xm vcpu-pin 0 0 999999
+\end{verbatim}
+{\scriptsize\begin{verbatim}
+Error: Unable to connect to xend: Connection refused. Is xend running?
+\end{verbatim}}
+
+Log\par
+
+{\tiny
+\begin{verbatim}
+Dec 25 22:29:36 xen py_xc[8099]: cpumap at 0x7f1530006900, len=1
+Dec 25 22:29:36 xen py_xc[8099]: rsp=  0x7f15495d5ae0
+Dec 25 22:29:36 xen py_xc[8099]: __heap-2             0x70
+Dec 25 22:29:36 xen py_xc[8099]: __heap-1             0x24
+Dec 25 22:29:36 xen py_xc[8099]: Error Detection: cpu=999999
+Dec 25 22:29:36 xen py_xc[8099]: setting cpumap (0x7f1530025147.7), vcpu=0
+----------------------------
+[2013-12-25 22:29:36 8098] CRITICAL (SrvDaemon:232) Xend died due to signal 11!  Restarting it.
+\end{verbatim}}
+\end{frame}
+
+\section{Heap -- glibc}
+\begin{frame}[fragile]
+\frametitle{Heap implementation}
+\begin{description}
+\item[什么是堆]
+\begin{itemize}
+\item 堆是可供程序运行时申请的内存空间
+\item 堆的存在不受限于函数的executing scope(不同于stack)
+\end{itemize}
+\item[堆的实现]
+\begin{itemize}
+  \item 堆在地址低段，向高地址增长
+  \item Linux中的堆实现(\texttt{calloc(), free()})是\texttt{glibc}的一部分
+\end{itemize}
+\end{description}
+\textbf{堆溢出}是非常常见的安全漏洞，为了利用heap overflow，需要了解堆。
+\end{frame}
+
+\subsection{struct -- chunk}
+\begin{frame}[fragile]{\kaishu 堆的结构}{\fangsong chunk数据结构}
+
+堆是一整块连续的内存，由若干chunk组成。Allocated chunk的数据结构如下。
+{\scriptsize
+\begin{verbatim}
+    chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of previous chunk, if allocated            | |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of chunk, in bytes                       |M|P|
+      mem-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             User data starts here...                          |
+            |                                                               |
+nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of chunk                                     |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+\end{verbatim}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\kaishu free chuck组成双向链表}
+\begin{lstlisting}[basicstyle=\scriptsize]
+struct malloc_chunk {
+  INTERNAL_SIZE_T      prev_size;  /* Size of previous chunk (if free).  */
+  INTERNAL_SIZE_T      size;       /* Size in bytes, including overhead. */
+
+  struct malloc_chunk* fd;         /* double links -- used only if free. */
+  struct malloc_chunk* bk;
+
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk* bk_nextsize;
+};
+\end{lstlisting}
+
+双向链表的操作可以被利用。
+
+\end{frame}
+
+\subsection{ops -- traversal}
+\begin{frame}[fragile]
+\frametitle{\kaishu 堆的遍历}
+堆溢出可利用的根源在\textbf{基于``size''的遍历操作}，比如：
+\begin{lstlisting}
+// get chunk at offset
+1323 #define chunk_at_offset(p, s) \
+    ((mchunkptr)(((char*)(p)) + (s)))
+// get next chunk by size
+1437 #define next_chunk(p) \
+    ((mchunkptr)( ((char*)(p)) + ((p)->size & ~SIZE_BITS) ))
+\end{lstlisting}
+\end{frame}
+
+\subsection{overflow -- overwrite metadata}
+\begin{frame}
+\frametitle{\kaishu 为什么溢出可以被利用}
+覆盖metadata(特别是prev-size, size)可以控制堆遍历的次序。
+\begin{figure}
+\centering
+\begin{tabular}{|c|}
+  \hline
+  prev-size \\ \hline
+  size \\ \hline
+  user data ( overflow !) \\ \hline
+  ... \\ \hline
+  prev-size \\ \hline
+  size \\ \hline
+  user data \\ \hline
+\end{tabular}
+\end{figure}
+\end{frame}
+
+\section{Exploiting free()}
+\begin{frame}[fragile]
+\frametitle{free(void *p)}
+\texttt{free(void* P)}的过程
+\begin{enumerate}
+  \item 安全性检查(*)
+  \item 标记\texttt{P->malloc\_chunk}中的位
+  \item 将相邻的free chunks合并（双向链表的删除）(**)
+\end{enumerate}
+合并分两种：前向、后向。分别可以利用。
+\end{frame}
+
+\subsection{forward consolidate}
+\begin{frame}[fragile]
+\frametitle{\kaishu 前向合并}
+\begin{lstlisting}
+_int_free(mstate av, mchunkptr p, int have_lock)
+3892     if (!prev_inuse(p)) {      /* (1) */
+3893       prevsize = p->prev_size; /* (2) */
+3894       size += prevsize;
+3895       p = chunk_at_offset(p, -((long) prevsize));  /* (3) */
+3896       unlink(p, bck, fwd);     /* (4) */
+3897     }
+\end{lstlisting}
+\begin{enumerate}
+  \item 检查前一个chunk是否free
+  \item 得到前一个chunk的size
+  \item 将指针前移prev\_size
+  \item 从双向链表中删除
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\kaishu 利用双向链表的删除}
+我们可以通过溢出将prev\_size覆盖，从而将p指向我们想要的地方。而之后的双向链表删除，可以利用p实现对任意内存的修改。
+\begin{lstlisting}
+1424 #define unlink(P, BK, FD) {
+1425   FD = P->fd;   \    // FD = A
+1426   BK = P->bk;   \    // BK = B
+1430   FD->bk = BK;  \    // *(A+12) = B;
+1431   BK->fd = FD;  \    // *(B+8) = A;
+1451 }
+\end{lstlisting}
+
+总之，选取两个合法地址A,B，可以实现任意赋值
+
+\texttt{*(A+12) = B;*(B+8) = A;}
+\end{frame}
+
+\subsection{backward consolidate}
+\begin{frame}[fragile]
+\frametitle{\kaishu 利用后向合并}
+
+\begin{lstlisting}
+3856    nextchunk = chunk_at_offset(p, size); // 1
+3901    nextinuse = inuse_bit_at_offset(nextchunk, nextsize); // 2'1
+4084    if (!nextinuse) { // 2'2
+4085        unlink(nextchunk, bck, fwd); // 3
+4086        size += nextsize;
+4087    } else
+4088        clear_inuse_bit_at_offset(nextchunk, 0);
+\end{lstlisting}
+\begin{enumerate}
+  \item 得到下一个chunk的指针
+  \item 判断下一个chunk是否free
+  \item 双向链表删除
+\end{enumerate}
+\end{frame}
+
+\section{Exploiting}
+\begin{frame}[fragile]
+\frametitle{\kaishu 情况}
+\begin{itemize}
+  \item 能利用的只有一个chunk(cpumap)，很难再calloc一个
+  \item 但是size可以调整(max\_vcpu)
+  \item free(cpumap)也不能变
+\end{itemize}
+
+因此利用前向合并比较困难，只能利用后向合并。
+
+\end{frame}
+
+\begin{frame}[fragile]{\kaishu 构造chunk，利用后向合并}
+\begin{itemize}
+  \item 构造2个额外的chunk
+  \item 调用free(cpumap)，出发后向合并
+\end{itemize}
+\begin{lstlisting}
+//sizeof(size_t) == 8
+\end{lstlisting}
+{\small \begin{verbatim}
++--------------------------------------------------------+
+|prev_sz| size | ... |prev_sz| size | A | B |prev_sz|size|
+|(0x70) | 0x24 |     |       |    |?|   |   |       |  |0|
++--------------------------------------------------------+
+               ^     ^
+               |     |
+             cpumap  next_chunk
+\end{verbatim}}
+\begin{itemize}
+  \item 目前正在看\texttt{\_int\_free(..)}源码，研究如何绕过安全检查。
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion}
+?
+\end{frame}
+
+\end{document}

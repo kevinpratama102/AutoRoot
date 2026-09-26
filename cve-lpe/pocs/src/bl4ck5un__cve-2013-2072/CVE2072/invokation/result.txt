@@ -1,0 +1,60 @@
+===domInfo===
+<domain id=0 name=Domain-0 memory=991420416 state=running>
+
+
+===cpus===
+[[0, 1], [0, 1]]
+
+
+==all vms==
+[<domain id=0 name=Domain-0 memory=991420416 state=running>]
+
+
+==dom0==
+{}
+
+
+===xeninfo===
+{'cc_compile_by': 'xen',
+ 'cc_compile_date': 'Sat Nov 30 21:58:29 CST 2013',
+ 'cc_compile_domain': '',
+ 'cc_compiler': 'gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3',
+ 'platform_params': 'virt_start=0xffff800000000000',
+ 'xen_caps': 'xen-3.0-x86_64 xen-3.0-x86_32p ',
+ 'xen_changeset': 'unavailable',
+ 'xen_commandline': 'placeholder',
+ 'xen_extra': '.3',
+ 'xen_major': 4,
+ 'xen_minor': 2,
+ 'xen_pagesize': 4096}
+
+
+===domain_getinfo===
+[{'blocked': 0,
+  'cpu_time': 98209610987L,
+  'cpupool': 0,
+  'crashed': 0,
+  'domid': 0,
+  'dying': 0,
+  'handle': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  'hvm': 0,
+  'max_vcpu_id': 1,
+  'maxmem_kb': 17179869180L,
+  'mem_kb': 968184L,
+  'online_vcpus': 2,
+  'paused': 0,
+  'running': 1,
+  'shutdown': 0,
+  'shutdown_reason': 255,
+  'ssidref': 0}]
+
+
+===vcpu_getinfo===
+{'blocked': 1,
+ 'cpu': 0,
+ 'cpu_time': 69096293749L,
+ 'cpumap': [0, 1],
+ 'online': 1,
+ 'running': 0}
+
+

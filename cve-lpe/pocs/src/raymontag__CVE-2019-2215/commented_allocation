@@ -1,0 +1,242 @@
+ 11. kmem_cache_alloc_trace+0xee/0x25a /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/mm/slub.c:2819
+ 10. kmalloc /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/include/linux/slab.h:488
+ 9. kzalloc /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/include/linux/slab.h:661
+ 8. binder_get_thread+0x166/0x6d8 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/drivers/android/binder.c:4677
+ 7. binder_poll+0x4c/0x1c2 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/drivers/android/binder.c:4805
+ 6. ep_item_poll /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:888
+ 5. ep_insert /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:1476
+ 3. SyS_epoll_ctl+0x1548/0x24ef /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/fs/eventpoll.c:2014
+
+===
+3.
+===
+op == EPOLL_CTL_ADD
+SYSCALL_DEFINE4(epoll_ctl, int, epfd, int, op, int, fd,
+		struct epoll_event __user *, event)
+{
+	int error;
+	int full_check = 0;
+	struct fd f, tf;
+	struct eventpoll *ep;
+	struct epitem *epi;
+	struct epoll_event epds;
+	struct eventpoll *tep = NULL;
+
+	error = -EFAULT;
+	if (ep_op_has_event(op) &&
+	    copy_from_user(&epds, event, sizeof(struct epoll_event))) // -> copy event from user space to kernel space
+		goto error_return;
+
+    // v get files for eventpoll and target file descriptors
+	error = -EBADF;
+	f = fdget(epfd);
+	if (!f.file)
+		goto error_return;
+
+	/* Get the "struct file *" for the target file */
+	tf = fdget(fd);
+	if (!tf.file)
+		goto error_fput;
+
+...
+
+	ep = f.file->private_data; // -> f is epoll-file descriptor, private_data is corresponding data -> struct eventpoll
+
+...
+
+	/*
+	 * Try to lookup the file inside our RB tree, Since we grabbed "mtx"
+	 * above, we can be sure to be able to use the item looked up by
+	 * ep_find() till we release the mutex.
+	 */
+	epi = ep_find(ep, tf.file, fd); // -> epi is 'struct epitem', defined in local context -> ep_find will search in a red black tree (contained in ep) for the target file and store epitem in epi
+
+	error = -EINVAL;
+	switch (op) {
+	case EPOLL_CTL_ADD:
+		if (!epi) { // -> no epitem for target file fd/tf
+			epds.events |= POLLERR | POLLHUP;
+			error = ep_insert(ep, &epds, tf.file, fd, full_check);
+		} else
+			error = -EEXIST;
+		if (full_check)
+			clear_tfile_check_list();
+		break;
+
+...
+
+error_fput:
+	fdput(f);
+error_return:
+
+	return error;
+}
+
+===
+5.
+===
+static int ep_insert(struct eventpoll *ep, struct epoll_event *event,
+		     struct file *tfile, int fd, int full_check)
+{
+	int error, revents, pwake = 0;
+	unsigned long flags;
+	long user_watches;
+	struct epitem *epi;
+	struct ep_pqueue epq;
+
+	user_watches = atomic_long_read(&ep->user->epoll_watches);
+	if (unlikely(user_watches >= max_user_watches))
+		return -ENOSPC;
+	if (!(epi = kmem_cache_alloc(epi_cache, GFP_KERNEL))) // -> allocate the item which holds information about the target file
+		return -ENOMEM;
+
+	/* Item initialization follow here ... */
+	INIT_LIST_HEAD(&epi->rdllink);
+	INIT_LIST_HEAD(&epi->fllink);
+	INIT_LIST_HEAD(&epi->pwqlist);
+	epi->ep = ep;
+	ep_set_ffd(&epi->ffd, tfile, fd); // -> set file for eventpoll to target fd
+
+...
+
+	/* Initialize the poll table using the queue callback */
+	epq.epi = epi;
+	init_poll_funcptr(&epq.pt, ep_ptable_queue_proc); // -> important when poll_wait() is called in binder_poll()
+
+	/*
+	 * Attach the item to the poll hooks and get current event bits.
+	 * We can safely use the file* here because its usage count has
+	 * been increased by the caller of this function. Note that after
+	 * this operation completes, the poll callback can start hitting
+	 * the new item.
+	 */
+	revents = ep_item_poll(epi, &epq.pt); // -> add target file to poll table
+
+...
+
+	/*
+	 * Add the current item to the RB tree. All RB tree operations are
+	 * protected by "mtx", and ep_insert() is called with "mtx" held.
+	 */
+	ep_rbtree_insert(ep, epi); // -> add eventpoll item to the red black tree which formely did not find an item for the target fil
+
+...
+
+	return 0;
+
+...
+}
+
+===
+6. // executes file's poll operation which is binder_poll from /drivers/android/binder.c for /dev/binder
+===
+
+===
+7. creates the binder thread if not available and registers it for polling
+===
+// filp is the target file, wait is the eventpoll poll table
+static unsigned int binder_poll(struct file *filp,
+				struct poll_table_struct *wait)
+{
+	struct binder_proc *proc = filp->private_data;
+	struct binder_thread *thread = NULL;
+	int wait_for_proc_work;
+
+	binder_lock(__func__);
+
+	thread = binder_get_thread(proc);
+
+	wait_for_proc_work = thread->transaction_stack == NULL &&
+		list_empty(&thread->todo) && thread->return_error == BR_OK;
+
+	binder_unlock(__func__);
+
+	if (wait_for_proc_work) {
+...
+	} else {
+		if (binder_has_thread_work(thread))
+			return POLLIN;
+		poll_wait(filp, &thread->wait, wait); // -> add target file for polling to poll table, thread->wait is the wait queue, calls  ep_read_events_proc() eventually
+		if (binder_has_thread_work(thread))
+			return POLLIN;
+	}
+	return 0;
+}
+
+===
+8. get a binder thread, containing the 'wait list'
+===
+static struct binder_thread *binder_get_thread(struct binder_proc *proc)
+{
+	struct binder_thread *thread = NULL;
+	struct rb_node *parent = NULL;
+	struct rb_node **p = &proc->threads.rb_node;
+
+    // v search for binder thread in current process
+	while (*p) {
+		parent = *p;
+		thread = rb_entry(parent, struct binder_thread, rb_node);
+
+		if (current->pid < thread->pid)
+			p = &(*p)->rb_left;
+		else if (current->pid > thread->pid)
+			p = &(*p)->rb_right;
+		else
+			break;
+	}
+    // v thread not found, init one
+	if (*p == NULL) {
+		thread = kzalloc(sizeof(*thread), GFP_KERNEL); // -> allocate zeroed memory in kernel spoace
+		if (thread == NULL)
+			return NULL;
+		binder_stats_created(BINDER_STAT_THREAD);
+		thread->proc = proc;
+		thread->pid = current->pid;
+		init_waitqueue_head(&thread->wait); // -> this should be the rogue memory chunk
+
+...
+
+	}
+	return thread;
+}
+
+===
+// is called by poll_wait() with filp -> target file, &thread->wait -> wait queue in binder thread, wait -> poll table queue from epitem
+===
+static void ep_ptable_queue_proc(struct file *file, wait_queue_head_t *whead,
+				 poll_table *pt)
+{
+	struct epitem *epi = ep_item_from_epqueue(pt); // -> our created epitem from ep_insert()
+	struct eppoll_entry *pwq;
+
+	if (epi->nwait >= 0 && (pwq = kmem_cache_alloc(pwq_cache, GFP_KERNEL))) {
+		init_waitqueue_func_entry(&pwq->wait, ep_poll_callback);
+		pwq->whead = whead; //->  pointer to wait queue in binder thread
+		pwq->base = epi; // -> set epitem as base for queue
+		if (epi->event.events & EPOLLEXCLUSIVE)
+			add_wait_queue_exclusive(whead, &pwq->wait); //->  pointer to wait queue in binder thread (2nd link)
+		else
+			add_wait_queue(whead, &pwq->wait); //->  pointer to wait queue in binder thread (2nd link)
+		list_add_tail(&pwq->llink, &epi->pwqlist);
+		epi->nwait++;
+	} else {
+		/* We have to signal that an error occurred */
+		epi->nwait = -1;
+	}
+}
+
+
+===
+9.
+===
+// kzalloc just calls kmalloc with GFP_ZERO flag -> return zeroed page
+// 10. and 11. uninteresting
+
+===
+memory structure
+===
+epitem is contained red black tree in eventpoll structure
+epitem pwqlist *-> eppoll_entry llink
+                                wait  *->v
+                                whead *->v 
+proc *-> binder_thread thread -> wait_queue_head_t wait (contains pointers for list head)

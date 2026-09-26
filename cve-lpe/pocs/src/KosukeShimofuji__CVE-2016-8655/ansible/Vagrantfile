@@ -1,0 +1,13 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "cloud-xenial64"
+  #config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20160521.0.0/providers/virtualbox.box"
+  config.vm.box_url = "https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box"
+
+  config.vm.define "CVE-2016-8655" do |machine|
+    machine.vm.network "private_network", ip: "192.168.10.115"
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+  end
+
+end

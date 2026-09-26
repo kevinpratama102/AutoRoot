@@ -1,0 +1,23 @@
+
+Host docker1
+  hostname 1.2.3.4
+  user someusername
+Host docker2
+  hostname 1.2.3.5
+  user someusername
+Host docker3
+  hostname 1.2.3.6
+  user someusername
+
+Host db1
+  hostname 1.2.4.4
+  user someusernamefordb
+Host db2
+  hostname 1.2.4.5
+  user someusernamefordb
+Host db3
+  hostname 1.2.4.6
+  user someusernamefordb
+Host db4
+  hostname 1.2.4.7
+  user someusernamefordb

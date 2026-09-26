@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SentinelStream AI | Professional Live SIEM</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Updated Deep Mesh Gradient Background */
+        body { 
+            background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%);
+            min-height: 100vh;
+            color: #f1f5f9;
+        }
+        .glass-panel { 
+            background: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+        .neon-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); border-color: #ef4444 !important; }
+        .neon-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); border-color: #3b82f6 !important; }
+        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(1000%); } }
+        .scanner-line { height: 2px; width: 100%; background: #3b82f6; opacity: 0.3; animation: scan 4s linear infinite; }
+    </style>
+</head>
+<body class="font-mono text-sm antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const SIEMV5 = () => {
+            // State for Assets (The Registry)
+            const [assets, setAssets] = useState([
+                { id: 1, name: "Gateway-Main", ip: "192.168.1.1", vuln: "None", status: "Secure" }
+            ]);
+            
+            // State for Live Logs
+            const [logs, setLogs] = useState([]);
+            
+            // Form State for Adding Devices
+            const [ipInput, setIpInput] = useState("");
+            const [nameInput, setNameInput] = useState("");
+            const [vulnInput, setVulnInput] = useState("");
+
+            // 1. WORKING ENROLLMENT LOGIC
+            const handleAddDevice = (e) => {
+                e.preventDefault();
+                if (!ipInput || !nameInput) return;
+                
+                const newDevice = {
+                    id: Date.now(),
+                    name: nameInput,
+                    ip: ipInput,
+                    vuln: vulnInput || "Pending Scan",
+                    status: vulnInput ? "Warning" : "Secure"
+                };
+
+                // Add to assets list
+                setAssets(prev => [...prev, newDevice]);
+                
+                // Clear form
+                setIpInput(""); setNameInput(""); setVulnInput("");
+            };
+
+            // 2. DYNAMIC THREAT CORRELATION ENGINE
+            useEffect(() => {
+                const threatPatterns = ["DDoS Burst", "Brute Force", "SQL Injection", "Port Scan"];
+                
+                const interval = setInterval(() => {
+                    if (assets.length === 0) return;
+
+                    // Pick a random device from YOUR added assets
+                    const target = assets[Math.floor(Math.random() * assets.length)];
+                    const pattern = threatPatterns[Math.floor(Math.random() * threatPatterns.length)];
+                    
+                    const newLog = {
+                        id: Date.now(),
+                        time: new Date().toLocaleTimeString(),
+                        type: pattern,
+                        target: target.name,
+                        ip: target.ip,
+                        isCritical: target.status === "Warning" || pattern === "SQL Injection"
+                    };
+
+                    setLogs(prev => [newLog, ...prev].slice(0, 7));
+                }, 3500);
+
+                return () => clearInterval(interval);
+            }, [assets]); // Restarts whenever a new asset is added!
+
+            return (
+                <div className="p-10 max-w-[1400px] mx-auto">
+                    {/* Professional Header */}
+                    <div className="flex justify-between items-center mb-12 border-b border-slate-800 pb-6">
+                        <div>
+                            <h1 className="text-3xl font-black italic tracking-tighter text-white uppercase">Sentinel<span className="text-blue-500">Stream</span> AI</h1>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Autonomous Vulnerability & Threat Intelligence</p>
+                        </div>
+                        <div className="flex gap-4">
+                            <div className="text-right px-4 py-2 bg-white/5 rounded-xl border border-white/5">
+                                <p className="text-[9px] text-slate-500 uppercase">System Health</p>
+                                <p className="text-sm font-bold text-green-400 leading-none">OPTIMIZED</p>
+                            </div>
+                            <div className="text-right px-4 py-2 bg-white/5 rounded-xl border border-white/5">
+                                <p className="text-[9px] text-slate-500 uppercase">Active Nodes</p>
+                                <p className="text-sm font-bold text-blue-500 leading-none">{assets.length}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 gap-8">
+                        {/* Device Enrollment Section (WORKING FORM) */}
+                        <div className="col-span-4 space-y-6">
+                            <div className="glass-panel p-6 rounded-3xl relative overflow-hidden">
+                                <div className="scanner-line"></div>
+                                <h3 className="text-xs font-bold text-slate-400 uppercase mb-6 tracking-widest">Enroll Network Node</h3>
+                                <form onSubmit={handleAddDevice} className="space-y-4">
+                                    <input value={ipInput} onChange={(e) => setIpInput(e.target.value)} placeholder="Device IP (e.g. 10.0.0.5)" className="w-full bg-black/40 border border-slate-700 p-3 rounded-xl text-xs focus:neon-blue outline-none transition-all" />
+                                    <input value={nameInput} onChange={(e) => setNameInput(e.target.value)} placeholder="Asset Name" className="w-full bg-black/40 border border-slate-700 p-3 rounded-xl text-xs focus:neon-blue outline-none transition-all" />
+                                    <input value={vulnInput} onChange={(e) => setVulnInput(e.target.value)} placeholder="Vulnerability / CVE (Optional)" className="w-full bg-black/40 border border-slate-700 p-3 rounded-xl text-xs focus:neon-blue outline-none transition-all" />
+                                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-[10px] uppercase transition-all tracking-widest">Register Device</button>
+                                </form>
+                            </div>
+
+                            <div className="glass-panel p-6 rounded-3xl">
+                                <h3 className="text-xs font-bold text-slate-400 uppercase mb-4 tracking-widest">Asset Registry</h3>
+                                <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                    {assets.map(asset => (
+                                        <div key={asset.id} className="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                                            <div>
+                                                <p className="text-xs font-bold text-white">{asset.name}</p>
+                                                <p className="text-[10px] text-slate-500">{asset.ip}</p>
+                                            </div>
+                                            <span className={`text-[9px] font-bold px-2 py-1 rounded ${asset.status === 'Secure' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>
+                                                {asset.status}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Live Log Stream Section */}
+                        <div className="col-span-8 space-y-4">
+                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-2">Real-Time Threat Correlation</h3>
+                            {logs.map(log => (
+                                <div key={log.id} className={`glass-panel p-5 rounded-3xl border-l-4 transition-all duration-700 ${log.isCritical ? 'neon-red' : 'border-blue-600'}`}>
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <span className={`text-[10px] font-bold px-2 py-1 rounded bg-black/40 ${log.isCritical ? 'text-red-500' : 'text-blue-400'}`}>
+                                                [{log.type.toUpperCase()}]
+                                            </span>
+                                            <p className="text-sm font-bold text-white mt-3 uppercase tracking-tighter">Correlation Hit: {log.target}</p>
+                                            <p className="text-[10px] text-slate-500 mt-1">Source Node: {log.ip}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-[10px] text-slate-600 font-bold mb-4">{log.time}</p>
+                                            <div className="flex items-center gap-2 text-emerald-400 text-[9px] font-black border border-emerald-500/20 px-3 py-1.5 rounded-full bg-emerald-500/5 uppercase italic">
+                                                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
+                                                Threat Neutralized
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {logs.length === 0 && <p className="text-center text-slate-600 italic text-xs mt-20">Monitoring network for anomalies...</p>}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SIEMV5 />);
+    </script>
+</body>
+</html>

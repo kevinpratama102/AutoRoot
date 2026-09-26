@@ -1,0 +1,47 @@
+ 10. kfree+0xd0/0x5b6 /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/mm/slub.c:3976
+ 9. binder_free_thread /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/drivers/android/binder.c:4705
+ 6. binder_ioctl+0x3ec/0x113d /home/grayfox/exploitation/android-kernel-workshop/android-4.14-dev/goldfish/drivers/android/binder.c:5062
+ 
+===
+6. 
+===
+// filp is /dev/binder file
+static long binder_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+{
+	int ret;
+	struct binder_proc *proc = filp->private_data; // -> binder process
+	struct binder_thread *thread; // -> the binder thread which was allocated in binder_poll() (see commented_allocation)
+	unsigned int size = _IOC_SIZE(cmd);
+	void __user *ubuf = (void __user *)arg;
+
+...
+	thread = binder_get_thread(proc); // -> get the binder thread, which must be previously alloacted
+	if (thread == NULL) {
+		ret = -ENOMEM;
+		goto err;
+	}
+
+	switch (cmd) {
+...
+	case BINDER_THREAD_EXIT:
+		binder_debug(BINDER_DEBUG_THREADS, "%d:%d exit\n",
+			     proc->pid, thread->pid);
+		binder_free_thread(proc, thread); // -> free the thread
+		thread = NULL;
+		break;
+...
+	}
+	ret = 0;
+...
+}
+
+===
+9.
+===
+static int binder_free_thread(struct binder_proc *proc,
+			      struct binder_thread *thread)
+{
+...
+	kfree(thread); // -> free the thread structure 
+...
+}
