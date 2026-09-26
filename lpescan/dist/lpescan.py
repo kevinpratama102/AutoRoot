@@ -579,9 +579,15 @@ def collect_facts_windows():
         for m in re.finditer(r"(\w+)\s*:\s*(.+)", txt):
             k_, v_ = m.group(1), m.group(2).strip()
             if k_ == "CurrentBuildNumber":
-                build = int(v_ or 0)
+                try:
+                    build = int(v_ or 0)
+                except ValueError:
+                    build = 0
             elif k_ == "UBR":
-                ubr = int(v_ or 0)
+                try:
+                    ubr = int(v_ or 0)
+                except ValueError:
+                    ubr = 0
             elif k_ == "DisplayVersion":
                 dver = v_
             elif k_ == "ProductName":
@@ -715,23 +721,27 @@ def match_cves(facts, data):
         return len(cons) == 1 and cons[0][0] == "ALL"
 
     # ---- tier kernel ----
-    knorm = normalize_num(facts["kernel"])
-    kb = facts.get("kernel_build") or {}
-    kb_flag = bool(kb.get("distro_kernel"))
-    kb_date = kb.get("build_date")
-    for ci, pi, cons, raw in idx.get("linux:linux_kernel", []):
-        if is_all(cons):
-            if cves[ci].get("kev"):
-                _add_match(res, ci, cves[ci], "kernel", "possible",
+    # facts windows tidak punya key "kernel" -> guard wajib (sebelumnya KeyError);
+    # knorm kosong juga berbahaya: eval_constraint tanpa pv-guard akan match [>=x]
+    # terhadap [] dan menghasilkan kernel match palsu di host windows
+    if facts.get("kernel"):
+        knorm = normalize_num(facts["kernel"])
+        kb = facts.get("kernel_build") or {}
+        kb_flag = bool(kb.get("distro_kernel"))
+        kb_date = kb.get("build_date")
+        for ci, pi, cons, raw in idx.get("linux:linux_kernel", []):
+            if is_all(cons):
+                if cves[ci].get("kev"):
+                    _add_match(res, ci, cves[ci], "kernel", "possible",
+                               "linux:linux_kernel", raw, facts["kernel"],
+                               backported=kb_flag and _likely_backported(
+                                   cves[ci].get("published"), kb_date))
+                continue
+            if eval_constraint(None, cons, installed_toks=knorm):
+                _add_match(res, ci, cves[ci], "kernel", "high",
                            "linux:linux_kernel", raw, facts["kernel"],
                            backported=kb_flag and _likely_backported(
                                cves[ci].get("published"), kb_date))
-            continue
-        if eval_constraint(None, cons, installed_toks=knorm):
-            _add_match(res, ci, cves[ci], "kernel", "high",
-                       "linux:linux_kernel", raw, facts["kernel"],
-                       backported=kb_flag and _likely_backported(
-                           cves[ci].get("published"), kb_date))
 
     # ---- tier package ----
     for name, ver in facts["packages"].items():
@@ -1815,6 +1825,9 @@ def main():
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     out_path = args.report or f"scan-report-{facts['hostname']}-{ts}.json"
+    out_dir = os.path.dirname(os.path.abspath(out_path))
+    if not os.path.isdir(out_dir):
+        raise SystemExit(f"[!] direktori report tidak ada: {out_dir}")
     with open(out_path, "w") as f:
         json.dump(report, f, indent=1, default=str)
     if not args.json_only:
