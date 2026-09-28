@@ -1,0 +1,3911 @@
+{
+ "scanner": {
+  "version": "1.2.0",
+  "dataset_generated": "2026-09-26T21:01:53Z",
+  "cve_count": 23847
+ },
+ "target": {
+  "hostname": "astinapura",
+  "os": "linux",
+  "arch": "x86_64",
+  "kernel": "6.14.0-35-generic",
+  "kernel_build": {
+   "distro_kernel": true,
+   "distro_name": "ubuntu",
+   "build_date": null,
+   "source": "/proc/version"
+  },
+  "distro": {
+   "id": "ubuntu",
+   "version_id": "24.04",
+   "codename": "noble",
+   "pretty": "Ubuntu 24.04.3 LTS"
+  },
+  "debian_version": "trixie/sid",
+  "packages": {
+   "adduser": "3.137ubuntu1",
+   "adwaita-icon-theme": "46.0-1",
+   "alsa-topology-conf": "1.2.5.1-2",
+   "alsa-ucm-conf": "1.2.10-1ubuntu5.7",
+   "amd64-microcode": "3.20250311.1ubuntu0.24.04.1",
+   "apache2": "2.4.58-1ubuntu8.8",
+   "apache2-bin": "2.4.58-1ubuntu8.8",
+   "apache2-data": "2.4.58-1ubuntu8.8",
+   "apache2-utils": "2.4.58-1ubuntu8.8",
+   "apparmor": "4.0.1really4.0.1-0ubuntu0.24.04.4",
+   "apport": "2.28.1-0ubuntu3.8",
+   "apport-core-dump-handler": "2.28.1-0ubuntu3.8",
+   "apport-symptoms": "0.25",
+   "appstream": "1.0.2-1build6",
+   "apt": "2.8.3",
+   "apt-transport-https": "2.8.3",
+   "at-spi2-common": "2.52.0-1build1",
+   "at-spi2-core": "2.52.0-1build1",
+   "base-files": "13ubuntu10.3",
+   "base-passwd": "3.6.3build1",
+   "bash": "5.2.21-2ubuntu4",
+   "bcache-tools": "1.0.8-5build1",
+   "bind9-dnsutils": "1:9.18.39-0ubuntu0.24.04.2",
+   "bind9-host": "1:9.18.39-0ubuntu0.24.04.2",
+   "bind9-libs": "1:9.18.39-0ubuntu0.24.04.2",
+   "bpfcc-tools": "0.29.1+ds-1ubuntu7",
+   "bpftrace": "0.20.2-1ubuntu4.3",
+   "bsdutils": "1:2.39.3-9ubuntu6.3",
+   "btrfs-progs": "6.6.3-1.1build2",
+   "busybox-initramfs": "1:1.36.1-6ubuntu3.1",
+   "ca-certificates": "20240203",
+   "ca-certificates-java": "20240118",
+   "cloud-guest-utils": "0.33-1",
+   "cloud-init": "25.2-0ubuntu1~24.04.1",
+   "console-setup": "1.226ubuntu1",
+   "console-setup-linux": "1.226ubuntu1",
+   "coreutils": "9.4-3ubuntu6.1",
+   "cpio": "2.15+dfsg-1ubuntu2",
+   "cryptsetup": "2:2.7.0-1ubuntu4.2",
+   "cryptsetup-bin": "2:2.7.0-1ubuntu4.2",
+   "cryptsetup-initramfs": "2:2.7.0-1ubuntu4.2",
+   "curl": "8.5.0-2ubuntu10.6",
+   "dash": "0.5.12-6ubuntu5",
+   "dbus": "1.14.10-4ubuntu4.1",
+   "dbus-bin": "1.14.10-4ubuntu4.1",
+   "dbus-daemon": "1.14.10-4ubuntu4.1",
+   "dbus-session-bus-common": "1.14.10-4ubuntu4.1",
+   "dbus-system-bus-common": "1.14.10-4ubuntu4.1",
+   "dbus-user-session": "1.14.10-4ubuntu4.1",
+   "dconf-gsettings-backend": "0.40.0-4ubuntu0.1",
+   "dconf-service": "0.40.0-4ubuntu0.1",
+   "debconf": "1.5.86ubuntu1",
+   "debianutils": "5.17build1",
+   "dhcpcd-base": "1:10.0.6-1ubuntu3.1",
+   "diffutils": "1:3.10-1build1",
+   "dirmngr": "2.4.4-2ubuntu17.3",
+   "distro-info-data": "0.60ubuntu0.5",
+   "dmeventd": "2:1.02.185-3ubuntu3.2",
+   "dmsetup": "2:1.02.185-3ubuntu3.2",
+   "dnsutils": "1:9.18.39-0ubuntu0.24.04.2",
+   "dpkg": "1.22.6ubuntu6.5",
+   "dracut-install": "060+5-1ubuntu3.3",
+   "e2fsprogs": "1.47.0-2.4~exp1ubuntu4.1",
+   "eatmydata": "131-1ubuntu1",
+   "ethtool": "1:6.7-1build1",
+   "fdisk": "2.39.3-9ubuntu6.3",
+   "finalrd": "9build1",
+   "findutils": "4.9.0-5build1",
+   "firewalld": "2.1.1-1",
+   "firmware-sof-signed": "2023.12.1-1ubuntu1.10",
+   "fontconfig": "2.15.0-1.1ubuntu2",
+   "fontconfig-config": "2.15.0-1.1ubuntu2",
+   "fonts-dejavu-core": "2.37-8",
+   "fonts-dejavu-extra": "2.37-8",
+   "fonts-dejavu-mono": "2.37-8",
+   "fuse3": "3.14.0-5build1",
+   "galera-4": "26.4.23-ubu2404",
+   "gawk": "1:5.2.1-2build3",
+   "gcc-14-base": "14.2.0-4ubuntu2~24.04",
+   "gdisk": "1.0.10-1build1",
+   "gettext-base": "0.21-14ubuntu2",
+   "gir1.2-girepository-2.0": "1.80.1-1",
+   "gir1.2-glib-2.0": "2.80.0-6ubuntu3.4",
+   "gir1.2-nm-1.0": "1.46.0-1ubuntu2.3",
+   "gir1.2-packagekitglib-1.0": "1.2.8-2ubuntu1.2",
+   "git": "1:2.43.0-1ubuntu7.3",
+   "git-man": "1:2.43.0-1ubuntu7.3",
+   "gnupg": "2.4.4-2ubuntu17.3",
+   "gnupg-l10n": "2.4.4-2ubuntu17.3",
+   "gnupg-utils": "2.4.4-2ubuntu17.3",
+   "gpg": "2.4.4-2ubuntu17.3",
+   "gpg-agent": "2.4.4-2ubuntu17.3",
+   "gpg-wks-client": "2.4.4-2ubuntu17.3",
+   "gpgconf": "2.4.4-2ubuntu17.3",
+   "gpgsm": "2.4.4-2ubuntu17.3",
+   "gpgv": "2.4.4-2ubuntu17.3",
+   "grep": "3.11-4build1",
+   "groff-base": "1.23.0-3build2",
+   "grub-common": "2.12-1ubuntu7.3",
+   "grub-gfxpayload-lists": "0.7build2",
+   "grub-pc": "2.12-1ubuntu7.3",
+   "grub-pc-bin": "2.12-1ubuntu7.3",
+   "grub2-common": "2.12-1ubuntu7.3",
+   "gsettings-desktop-schemas": "46.1-0ubuntu1",
+   "gtk-update-icon-cache": "3.24.41-4ubuntu1.3",
+   "gzip": "1.12-1ubuntu3.1",
+   "hicolor-icon-theme": "0.17-2",
+   "hostname": "3.23+nmu2ubuntu2",
+   "hping3": "3.a2.ds2-10build2",
+   "humanity-icon-theme": "0.6.16",
+   "hwdata": "0.379-1",
+   "ibverbs-providers": "50.0-2ubuntu0.2",
+   "ieee-data": "20220827.1",
+   "init-system-helpers": "1.66ubuntu1",
+   "initramfs-tools": "0.142ubuntu25.5",
+   "initramfs-tools-bin": "0.142ubuntu25.5",
+   "initramfs-tools-core": "0.142ubuntu25.5",
+   "intel-microcode": "3.20250512.0ubuntu0.24.04.1",
+   "iproute2": "6.1.0-1ubuntu6.2",
+   "ipset": "7.19-1ubuntu2",
+   "iptables": "1.8.10-3ubuntu2",
+   "iputils-ping": "3:20240117-1ubuntu0.1",
+   "iso-codes": "4.16.0-1",
+   "iucode-tool": "2.3.1-3build1",
+   "java-common": "0.75+exp1",
+   "kbd": "2.6.4-2ubuntu2",
+   "keyboard-configuration": "1.226ubuntu1",
+   "keyboxd": "2.4.4-2ubuntu17.3",
+   "klibc-utils": "2.0.13-4ubuntu0.1",
+   "kmod": "31+20240202-2ubuntu7.1",
+   "kpartx": "0.9.4-5ubuntu8",
+   "krb5-locales": "1.20.1-6ubuntu2.6",
+   "less": "590-2ubuntu2.1",
+   "libabsl20220623t64": "20220623.1-3.1ubuntu3.2",
+   "libacl1": "2.3.2-1build1.1",
+   "libaio1t64": "0.3.113-6build1.1",
+   "libaom3": "3.8.2-2ubuntu0.1",
+   "libapache2-mod-php8.4": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "libapache2-mod-php8.5": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "libapparmor1": "4.0.1really4.0.1-0ubuntu0.24.04.4",
+   "libappstream5": "1.0.2-1build6",
+   "libapr1t64": "1.7.2-3.1ubuntu0.1",
+   "libaprutil1-dbd-sqlite3": "1.6.3-1.1ubuntu7",
+   "libaprutil1-ldap": "1.6.3-1.1ubuntu7",
+   "libaprutil1t64": "1.6.3-1.1ubuntu7",
+   "libapt-pkg6.0t64": "2.8.3",
+   "libargon2-1": "0~20190702+dfsg-4build1",
+   "libasound2-data": "1.2.11-1ubuntu0.1",
+   "libasound2t64": "1.2.11-1ubuntu0.1",
+   "libassuan0": "2.5.6-1build1",
+   "libatk-bridge2.0-0t64": "2.52.0-1build1",
+   "libatk-wrapper-java": "0.40.0-3build2",
+   "libatk-wrapper-java-jni": "0.40.0-3build2",
+   "libatk1.0-0t64": "2.52.0-1build1",
+   "libatm1t64": "1:2.5.1-5.1build1",
+   "libatspi2.0-0t64": "2.52.0-1build1",
+   "libattr1": "1:2.5.2-1build1.1",
+   "libaudit-common": "1:3.1.2-2.1build1.1",
+   "libaudit1": "1:3.1.2-2.1build1.1",
+   "libavahi-client3": "0.8-13ubuntu6",
+   "libavahi-common-data": "0.8-13ubuntu6",
+   "libavahi-common3": "0.8-13ubuntu6",
+   "libavif16": "1.0.4-1ubuntu3",
+   "libblkid1": "2.39.3-9ubuntu6.3",
+   "libbpf1": "1:1.3.0-2build2",
+   "libbpfcc": "0.29.1+ds-1ubuntu7",
+   "libbrotli1": "1.1.0-2build2",
+   "libbsd0": "0.12.1-1build1.1",
+   "libbz2-1.0": "1.0.8-5.1build0.1",
+   "libc-bin": "2.39-0ubuntu8.6",
+   "libc-dev-bin": "2.39-0ubuntu8.6",
+   "libc-devtools": "2.39-0ubuntu8.6",
+   "libc6": "2.39-0ubuntu8.6",
+   "libc6-dev": "2.39-0ubuntu8.6",
+   "libcairo-gobject2": "1.18.0-3build1",
+   "libcairo2": "1.18.0-3build1",
+   "libcap-ng0": "0.8.4-2build2",
+   "libcap2": "1:2.66-5ubuntu2.2",
+   "libcap2-bin": "1:2.66-5ubuntu2.2",
+   "libcbor0.10": "0.10.2-1.2ubuntu2",
+   "libcgi-fast-perl": "1:2.17-1",
+   "libcgi-pm-perl": "4.63-1",
+   "libclang-cpp18": "1:18.1.3-1ubuntu1",
+   "libclang1-18": "1:18.1.3-1ubuntu1",
+   "libclone-perl": "0.46-1build3",
+   "libcolord2": "1.4.7-1build2",
+   "libcom-err2": "1.47.0-2.4~exp1ubuntu4.1",
+   "libconfig-inifiles-perl": "3.000003-2",
+   "libcrypt-dev": "1:4.4.36-4build1",
+   "libcrypt1": "1:4.4.36-4build1",
+   "libcryptsetup12": "2:2.7.0-1ubuntu4.2",
+   "libcups2t64": "2.4.7-1.2ubuntu7.4",
+   "libcurl3t64-gnutls": "8.5.0-2ubuntu10.6",
+   "libcurl4t64": "8.5.0-2ubuntu10.6",
+   "libdatrie1": "0.2.13-3build1",
+   "libdav1d7": "1.4.1-1build1",
+   "libdb5.3t64": "5.3.28+dfsg2-7",
+   "libdbd-mysql-perl": "4.052-1ubuntu3",
+   "libdbi-perl": "1.643-4build3",
+   "libdbus-1-3": "1.14.10-4ubuntu4.1",
+   "libdbus-glib-1-2": "0.112-3build2",
+   "libdconf1": "0.40.0-4ubuntu0.1",
+   "libde265-0": "1.0.15-1build3",
+   "libdebconfclient0": "0.271ubuntu3",
+   "libdeflate0": "1.19-1build1.1",
+   "libdevmapper-event1.02.1": "2:1.02.185-3ubuntu3.2",
+   "libdevmapper1.02.1": "2:1.02.185-3ubuntu3.2",
+   "libdrm-amdgpu1": "2.4.122-1~ubuntu0.24.04.1",
+   "libdrm-common": "2.4.122-1~ubuntu0.24.04.1",
+   "libdrm-intel1": "2.4.122-1~ubuntu0.24.04.1",
+   "libdrm2": "2.4.122-1~ubuntu0.24.04.1",
+   "libduktape207": "2.7.0+tests-0ubuntu3",
+   "libdw1t64": "0.190-1.1ubuntu0.1",
+   "libeatmydata1": "131-1ubuntu1",
+   "libedit2": "3.1-20230828-1build1",
+   "libefiboot1t64": "38-3.1build1",
+   "libefivar1t64": "38-3.1build1",
+   "libelf1t64": "0.190-1.1ubuntu0.1",
+   "libencode-locale-perl": "1.05-3",
+   "libepoxy0": "1.5.10-1build1",
+   "liberror-perl": "0.17029-2",
+   "libevdev2": "1.13.1+dfsg-1build1",
+   "libexpat1": "2.6.1-2ubuntu0.3",
+   "libext2fs2t64": "1.47.0-2.4~exp1ubuntu4.1",
+   "libfcgi-bin": "2.4.2-2.1ubuntu0.24.04.1",
+   "libfcgi-perl": "0.82+ds-3build2",
+   "libfcgi0t64": "2.4.2-2.1ubuntu0.24.04.1",
+   "libfdisk1": "2.39.3-9ubuntu6.3",
+   "libffi8": "3.4.6-1build1",
+   "libfido2-1": "1.14.0-1build3",
+   "libfontconfig1": "2.15.0-1.1ubuntu2",
+   "libfreetype6": "2.13.2+dfsg-1build3",
+   "libfribidi0": "1.0.13-3build1",
+   "libfuse3-3": "3.14.0-5build1",
+   "libgav1-1": "0.18.0-1build3",
+   "libgbm1": "25.0.7-0ubuntu0.24.04.2",
+   "libgcc-s1": "14.2.0-4ubuntu2~24.04",
+   "libgcrypt20": "1.10.3-2build1",
+   "libgd3": "2.3.3-13+ubuntu24.04.1+deb.sury.org+1",
+   "libgdbm-compat4t64": "1.23-5.1build1",
+   "libgdbm6t64": "1.23-5.1build1",
+   "libgdk-pixbuf-2.0-0": "2.42.10+dfsg-3ubuntu3.2",
+   "libgdk-pixbuf2.0-bin": "2.42.10+dfsg-3ubuntu3.2",
+   "libgdk-pixbuf2.0-common": "2.42.10+dfsg-3ubuntu3.2",
+   "libgif7": "5.2.2-1ubuntu1",
+   "libgirepository-1.0-1": "1.80.1-1",
+   "libgl1": "1.7.0-1build1",
+   "libgl1-mesa-dri": "25.0.7-0ubuntu0.24.04.2",
+   "libglib2.0-0t64": "2.80.0-6ubuntu3.4",
+   "libglib2.0-bin": "2.80.0-6ubuntu3.4",
+   "libglib2.0-data": "2.80.0-6ubuntu3.4",
+   "libglvnd0": "1.7.0-1build1",
+   "libglx-mesa0": "25.0.7-0ubuntu0.24.04.2",
+   "libglx0": "1.7.0-1build1",
+   "libgmp10": "2:6.3.0+dfsg-2ubuntu6.1",
+   "libgnutls30t64": "3.8.3-1.1ubuntu3.4",
+   "libgomp1": "14.2.0-4ubuntu2~24.04",
+   "libgpg-error0": "1.47-3build2.1",
+   "libgpm2": "1.20.7-11",
+   "libgraphite2-3": "1.3.14-2build1",
+   "libgssapi-krb5-2": "1.20.1-6ubuntu2.6",
+   "libgstreamer1.0-0": "1.24.2-1ubuntu0.1",
+   "libgtk-3-0t64": "3.24.41-4ubuntu1.3",
+   "libgtk-3-bin": "3.24.41-4ubuntu1.3",
+   "libgtk-3-common": "3.24.41-4ubuntu1.3",
+   "libgudev-1.0-0": "1:238-5ubuntu1",
+   "libharfbuzz0b": "8.3.0-2build2",
+   "libheif-plugin-aomdec": "1.17.6-1ubuntu4.1",
+   "libheif-plugin-aomenc": "1.17.6-1ubuntu4.1",
+   "libheif-plugin-libde265": "1.17.6-1ubuntu4.1",
+   "libheif1": "1.17.6-1ubuntu4.1",
+   "libhogweed6t64": "3.9.1-2.2build1.1",
+   "libhtml-parser-perl": "3.81-1build3",
+   "libhtml-tagset-perl": "3.20-6",
+   "libhtml-template-perl": "2.97-2",
+   "libhttp-date-perl": "6.06-1",
+   "libhttp-message-perl": "6.45-1ubuntu1",
+   "libibverbs1": "50.0-2ubuntu0.2",
+   "libice-dev": "2:1.0.10-1build3",
+   "libice6": "2:1.0.10-1build3",
+   "libicu74": "74.2-1ubuntu3.1",
+   "libidn2-0": "2.3.7-2build1.1",
+   "libimagequant0": "2.18.0-1build1",
+   "libimobiledevice6": "1.3.0-8.1build3",
+   "libinih1": "55-1ubuntu2",
+   "libintl-perl": "1.33-1build3",
+   "libintl-xs-perl": "1.33-1build3",
+   "libio-html-perl": "1.004-3",
+   "libip4tc2": "1.8.10-3ubuntu2",
+   "libip6tc2": "1.8.10-3ubuntu2",
+   "libipset13": "7.19-1ubuntu2",
+   "libisns0t64": "0.101-0.3build3",
+   "libjansson4": "2.14-2build2",
+   "libjbig0": "2.1-6.1ubuntu2",
+   "libjpeg-turbo8": "2.1.5-2ubuntu2",
+   "libjpeg8": "8c-2ubuntu11",
+   "libjson-c5": "0.17-1build1",
+   "libk5crypto3": "1.20.1-6ubuntu2.6",
+   "libkeyutils1": "1.6.3-3build1",
+   "libklibc": "2.0.13-4ubuntu0.1",
+   "libkmod2": "31+20240202-2ubuntu7.1",
+   "libkrb5-3": "1.20.1-6ubuntu2.6",
+   "libkrb5support0": "1.20.1-6ubuntu2.6",
+   "libksba8": "1.6.6-1build1",
+   "liblcms2-2": "2.14-2build1",
+   "libldap-common": "2.6.7+dfsg-1~exp1ubuntu8.2",
+   "libldap2": "2.6.7+dfsg-1~exp1ubuntu8.2",
+   "liblerc4": "4.0.0+ds-4ubuntu2",
+   "libllvm18": "1:18.1.3-1ubuntu1",
+   "libllvm20": "1:20.1.2-0ubuntu1~24.04.2",
+   "liblmdb0": "0.9.31-1build1",
+   "liblocale-gettext-perl": "1.07-6ubuntu5",
+   "liblua5.4-0": "5.4.6-3build2",
+   "liblvm2cmd2.03": "2.03.16-3ubuntu3.2",
+   "liblwp-mediatypes-perl": "6.04-2",
+   "liblz4-1": "1.9.4-1build1.1",
+   "liblzma5": "5.6.1+really5.4.5-1ubuntu0.2",
+   "liblzo2-2": "2.10-2build4",
+   "libmariadb3": "1:12.1.1+maria~ubu2404",
+   "libmaxminddb0": "1.9.1-1build1",
+   "libmd0": "1.1.0-2build1.1",
+   "libmnl0": "1.0.5-2build1",
+   "libmodule-find-perl": "0.16-2",
+   "libmodule-scandeps-perl": "1.35-1ubuntu0.24.04.1",
+   "libmount1": "2.39.3-9ubuntu6.3",
+   "libmpfr6": "4.2.1-1build1.1",
+   "libmysqlclient21": "8.0.43-0ubuntu0.24.04.2",
+   "libncurses6": "6.4+20240113-1ubuntu2",
+   "libncursesw6": "6.4+20240113-1ubuntu2",
+   "libnetfilter-conntrack3": "1.0.9-6build1",
+   "libnetplan1": "1.1.2-2~ubuntu24.04.2",
+   "libnettle8t64": "3.9.1-2.2build1.1",
+   "libnfnetlink0": "1.0.2-2build1",
+   "libnftables1": "1.0.9-1build1",
+   "libnftnl11": "1.2.6-2build1",
+   "libnghttp2-14": "1.59.0-1ubuntu0.2",
+   "libnl-3-200": "3.7.0-0.3build1.1",
+   "libnl-route-3-200": "3.7.0-0.3build1.1",
+   "libnm0": "1.46.0-1ubuntu2.3",
+   "libnpth0t64": "1.6-3.1build1",
+   "libnspr4": "2:4.35-1.1build1",
+   "libnss-systemd": "255.4-1ubuntu8.11",
+   "libnss3": "2:3.98-1build1",
+   "libonig5": "6.9.9-1build1",
+   "libopeniscsiusr": "2.1.9-3ubuntu5.4",
+   "libp11-kit0": "0.25.3-4ubuntu2.1",
+   "libpackagekit-glib2-18": "1.2.8-2ubuntu1.2",
+   "libpam-cap": "1:2.66-5ubuntu2.2",
+   "libpam-modules": "1.5.3-5ubuntu5.5",
+   "libpam-modules-bin": "1.5.3-5ubuntu5.5",
+   "libpam-runtime": "1.5.3-5ubuntu5.5",
+   "libpam-systemd": "255.4-1ubuntu8.11",
+   "libpam0g": "1.5.3-5ubuntu5.5",
+   "libpango-1.0-0": "1.52.1+ds-1build1",
+   "libpangocairo-1.0-0": "1.52.1+ds-1build1",
+   "libpangoft2-1.0-0": "1.52.1+ds-1build1",
+   "libpcap0.8t64": "1.10.4-4.1ubuntu3",
+   "libpci3": "1:3.10.0-2build1",
+   "libpciaccess0": "0.17-3ubuntu0.24.04.2",
+   "libpcre2-8-0": "10.42-4ubuntu2.1",
+   "libpcre2-posix3": "10.42-4ubuntu2.1",
+   "libpcsclite1": "2.0.3-1build1",
+   "libperl5.38t64": "5.38.2-3.2ubuntu0.2",
+   "libpixman-1-0": "0.42.2-1build1",
+   "libplist-2.0-4": "2.3.0-1~exp2build2",
+   "libplymouth5": "24.004.60-1ubuntu7.1",
+   "libpng16-16t64": "1.6.43-5build1",
+   "libpolkit-agent-1-0": "124-2ubuntu1.24.04.2",
+   "libpolkit-gobject-1-0": "124-2ubuntu1.24.04.2",
+   "libpopt0": "1.19+dfsg-1build1",
+   "libproc-processtable-perl": "0.636-1build3",
+   "libproc2-0": "2:4.0.4-4ubuntu3.2",
+   "libpsl5t64": "0.21.2-1.1build1",
+   "libpthread-stubs0-dev": "0.4-1build3",
+   "libpython3-stdlib": "3.12.3-0ubuntu2",
+   "libpython3.12-minimal": "3.12.3-1ubuntu0.8",
+   "libpython3.12-stdlib": "3.12.3-1ubuntu0.8",
+   "librav1e0": "0.7.1-2",
+   "libreadline8t64": "8.2-4build1",
+   "libreiserfscore0t64": "1:3.6.27-7.1build1",
+   "librsvg2-2": "2.58.0+dfsg-1build1",
+   "librsvg2-common": "2.58.0+dfsg-1build1",
+   "librtmp1": "2.4+20151223.gitfa8646d.1-2build7",
+   "libsasl2-2": "2.1.28+dfsg1-5ubuntu3.1",
+   "libsasl2-modules": "2.1.28+dfsg1-5ubuntu3.1",
+   "libsasl2-modules-db": "2.1.28+dfsg1-5ubuntu3.1",
+   "libseccomp2": "2.5.5-1ubuntu3.1",
+   "libselinux1": "3.5-2ubuntu2.1",
+   "libsemanage-common": "3.5-1build5",
+   "libsemanage2": "3.5-1build5",
+   "libsensors-config": "1:3.6.0-9build1",
+   "libsensors5": "1:3.6.0-9build1",
+   "libsepol2": "3.5-2build1",
+   "libsgutils2-1.46-2": "1.46-3ubuntu4",
+   "libsharpyuv0": "1.3.2-0.4build3",
+   "libsigsegv2": "2.14-1ubuntu2",
+   "libsm-dev": "2:1.2.3-1build3",
+   "libsm6": "2:1.2.3-1build3",
+   "libsmartcols1": "2.39.3-9ubuntu6.3",
+   "libsodium23": "1.0.18-1build3",
+   "libsort-naturally-perl": "1.03-4",
+   "libsqlite3-0": "3.45.1-1ubuntu2.5",
+   "libss2": "1.47.0-2.4~exp1ubuntu4.1",
+   "libssh-4": "0.10.6-2ubuntu0.2",
+   "libssl3t64": "3.0.13-0ubuntu3.6",
+   "libstdc++6": "14.2.0-4ubuntu2~24.04",
+   "libstemmer0d": "2.2.0-4build1",
+   "libsvtav1enc1d1": "1.7.0+dfsg-2build1",
+   "libsystemd-shared": "255.4-1ubuntu8.11",
+   "libsystemd0": "255.4-1ubuntu8.11",
+   "libtasn1-6": "4.19.0-3ubuntu0.24.04.1",
+   "libtcl8.6": "8.6.14+dfsg-1build1",
+   "libterm-readkey-perl": "2.38-2build4",
+   "libthai-data": "0.1.29-2build1",
+   "libthai0": "0.1.29-2build1",
+   "libtiff6": "4.5.1+git230720-4ubuntu2.4",
+   "libtimedate-perl": "2.3300-2",
+   "libtinfo6": "6.4+20240113-1ubuntu2",
+   "libtirpc-common": "1.3.4+ds-1.1build1",
+   "libtirpc3t64": "1.3.4+ds-1.1build1",
+   "libuchardet0": "0.0.8-1build1",
+   "libudev1": "255.4-1ubuntu8.11",
+   "libunistring5": "1.1-2build1.1",
+   "libunwind8": "1.6.2-3build1.1",
+   "libupower-glib3": "1.90.3-1",
+   "liburcu8t64": "0.14.0-3.1build1",
+   "liburi-perl": "5.27-1",
+   "liburing2": "2.5-1build1",
+   "libusb-1.0-0": "2:1.0.27-1",
+   "libusbmuxd6": "2.0.2-4build3",
+   "libuuid1": "2.39.3-9ubuntu6.3",
+   "libuv1t64": "1.48.0-1.1build1",
+   "libvulkan1": "1.3.275.0-1build1",
+   "libwayland-client0": "1.22.0-2.1build1",
+   "libwayland-cursor0": "1.22.0-2.1build1",
+   "libwayland-egl1": "1.22.0-2.1build1",
+   "libwayland-server0": "1.22.0-2.1build1",
+   "libwebp7": "1.3.2-0.4build3",
+   "libwrap0": "7.6.q-33",
+   "libx11-6": "2:1.8.7-1build1",
+   "libx11-data": "2:1.8.7-1build1",
+   "libx11-dev": "2:1.8.7-1build1",
+   "libx11-xcb1": "2:1.8.7-1build1",
+   "libxau-dev": "1:1.0.9-1build6",
+   "libxau6": "1:1.0.9-1build6",
+   "libxaw7": "2:1.0.14-1build2",
+   "libxcb-dri3-0": "1.15-1ubuntu2",
+   "libxcb-glx0": "1.15-1ubuntu2",
+   "libxcb-present0": "1.15-1ubuntu2",
+   "libxcb-randr0": "1.15-1ubuntu2",
+   "libxcb-render0": "1.15-1ubuntu2",
+   "libxcb-shape0": "1.15-1ubuntu2",
+   "libxcb-shm0": "1.15-1ubuntu2",
+   "libxcb-sync1": "1.15-1ubuntu2",
+   "libxcb-xfixes0": "1.15-1ubuntu2",
+   "libxcb1": "1.15-1ubuntu2",
+   "libxcb1-dev": "1.15-1ubuntu2",
+   "libxcomposite1": "1:0.4.5-1build3",
+   "libxcursor1": "1:1.2.1-1build1",
+   "libxdamage1": "1:1.1.6-1build1",
+   "libxdmcp-dev": "1:1.1.3-0ubuntu6",
+   "libxdmcp6": "1:1.1.3-0ubuntu6",
+   "libxext6": "2:1.3.4-1build2",
+   "libxfixes3": "1:6.0.0-2build1",
+   "libxft2": "2.3.6-1build1",
+   "libxi6": "2:1.8.1-1build1",
+   "libxinerama1": "2:1.1.4-3build1",
+   "libxkbcommon0": "1.6.0-1build1",
+   "libxkbfile1": "1:1.1.0-1build4",
+   "libxml2": "2.9.14+dfsg-1.3ubuntu3.6",
+   "libxmlb2": "0.3.18-1",
+   "libxmu6": "2:1.1.3-3build2",
+   "libxmuu1": "2:1.1.3-3build2",
+   "libxpm4": "1:3.5.17-1build2",
+   "libxrandr2": "2:1.5.2-2build1",
+   "libxrender1": "1:0.9.10-1.1build1",
+   "libxshmfence1": "1.3-1build5",
+   "libxslt1.1": "1.1.39-0exp1ubuntu0.24.04.2",
+   "libxt-dev": "1:1.2.1-1.2build1",
+   "libxt6t64": "1:1.2.1-1.2build1",
+   "libxtables12": "1.8.10-3ubuntu2",
+   "libxtst6": "2:1.2.3-1.1build1",
+   "libxv1": "2:1.0.11-1.1build1",
+   "libxxf86dga1": "2:1.1.5-1build1",
+   "libxxf86vm1": "1:1.1.4-1build4",
+   "libxxhash0": "0.8.2-2build1",
+   "libyaml-0-2": "0.2.5-1build1",
+   "libyuv0": "0.0~git202401110.af6ac82-1",
+   "libzip4t64": "1.7.3-1.1ubuntu2",
+   "libzstd1": "1.5.5+dfsg2-2build1.1",
+   "linux-base": "4.5ubuntu9+24.04.1",
+   "linux-firmware": "20240318.git3b128b60-0ubuntu2.19",
+   "linux-generic-hwe-24.04": "6.14.0-35.35~24.04.1",
+   "linux-headers-6.14.0-35-generic": "6.14.0-35.35~24.04.1",
+   "linux-headers-generic-hwe-24.04": "6.14.0-35.35~24.04.1",
+   "linux-hwe-6.14-headers-6.14.0-35": "6.14.0-35.35~24.04.1",
+   "linux-hwe-6.14-tools-6.14.0-35": "6.14.0-35.35~24.04.1",
+   "linux-image-6.14.0-35-generic": "6.14.0-35.35~24.04.1",
+   "linux-image-generic-hwe-24.04": "6.14.0-35.35~24.04.1",
+   "linux-libc-dev": "6.8.0-87.88",
+   "linux-modules-6.14.0-35-generic": "6.14.0-35.35~24.04.1",
+   "linux-modules-extra-6.14.0-35-generic": "6.14.0-35.35~24.04.1",
+   "linux-tools-6.14.0-35-generic": "6.14.0-35.35~24.04.1",
+   "linux-tools-common": "6.8.0-87.88",
+   "login": "1:4.13+dfsg1-4ubuntu3.2",
+   "logsave": "1.47.0-2.4~exp1ubuntu4.1",
+   "lsb-base": "11.6",
+   "lsb-release": "12.0-2",
+   "lsof": "4.95.0-1build3",
+   "lvm2": "2.03.16-3ubuntu3.2",
+   "lxd-installer": "4ubuntu0.1",
+   "manpages": "6.7-2",
+   "manpages-dev": "6.7-2",
+   "mariadb-client": "1:12.1.1+maria~ubu2404",
+   "mariadb-client-compat": "1:12.1.1+maria~ubu2404",
+   "mariadb-client-core": "1:12.1.1+maria~ubu2404",
+   "mariadb-common": "1:12.1.1+maria~ubu2404",
+   "mariadb-server": "1:12.1.1+maria~ubu2404",
+   "mariadb-server-compat": "1:12.1.1+maria~ubu2404",
+   "mariadb-server-core": "1:12.1.1+maria~ubu2404",
+   "mawk": "1.3.4.20240123-1build1",
+   "mdadm": "4.3-1ubuntu2.1",
+   "media-types": "10.1.0",
+   "mesa-libgallium": "25.0.7-0ubuntu0.24.04.2",
+   "mesa-vulkan-drivers": "25.0.7-0ubuntu0.24.04.2",
+   "molly-guard": "0.8.3",
+   "mount": "2.39.3-9ubuntu6.3",
+   "multipath-tools": "0.9.4-5ubuntu8",
+   "mysql-common": "1:12.1.1+maria~ubu2404",
+   "nano": "7.2-2ubuntu0.1",
+   "ncurses-base": "6.4+20240113-1ubuntu2",
+   "ncurses-bin": "6.4+20240113-1ubuntu2",
+   "ncurses-term": "6.4+20240113-1ubuntu2",
+   "needrestart": "3.6-7ubuntu4.5",
+   "net-tools": "2.10-0.1ubuntu4.4",
+   "netbase": "6.4",
+   "netcat-traditional": "1.10-48",
+   "netplan-generator": "1.1.2-2~ubuntu24.04.2",
+   "netplan.io": "1.1.2-2~ubuntu24.04.2",
+   "networkd-dispatcher": "2.2.4-1",
+   "nftables": "1.0.9-1build1",
+   "nginx": "1.24.0-2ubuntu7.5",
+   "nginx-common": "1.24.0-2ubuntu7.5",
+   "nodejs": "24.11.0-1nodesource1",
+   "ntp": "1:4.2.8p15+dfsg-2~1.2.2+dfsg1-4build2",
+   "ntpdate": "1:4.2.8p15+dfsg-2~1.2.2+dfsg1-4build2",
+   "ntpsec": "1.2.2+dfsg1-4build2",
+   "ntpsec-ntpdate": "1.2.2+dfsg1-4build2",
+   "ntpsec-ntpdig": "1.2.2+dfsg1-4build2",
+   "open-iscsi": "2.1.9-3ubuntu5.4",
+   "openjdk-25-jdk": "25+36-1~24.04.2",
+   "openjdk-25-jdk-headless": "25+36-1~24.04.2",
+   "openjdk-25-jre": "25+36-1~24.04.2",
+   "openjdk-25-jre-headless": "25+36-1~24.04.2",
+   "openssh-client": "1:9.6p1-3ubuntu13.14",
+   "openssh-server": "1:9.6p1-3ubuntu13.14",
+   "openssh-sftp-server": "1:9.6p1-3ubuntu13.14",
+   "openssl": "3.0.13-0ubuntu3.6",
+   "os-prober": "1.81ubuntu4",
+   "packagekit": "1.2.8-2ubuntu1.2",
+   "packagekit-tools": "1.2.8-2ubuntu1.2",
+   "passwd": "1:4.13+dfsg1-4ubuntu3.2",
+   "patch": "2.7.6-7build3",
+   "pci.ids": "0.0~2024.03.31-1ubuntu0.1",
+   "pciutils": "1:3.10.0-2build1",
+   "perl": "5.38.2-3.2ubuntu0.2",
+   "perl-base": "5.38.2-3.2ubuntu0.2",
+   "perl-modules-5.38": "5.38.2-3.2ubuntu0.2",
+   "php": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php-bz2": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php-common": "2:96+ubuntu24.04.1+deb.sury.org+1",
+   "php-curl": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php-gd": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php-mbstring": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php-zip": "2:8.4+96+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-bz2": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-cli": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-common": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-curl": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-fpm": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-gd": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-mbstring": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-mysql": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-opcache": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-readline": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-xml": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-xsl": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.4-zip": "8.4.14-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-bz2": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-cli": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-common": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-curl": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-fpm": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-gd": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-mbstring": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-mysql": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-readline": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-xml": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-xsl": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "php8.5-zip": "8.5.0~rc3-1+ubuntu24.04.1+deb.sury.org+1",
+   "pinentry-curses": "1.2.1-3ubuntu5",
+   "plymouth": "24.004.60-1ubuntu7.1",
+   "plymouth-theme-ubuntu-text": "24.004.60-1ubuntu7.1",
+   "polkitd": "124-2ubuntu1.24.04.2",
+   "pollinate": "4.33-3.1ubuntu1.1",
+   "procps": "2:4.0.4-4ubuntu3.2",
+   "psmisc": "23.7-1build1",
+   "publicsuffix": "20231001.0357-0.1",
+   "pv": "1.8.5-2build1",
+   "python-apt-common": "2.7.7ubuntu5",
+   "python-babel-localedata": "2.10.3-3build1",
+   "python3": "3.12.3-0ubuntu2",
+   "python3-apport": "2.28.1-0ubuntu3.8",
+   "python3-apt": "2.7.7ubuntu5",
+   "python3-attr": "23.2.0-2",
+   "python3-babel": "2.10.3-3build1",
+   "python3-blinker": "1.7.0-1",
+   "python3-bpfcc": "0.29.1+ds-1ubuntu7",
+   "python3-cap-ng": "0.8.4-2build2",
+   "python3-certifi": "2023.11.17-1",
+   "python3-cffi-backend": "1.16.0-2build1",
+   "python3-chardet": "5.2.0+dfsg-1",
+   "python3-click": "8.1.6-2",
+   "python3-colorama": "0.4.6-4",
+   "python3-configobj": "5.0.8-3",
+   "python3-cryptography": "41.0.7-4ubuntu0.1",
+   "python3-dbus": "1.3.2-5build3",
+   "python3-debconf": "1.5.86ubuntu1",
+   "python3-distro": "1.9.0-1",
+   "python3-distro-info": "1.7build1",
+   "python3-distupgrade": "1:24.04.27",
+   "python3-firewall": "2.1.1-1",
+   "python3-gi": "3.48.2-1",
+   "python3-httplib2": "0.20.4-3",
+   "python3-idna": "3.6-2ubuntu0.1",
+   "python3-jinja2": "3.1.2-1ubuntu1.3",
+   "python3-json-pointer": "2.0-0ubuntu1",
+   "python3-jsonpatch": "1.32-3",
+   "python3-jsonschema": "4.10.3-2ubuntu1",
+   "python3-jwt": "2.7.0-1",
+   "python3-launchpadlib": "1.11.0-6",
+   "python3-lazr.restfulclient": "0.14.6-1",
+   "python3-lazr.uri": "1.0.6-3",
+   "python3-markdown-it": "3.0.0-2",
+   "python3-markupsafe": "2.1.5-1build2",
+   "python3-mdurl": "0.1.2-1",
+   "python3-minimal": "3.12.3-0ubuntu2",
+   "python3-netaddr": "0.8.0-2ubuntu1",
+   "python3-netplan": "1.1.2-2~ubuntu24.04.2",
+   "python3-nftables": "1.0.9-1build1",
+   "python3-ntp": "1.2.2+dfsg1-4build2",
+   "python3-oauthlib": "3.2.2-1",
+   "python3-pkg-resources": "68.1.2-2ubuntu1.2",
+   "python3-problem-report": "2.28.1-0ubuntu3.8",
+   "python3-pygments": "2.17.2+dfsg-1",
+   "python3-pyparsing": "3.1.1-1",
+   "python3-pyrsistent": "0.20.0-1build2",
+   "python3-requests": "2.31.0+dfsg-1ubuntu1.1",
+   "python3-rich": "13.7.1-1",
+   "python3-serial": "3.5-2",
+   "python3-six": "1.16.0-4",
+   "python3-software-properties": "0.99.49.3",
+   "python3-systemd": "235-1build4",
+   "python3-tz": "2024.1-2",
+   "python3-update-manager": "1:24.04.12",
+   "python3-urllib3": "2.0.7-1ubuntu0.2",
+   "python3-wadllib": "1.3.6-5",
+   "python3-xkit": "0.5.0ubuntu6",
+   "python3-yaml": "6.0.1-2build2",
+   "python3.12": "3.12.3-1ubuntu0.8",
+   "python3.12-minimal": "3.12.3-1ubuntu0.8",
+   "readline-common": "8.2-4build1",
+   "rpcsvc-proto": "1.4.2-0ubuntu7",
+   "rsync": "3.2.7-1ubuntu1.2",
+   "sed": "4.9-2build1",
+   "sensible-utils": "0.0.22",
+   "session-migration": "0.3.9build1",
+   "sg3-utils": "1.46-3ubuntu4",
+   "sg3-utils-udev": "1.46-3ubuntu4",
+   "sgml-base": "1.31",
+   "shared-mime-info": "2.4-4",
+   "snapd": "2.71+ubuntu24.04",
+   "socat": "1.8.0.0-4build3",
+   "software-properties-common": "0.99.49.3",
+   "squashfs-tools": "1:4.6.1-1build1",
+   "ssh-import-id": "5.11-0ubuntu2.24.04.1",
+   "ssl-cert": "1.1.2ubuntu1",
+   "sudo": "1.9.15p5-3ubuntu5.24.04.1",
+   "systemd": "255.4-1ubuntu8.11",
+   "systemd-dev": "255.4-1ubuntu8.11",
+   "systemd-hwe-hwdb": "255.1.6",
+   "systemd-resolved": "255.4-1ubuntu8.11",
+   "systemd-sysv": "255.4-1ubuntu8.11",
+   "systemd-timesyncd": "255.4-1ubuntu8.11",
+   "sysvinit-utils": "3.08-6ubuntu3",
+   "tar": "1.35+dfsg-3build1",
+   "thermald": "2.5.6-2ubuntu0.24.04.2",
+   "thin-provisioning-tools": "0.9.0-2ubuntu5.1",
+   "tzdata": "2025b-0ubuntu0.24.04.1",
+   "ubuntu-drivers-common": "1:0.9.7.6ubuntu3.4",
+   "ubuntu-kernel-accessories": "1.539.2",
+   "ubuntu-keyring": "2023.11.28.1",
+   "ubuntu-mono": "24.04-0ubuntu1",
+   "ubuntu-release-upgrader-core": "1:24.04.27",
+   "ubuntu-server-minimal": "1.539.2",
+   "ucf": "3.0043+nmu1",
+   "udev": "255.4-1ubuntu8.11",
+   "unattended-upgrades": "2.9.1+nmu4ubuntu1",
+   "unminimize": "0.2.1",
+   "unzip": "6.0-28ubuntu4.1",
+   "upower": "1.90.3-1",
+   "usb.ids": "2024.03.18-1",
+   "usbmuxd": "1.1.1-5~exp3ubuntu2",
+   "usbutils": "1:017-3build1",
+   "util-linux": "2.39.3-9ubuntu6.3",
+   "wget": "1.21.4-1ubuntu4.1",
+   "wireless-regdb": "2024.10.07-0ubuntu2~24.04.1",
+   "x11-common": "1:7.7+23ubuntu3",
+   "x11-utils": "7.7+6build2",
+   "x11proto-dev": "2023.2-1",
+   "xauth": "1:1.1.2-1build1",
+   "xdg-user-dirs": "0.18-1build1",
+   "xfsprogs": "6.6.0-1ubuntu2.1",
+   "xkb-data": "2.41-2ubuntu1.1",
+   "xml-core": "0.19",
+   "xorg-sgml-doctools": "1:1.11-1.1",
+   "xtrans-dev": "1.4.0-1",
+   "xxd": "2:9.1.0016-1ubuntu7.9",
+   "xz-utils": "5.6.1+really5.4.5-1ubuntu0.2",
+   "zlib1g": "1:1.3.dfsg-3.1ubuntu2.1",
+   "zsh": "5.9-6ubuntu2",
+   "zsh-common": "5.9-6ubuntu2",
+   "zstd": "1.5.5+dfsg2-2build1.1"
+  },
+  "in_container": false
+ },
+ "findings": {
+  "peas": [
+   {
+    "category": "system",
+    "severity": "INFO",
+    "title": "uname",
+    "detail": "Linux astinapura 6.14.0-35-generic #35~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Oct 14 13:55:17 UTC 2 x86_64 x86_64 x86_64 GNU/Linux",
+    "check": "chk_linux_sysinfo"
+   },
+   {
+    "category": "system",
+    "severity": "INFO",
+    "title": "distro",
+    "detail": "Ubuntu 24.04.3 LTS",
+    "check": "chk_linux_sysinfo"
+   },
+   {
+    "category": "system",
+    "severity": "LOW",
+    "title": "user namespaces aktif",
+    "detail": "unprivileged_userns_clone=1",
+    "check": "chk_linux_sysinfo"
+   },
+   {
+    "category": "system",
+    "severity": "LOW",
+    "title": "/dev/kmsg bisa dibaca",
+    "detail": "leak alamat kernel",
+    "check": "chk_linux_sysinfo"
+   },
+   {
+    "category": "system",
+    "severity": "INFO",
+    "title": "AppArmor aktif",
+    "detail": "/sys/kernel/security/apparmor",
+    "check": "chk_linux_sysinfo"
+   },
+   {
+    "category": "users",
+    "severity": "HIGH",
+    "title": "anggota grup sudo: beruang",
+    "detail": "sudo:x:27:beruang",
+    "check": "chk_linux_users"
+   },
+   {
+    "category": "users",
+    "severity": "HIGH",
+    "title": "anggota grup lxd: beruang",
+    "detail": "lxd:x:101:beruang",
+    "check": "chk_linux_users"
+   },
+   {
+    "category": "users",
+    "severity": "MEDIUM",
+    "title": "anggota grup adm: beruang,www-data",
+    "detail": "adm:x:4:beruang,www-data",
+    "check": "chk_linux_users"
+   },
+   {
+    "category": "sudo",
+    "severity": "INFO",
+    "title": "sudo version",
+    "detail": "Sudo version 1.9.15p5",
+    "check": "chk_linux_sudo"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/gpasswd",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/newgrp",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/mount",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/chfn",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/umount",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/su",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "MEDIUM",
+    "title": "SUID custom: /usr/bin/sudo",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/passwd",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/chsh",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/bin/fusermount3",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "HIGH",
+    "title": "SUID GTFO-bins: /usr/lib/dbus-1.0/dbus-daemon-launch-helper",
+    "detail": "4754",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "MEDIUM",
+    "title": "SUID custom: /usr/lib/polkit-1/polkit-agent-helper-1",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "suid",
+    "severity": "MEDIUM",
+    "title": "SUID custom: /usr/lib/openssh/ssh-keysign",
+    "detail": "4755",
+    "check": "chk_linux_suid"
+   },
+   {
+    "category": "capabilities",
+    "severity": "HIGH",
+    "title": "file capability berbahaya",
+    "detail": "/usr/bin/ping cap_net_raw=ep",
+    "check": "chk_linux_caps"
+   },
+   {
+    "category": "capabilities",
+    "severity": "HIGH",
+    "title": "file capability berbahaya",
+    "detail": "/usr/lib/snapd/snap-confine cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_sys_chroot,cap_sys_ptrace,cap_sys_admin=p",
+    "check": "chk_linux_caps"
+   },
+   {
+    "category": "capabilities",
+    "severity": "HIGH",
+    "title": "file capability berbahaya",
+    "detail": "/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper cap_net_bind_service,cap_net_admin,cap_sys_nice=ep",
+    "check": "chk_linux_caps"
+   },
+   {
+    "category": "cron",
+    "severity": "HIGH",
+    "title": "kemungkinan wildcard injection di /etc/cron.daily/apport",
+    "detail": [
+     "find /var/crash/. ! -name . -prune -type f \\( \\( -size 0 -a \\! -name '*.upload*' -a \\! -name '*.drkonqi*' \\) -o -mtime +7 \\) -exec rm -f -- '{}' \\;",
+     "find /var/crash/. ! -name . -prune -type d -regextype posix-extended -regex '.*/[0-9]{12}$' \\( -mtime +7 \\) -exec rm -Rf -- '{}' \\;"
+    ],
+    "check": "chk_linux_cron"
+   },
+   {
+    "category": "network",
+    "severity": "INFO",
+    "title": "listener ssh terdeteksi",
+    "detail": "LISTEN 0      4096         0.0.0.0:2244      0.0.0.0:*",
+    "check": "chk_linux_net"
+   },
+   {
+    "category": "network",
+    "severity": "INFO",
+    "title": "listener ssh terdeteksi",
+    "detail": "LISTEN 0      4096            [::]:2244         [::]:*",
+    "check": "chk_linux_net"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /etc/systemd/system/ntpsec.timer",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/cryptdisks-early.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/hwclock.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/sudo.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/cryptdisks.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/multipath-tools-boot.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "systemd",
+    "severity": "HIGH",
+    "title": "unit systemd world-writable: /usr/lib/systemd/system/x11-common.service",
+    "detail": "",
+    "check": "chk_linux_systemd"
+   },
+   {
+    "category": "git",
+    "severity": "MEDIUM",
+    "title": "file sensitif ditemukan: /home/beruang/juice-shop_19.0.0/ctf.key",
+    "detail": "",
+    "check": "chk_linux_git"
+   },
+   {
+    "category": "git",
+    "severity": "MEDIUM",
+    "title": "file sensitif ditemukan: /home/beruang/juice-shop_19.0.0/ftp/incident-support.kdbx",
+    "detail": "",
+    "check": "chk_linux_git"
+   },
+   {
+    "category": "git",
+    "severity": "MEDIUM",
+    "title": "file sensitif ditemukan: /home/beruang/juice-shop_19.0.0/encryptionkeys/premium.key",
+    "detail": "",
+    "check": "chk_linux_git"
+   }
+  ],
+  "cve": [
+   {
+    "id": "CVE-2026-31431",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-04-22",
+    "kev": true,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.22]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\ncrypto: algif_aead - Revert to operating out-of-place\n\nThis mostly reverts commit 72548b093ee3 except for the copying of\nthe associated data.\n\nThere is no benefit in operating in-place in algif_aead since the\nsource and destination come from different mappings.  Get rid of\nall the complexity added for in-place operation and just copy the\nAD directly.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "John-Popovici/CVE-2026-31431-CopyFail-Linux-PrivEsc",
+      "url": "https://github.com/John-Popovici/CVE-2026-31431-CopyFail-Linux-PrivEsc"
+     },
+     {
+      "repo": "theori-io/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/theori-io/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "Alfredooe/CVE-2026-31431",
+      "url": "https://github.com/Alfredooe/CVE-2026-31431"
+     },
+     {
+      "repo": "painoob/Copy-Fail-Exploit-CVE-2026-31431",
+      "url": "https://github.com/painoob/Copy-Fail-Exploit-CVE-2026-31431"
+     },
+     {
+      "repo": "badsectorlabs/copyfail-go",
+      "url": "https://github.com/badsectorlabs/copyfail-go"
+     },
+     {
+      "repo": "tgies/copy-fail-c",
+      "url": "https://github.com/tgies/copy-fail-c"
+     },
+     {
+      "repo": "ZephrFish/CopyFail-CVE-2026-31431",
+      "url": "https://github.com/ZephrFish/CopyFail-CVE-2026-31431"
+     },
+     {
+      "repo": "Crihexe/copy-fail-tiny-elf-CVE-2026-31431",
+      "url": "https://github.com/Crihexe/copy-fail-tiny-elf-CVE-2026-31431"
+     },
+     {
+      "repo": "b5null/CVE-2026-31431-C",
+      "url": "https://github.com/b5null/CVE-2026-31431-C"
+     },
+     {
+      "repo": "Percivalll/Copy-Fail-CVE-2026-31431-Statically-PoC",
+      "url": "https://github.com/Percivalll/Copy-Fail-CVE-2026-31431-Statically-PoC"
+     },
+     {
+      "repo": "yiyihuohuo/CVE-2026-31431",
+      "url": "https://github.com/yiyihuohuo/CVE-2026-31431"
+     },
+     {
+      "repo": "ruattd/cve-2026-31431",
+      "url": "https://github.com/ruattd/cve-2026-31431"
+     },
+     {
+      "repo": "Sndav/CVE-2026-31431-Advanced-Exploit",
+      "url": "https://github.com/Sndav/CVE-2026-31431-Advanced-Exploit"
+     },
+     {
+      "repo": "luotian2/CVE-2026-31431",
+      "url": "https://github.com/luotian2/CVE-2026-31431"
+     },
+     {
+      "repo": "insomnisec/Detections-CVE-2026-31431",
+      "url": "https://github.com/insomnisec/Detections-CVE-2026-31431"
+     },
+     {
+      "repo": "JnamerZ/CopyFail-CVE-2026-31431",
+      "url": "https://github.com/JnamerZ/CopyFail-CVE-2026-31431"
+     },
+     {
+      "repo": "vishwanathakuthota/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/vishwanathakuthota/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "desultory/CVE-2026-31431",
+      "url": "https://github.com/desultory/CVE-2026-31431"
+     },
+     {
+      "repo": "someCorp/copyFail-CVE-2026-31431-workaround-bash",
+      "url": "https://github.com/someCorp/copyFail-CVE-2026-31431-workaround-bash"
+     },
+     {
+      "repo": "iss4cf0ng/CVE-2026-31431-Linux-Copy-Fail",
+      "url": "https://github.com/iss4cf0ng/CVE-2026-31431-Linux-Copy-Fail"
+     },
+     {
+      "repo": "novysodope/copy-fail-CVE-2026-31431-C",
+      "url": "https://github.com/novysodope/copy-fail-CVE-2026-31431-C"
+     },
+     {
+      "repo": "thrandomv/cve-2026-31431-detection",
+      "url": "https://github.com/thrandomv/cve-2026-31431-detection"
+     },
+     {
+      "repo": "Y5neKO/copy-fail-CVE-2026-31431-universal",
+      "url": "https://github.com/Y5neKO/copy-fail-CVE-2026-31431-universal"
+     },
+     {
+      "repo": "bigwario/copy-fail-CVE-2026-31431-C",
+      "url": "https://github.com/bigwario/copy-fail-CVE-2026-31431-C"
+     },
+     {
+      "repo": "twowb/CVE-2026-31431-",
+      "url": "https://github.com/twowb/CVE-2026-31431-"
+     },
+     {
+      "repo": "arkdev1/check-cve-2026-31431",
+      "url": "https://github.com/arkdev1/check-cve-2026-31431"
+     },
+     {
+      "repo": "wuwu001/CVE-2026-31431-exploit",
+      "url": "https://github.com/wuwu001/CVE-2026-31431-exploit"
+     },
+     {
+      "repo": "ryan2929/CVE-2026-31431",
+      "url": "https://github.com/ryan2929/CVE-2026-31431"
+     },
+     {
+      "repo": "0xShe/CVE-2026-31431",
+      "url": "https://github.com/0xShe/CVE-2026-31431"
+     },
+     {
+      "repo": "WavesMan/cve-2026-31431-fleet-remediator",
+      "url": "https://github.com/WavesMan/cve-2026-31431-fleet-remediator"
+     },
+     {
+      "repo": "wuzuowei/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/wuzuowei/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "Isw-9/copy-fail-cve-2026-31431-aarch64",
+      "url": "https://github.com/Isw-9/copy-fail-cve-2026-31431-aarch64"
+     },
+     {
+      "repo": "st4rburn/RootRemover",
+      "url": "https://github.com/st4rburn/RootRemover"
+     },
+     {
+      "repo": "freelabz/CVE-2026-31431",
+      "url": "https://github.com/freelabz/CVE-2026-31431"
+     },
+     {
+      "repo": "mrowkoob/copy-fail-mitigate-no-reboot",
+      "url": "https://github.com/mrowkoob/copy-fail-mitigate-no-reboot"
+     },
+     {
+      "repo": "nisec-eric/cve-2026-31431",
+      "url": "https://github.com/nisec-eric/cve-2026-31431"
+     },
+     {
+      "repo": "pascal-gujer/CVE-2026-31431",
+      "url": "https://github.com/pascal-gujer/CVE-2026-31431"
+     },
+     {
+      "repo": "eleveni386/CVE-2026-31431-Golang",
+      "url": "https://github.com/eleveni386/CVE-2026-31431-Golang"
+     },
+     {
+      "repo": "Linux-zs/cve-2026-31431-mitigation",
+      "url": "https://github.com/Linux-zs/cve-2026-31431-mitigation"
+     },
+     {
+      "repo": "dixyes/fuck_cve_2026_31431",
+      "url": "https://github.com/dixyes/fuck_cve_2026_31431"
+     },
+     {
+      "repo": "kadir/copy-fail-CVE-2026-31431-IOC",
+      "url": "https://github.com/kadir/copy-fail-CVE-2026-31431-IOC"
+     },
+     {
+      "repo": "jbiniek/copy.fail-mitigation-MLM",
+      "url": "https://github.com/jbiniek/copy.fail-mitigation-MLM"
+     },
+     {
+      "repo": "makitos666/CVE-2026-31431-Copy-Fail-Detection-Toolkit",
+      "url": "https://github.com/makitos666/CVE-2026-31431-Copy-Fail-Detection-Toolkit"
+     },
+     {
+      "repo": "lonelyor/CVE-2026-31431-exp",
+      "url": "https://github.com/lonelyor/CVE-2026-31431-exp"
+     },
+     {
+      "repo": "Phalanx-CCS/Copy-Fail",
+      "url": "https://github.com/Phalanx-CCS/Copy-Fail"
+     },
+     {
+      "repo": "adampielak/CVE-2026-31431_SCA_WAZUH",
+      "url": "https://github.com/adampielak/CVE-2026-31431_SCA_WAZUH"
+     },
+     {
+      "repo": "jiangban046-spec/CVE-2026-31431-exploit_py2_py3",
+      "url": "https://github.com/jiangban046-spec/CVE-2026-31431-exploit_py2_py3"
+     },
+     {
+      "repo": "dorianhhuc/CVE-2026-31431",
+      "url": "https://github.com/dorianhhuc/CVE-2026-31431"
+     },
+     {
+      "repo": "0xBlackash/CVE-2026-31431",
+      "url": "https://github.com/0xBlackash/CVE-2026-31431"
+     },
+     {
+      "repo": "H1d3r/copy-fail_LPE_Interactive",
+      "url": "https://github.com/H1d3r/copy-fail_LPE_Interactive"
+     },
+     {
+      "repo": "amdisrar/cve-2026-31431-mitigation",
+      "url": "https://github.com/amdisrar/cve-2026-31431-mitigation"
+     },
+     {
+      "repo": "G01d3nW01f/CVE-2026-31431",
+      "url": "https://github.com/G01d3nW01f/CVE-2026-31431"
+     },
+     {
+      "repo": "rio128128/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/rio128128/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "shadowabi/CVE-2026-31431-CopyFail-Universal-LPE",
+      "url": "https://github.com/shadowabi/CVE-2026-31431-CopyFail-Universal-LPE"
+     },
+     {
+      "repo": "slauger/CVE-2026-31431",
+      "url": "https://github.com/slauger/CVE-2026-31431"
+     },
+     {
+      "repo": "Webhosting4U/Copy-Fail_Detect_and_mitigate_CVE-2026-31431",
+      "url": "https://github.com/Webhosting4U/Copy-Fail_Detect_and_mitigate_CVE-2026-31431"
+     },
+     {
+      "repo": "gmeghnag/TEST-CVE-2026-31431",
+      "url": "https://github.com/gmeghnag/TEST-CVE-2026-31431"
+     },
+     {
+      "repo": "Percivalll/Copy-Fail-CVE-2026-31431-Kubernetes-PoC",
+      "url": "https://github.com/Percivalll/Copy-Fail-CVE-2026-31431-Kubernetes-PoC"
+     },
+     {
+      "repo": "dicatalin/Copy_Fail_CVE-2026-31431_test_and_fix",
+      "url": "https://github.com/dicatalin/Copy_Fail_CVE-2026-31431_test_and_fix"
+     },
+     {
+      "repo": "yandex-cloud-examples/yc-mk8s-copy-fail-mitigation",
+      "url": "https://github.com/yandex-cloud-examples/yc-mk8s-copy-fail-mitigation"
+     },
+     {
+      "repo": "mfloresdacunha/CVE-2026-31431",
+      "url": "https://github.com/mfloresdacunha/CVE-2026-31431"
+     },
+     {
+      "repo": "Boos4721/copyfail-rs",
+      "url": "https://github.com/Boos4721/copyfail-rs"
+     },
+     {
+      "repo": "eximiait/CVE-2026-31431",
+      "url": "https://github.com/eximiait/CVE-2026-31431"
+     },
+     {
+      "repo": "JuanBindez/CVE-2026-31431",
+      "url": "https://github.com/JuanBindez/CVE-2026-31431"
+     },
+     {
+      "repo": "XsanFlip/CVE-2026-31431-Patch",
+      "url": "https://github.com/XsanFlip/CVE-2026-31431-Patch"
+     },
+     {
+      "repo": "rshosting/CVE-2026-31431-patch",
+      "url": "https://github.com/rshosting/CVE-2026-31431-patch"
+     },
+     {
+      "repo": "wesmar/CVE-2026-31431",
+      "url": "https://github.com/wesmar/CVE-2026-31431"
+     },
+     {
+      "repo": "wgnet/wg.copyfail.patch",
+      "url": "https://github.com/wgnet/wg.copyfail.patch"
+     },
+     {
+      "repo": "cs8425/copy-fail-go",
+      "url": "https://github.com/cs8425/copy-fail-go"
+     },
+     {
+      "repo": "diemoeve/copyfail-rs",
+      "url": "https://github.com/diemoeve/copyfail-rs"
+     },
+     {
+      "repo": "yxdm02/CVE-2026-31431",
+      "url": "https://github.com/yxdm02/CVE-2026-31431"
+     },
+     {
+      "repo": "grishinpv/CVE-2026-31431-old-python",
+      "url": "https://github.com/grishinpv/CVE-2026-31431-old-python"
+     },
+     {
+      "repo": "sammwyy/copyfail-rs",
+      "url": "https://github.com/sammwyy/copyfail-rs"
+     },
+     {
+      "repo": "SunL0w/PATCH-CVE-2026-31431-Ubuntu_Debian",
+      "url": "https://github.com/SunL0w/PATCH-CVE-2026-31431-Ubuntu_Debian"
+     },
+     {
+      "repo": "scriptzteam/Paranoid-Copy-Fail-CVE-2026-31431",
+      "url": "https://github.com/scriptzteam/Paranoid-Copy-Fail-CVE-2026-31431"
+     },
+     {
+      "repo": "cozystack/copy-fail-blocker",
+      "url": "https://github.com/cozystack/copy-fail-blocker"
+     },
+     {
+      "repo": "leelong2020/cve-2026-31431",
+      "url": "https://github.com/leelong2020/cve-2026-31431"
+     },
+     {
+      "repo": "galoryber/CVE-2026-31431-cleaned",
+      "url": "https://github.com/galoryber/CVE-2026-31431-cleaned"
+     },
+     {
+      "repo": "vynazevedo/fail-CVE-2026-31431",
+      "url": "https://github.com/vynazevedo/fail-CVE-2026-31431"
+     },
+     {
+      "repo": "MohamedKarrab/Copy-Fail-CVE-2026-31431",
+      "url": "https://github.com/MohamedKarrab/Copy-Fail-CVE-2026-31431"
+     },
+     {
+      "repo": "w3llr00t3d/CVE-2026-31431-PoC",
+      "url": "https://github.com/w3llr00t3d/CVE-2026-31431-PoC"
+     },
+     {
+      "repo": "sec17br/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/sec17br/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "mhdgning131/CopyFail-Patcher",
+      "url": "https://github.com/mhdgning131/CopyFail-Patcher"
+     },
+     {
+      "repo": "Xerxes-2/CVE-2026-31431-rs",
+      "url": "https://github.com/Xerxes-2/CVE-2026-31431-rs"
+     },
+     {
+      "repo": "SeanRickerd/cve-2026-31431",
+      "url": "https://github.com/SeanRickerd/cve-2026-31431"
+     },
+     {
+      "repo": "abdullaabdullazade/CVE-2026-31431",
+      "url": "https://github.com/abdullaabdullazade/CVE-2026-31431"
+     },
+     {
+      "repo": "weirdindiankid/copy-fail",
+      "url": "https://github.com/weirdindiankid/copy-fail"
+     },
+     {
+      "repo": "websecnl/CVE-2026-31431",
+      "url": "https://github.com/websecnl/CVE-2026-31431"
+     },
+     {
+      "repo": "Dabbleam/CVE-2026-31431-mitigation",
+      "url": "https://github.com/Dabbleam/CVE-2026-31431-mitigation"
+     },
+     {
+      "repo": "selectel/mks-copy-fail-mitigation",
+      "url": "https://github.com/selectel/mks-copy-fail-mitigation"
+     },
+     {
+      "repo": "devstuff/harden-docker-seccomp",
+      "url": "https://github.com/devstuff/harden-docker-seccomp"
+     },
+     {
+      "repo": "yuspring/cve-2026-31431-poc",
+      "url": "https://github.com/yuspring/cve-2026-31431-poc"
+     },
+     {
+      "repo": "mishl-dev/CVE_2026_31431",
+      "url": "https://github.com/mishl-dev/CVE_2026_31431"
+     },
+     {
+      "repo": "Juguitos/copy-fail",
+      "url": "https://github.com/Juguitos/copy-fail"
+     },
+     {
+      "repo": "DENNISDGR/CVE-2026-31431-poc",
+      "url": "https://github.com/DENNISDGR/CVE-2026-31431-poc"
+     },
+     {
+      "repo": "liamromanis101/CVE-2026-31431-Copy-Fail---Vulnerability-Detection-Script",
+      "url": "https://github.com/liamromanis101/CVE-2026-31431-Copy-Fail---Vulnerability-Detection-Script"
+     },
+     {
+      "repo": "mym0us3r/COPY-FAIL-Detection-with-Wazuh-4.14.4",
+      "url": "https://github.com/mym0us3r/COPY-FAIL-Detection-with-Wazuh-4.14.4"
+     },
+     {
+      "repo": "B1gN0Se/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/B1gN0Se/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "maniakh/CVE-2026-31431---Copy-Fail-PoC",
+      "url": "https://github.com/maniakh/CVE-2026-31431---Copy-Fail-PoC"
+     },
+     {
+      "repo": "meowteusz/copyfailautopatch",
+      "url": "https://github.com/meowteusz/copyfailautopatch"
+     },
+     {
+      "repo": "effiesec/copy-fail-cve-2026-31431",
+      "url": "https://github.com/effiesec/copy-fail-cve-2026-31431"
+     },
+     {
+      "repo": "offsecguy/CVE-2026-31431",
+      "url": "https://github.com/offsecguy/CVE-2026-31431"
+     },
+     {
+      "repo": "poyea/CVE-2026-31431.c",
+      "url": "https://github.com/poyea/CVE-2026-31431.c"
+     },
+     {
+      "repo": "bryanvine/copy-fail-fix",
+      "url": "https://github.com/bryanvine/copy-fail-fix"
+     },
+     {
+      "repo": "boliu83/cve-2026-31431-algif-aead-remediator",
+      "url": "https://github.com/boliu83/cve-2026-31431-algif-aead-remediator"
+     },
+     {
+      "repo": "Spoo1k/Copy-Fail-Exploit-CVE-2026-31431",
+      "url": "https://github.com/Spoo1k/Copy-Fail-Exploit-CVE-2026-31431"
+     },
+     {
+      "repo": "3jee/copy-fail-go",
+      "url": "https://github.com/3jee/copy-fail-go"
+     },
+     {
+      "repo": "professional-slacker/alg_check",
+      "url": "https://github.com/professional-slacker/alg_check"
+     },
+     {
+      "repo": "aestechno/cve-2026-31431-ansible",
+      "url": "https://github.com/aestechno/cve-2026-31431-ansible"
+     },
+     {
+      "repo": "ashok523/cve-2026-31431",
+      "url": "https://github.com/ashok523/cve-2026-31431"
+     },
+     {
+      "repo": "jodonnel/copyfail-briefing",
+      "url": "https://github.com/jodonnel/copyfail-briefing"
+     },
+     {
+      "repo": "starscow/Copy-Fail-CVE-2026-31431-Kubernetes-PoC",
+      "url": "https://github.com/starscow/Copy-Fail-CVE-2026-31431-Kubernetes-PoC"
+     },
+     {
+      "repo": "deckhouse/d8-copy-fail-mitigation",
+      "url": "https://github.com/deckhouse/d8-copy-fail-mitigation"
+     },
+     {
+      "repo": "jneuhauser/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/jneuhauser/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "cyber-joker/copy-fail-python",
+      "url": "https://github.com/cyber-joker/copy-fail-python"
+     },
+     {
+      "repo": "HulnotHutu/CVE-2026-31431",
+      "url": "https://github.com/HulnotHutu/CVE-2026-31431"
+     },
+     {
+      "repo": "mahradbt/copyfail-mitigation",
+      "url": "https://github.com/mahradbt/copyfail-mitigation"
+     },
+     {
+      "repo": "OmerAti/almalinux-fix-cve-2026-31431",
+      "url": "https://github.com/OmerAti/almalinux-fix-cve-2026-31431"
+     },
+     {
+      "repo": "ErdemOzgen/copy-fail-cve-2026-31431",
+      "url": "https://github.com/ErdemOzgen/copy-fail-cve-2026-31431"
+     },
+     {
+      "repo": "Fulucky0-yuri/CVE-2026-31431-PocC",
+      "url": "https://github.com/Fulucky0-yuri/CVE-2026-31431-PocC"
+     },
+     {
+      "repo": "abhishekhargan/CVE-2026-31431",
+      "url": "https://github.com/abhishekhargan/CVE-2026-31431"
+     },
+     {
+      "repo": "MarioHY/cve_2026_31431_audit",
+      "url": "https://github.com/MarioHY/cve_2026_31431_audit"
+     },
+     {
+      "repo": "AliHzSec/CVE-2026-31431",
+      "url": "https://github.com/AliHzSec/CVE-2026-31431"
+     },
+     {
+      "repo": "kvakirsanov/CVE-2026-31431-live-process-code-injection",
+      "url": "https://github.com/kvakirsanov/CVE-2026-31431-live-process-code-injection"
+     },
+     {
+      "repo": "TheMalwareGuardian/CVE-2026-31431",
+      "url": "https://github.com/TheMalwareGuardian/CVE-2026-31431"
+     },
+     {
+      "repo": "FrosterDL/CVE-2026-31431",
+      "url": "https://github.com/FrosterDL/CVE-2026-31431"
+     },
+     {
+      "repo": "RecoFu/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/RecoFu/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "atgreen/block-copyfail",
+      "url": "https://github.com/atgreen/block-copyfail"
+     },
+     {
+      "repo": "beatbeast007/Linux-CopyFail-C-Version-CVE-2026-31431",
+      "url": "https://github.com/beatbeast007/Linux-CopyFail-C-Version-CVE-2026-31431"
+     },
+     {
+      "repo": "sbeteta42/CVE-2026-31431_je_sappelle_RoOt",
+      "url": "https://github.com/sbeteta42/CVE-2026-31431_je_sappelle_RoOt"
+     },
+     {
+      "repo": "rvzsec/CVE-2026-31431",
+      "url": "https://github.com/rvzsec/CVE-2026-31431"
+     },
+     {
+      "repo": "Silent0x0/Copy-Fail---CVE-2026-31431",
+      "url": "https://github.com/Silent0x0/Copy-Fail---CVE-2026-31431"
+     },
+     {
+      "repo": "SpenserCai/copy_fail",
+      "url": "https://github.com/SpenserCai/copy_fail"
+     },
+     {
+      "repo": "K3ysTr0K3R/CVE-2026-31431-EXPLOIT",
+      "url": "https://github.com/K3ysTr0K3R/CVE-2026-31431-EXPLOIT"
+     },
+     {
+      "repo": "povzayd/CVE-2026-31431",
+      "url": "https://github.com/povzayd/CVE-2026-31431"
+     },
+     {
+      "repo": "sebinxavi/cve-checker-2026",
+      "url": "https://github.com/sebinxavi/cve-checker-2026"
+     },
+     {
+      "repo": "mlazzarotto/copy-fail-CVE-2026-31431-mitigation-ansible-playbook",
+      "url": "https://github.com/mlazzarotto/copy-fail-CVE-2026-31431-mitigation-ansible-playbook"
+     },
+     {
+      "repo": "ExploitEoom/CVE-2026-31431",
+      "url": "https://github.com/ExploitEoom/CVE-2026-31431"
+     },
+     {
+      "repo": "ben-slates/CVE-2026-31431-Exploit",
+      "url": "https://github.com/ben-slates/CVE-2026-31431-Exploit"
+     },
+     {
+      "repo": "bootsareme/copyfail-deconstructed",
+      "url": "https://github.com/bootsareme/copyfail-deconstructed"
+     },
+     {
+      "repo": "mrunalp/block-copyfail",
+      "url": "https://github.com/mrunalp/block-copyfail"
+     },
+     {
+      "repo": "1amBa7Man/Linux-copy-fail-CVE-2026-31431",
+      "url": "https://github.com/1amBa7Man/Linux-copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "Lyutoon/CopyFail-Experiment",
+      "url": "https://github.com/Lyutoon/CopyFail-Experiment"
+     },
+     {
+      "repo": "ledlight33/copyfail-dfir",
+      "url": "https://github.com/ledlight33/copyfail-dfir"
+     },
+     {
+      "repo": "Smarttfoxx/copyfail",
+      "url": "https://github.com/Smarttfoxx/copyfail"
+     },
+     {
+      "repo": "parmstro/cfDr",
+      "url": "https://github.com/parmstro/cfDr"
+     },
+     {
+      "repo": "RoflSecurity/copy_fail",
+      "url": "https://github.com/RoflSecurity/copy_fail"
+     },
+     {
+      "repo": "Shotafry/CopyFail-Exploits-CVE-2026-31431",
+      "url": "https://github.com/Shotafry/CopyFail-Exploits-CVE-2026-31431"
+     },
+     {
+      "repo": "glask1d/CVE-2026-31431-PoC",
+      "url": "https://github.com/glask1d/CVE-2026-31431-PoC"
+     },
+     {
+      "repo": "monobrau/copyfailscan",
+      "url": "https://github.com/monobrau/copyfailscan"
+     },
+     {
+      "repo": "Emmmmllll/copy-fail-zig",
+      "url": "https://github.com/Emmmmllll/copy-fail-zig"
+     },
+     {
+      "repo": "kdjnb/fix_CVE-2026-31431",
+      "url": "https://github.com/kdjnb/fix_CVE-2026-31431"
+     },
+     {
+      "repo": "euriconicacio/copy-fail-CVE-2026-31431-poc",
+      "url": "https://github.com/euriconicacio/copy-fail-CVE-2026-31431-poc"
+     },
+     {
+      "repo": "ROSNLR5/modrosnlr5",
+      "url": "https://github.com/ROSNLR5/modrosnlr5"
+     },
+     {
+      "repo": "TheMursalin/CVE-2026-31431",
+      "url": "https://github.com/TheMursalin/CVE-2026-31431"
+     },
+     {
+      "repo": "qi4L/CVE-2026-31431-Container-Escape",
+      "url": "https://github.com/qi4L/CVE-2026-31431-Container-Escape"
+     },
+     {
+      "repo": "moaaz-mostafa123/CVE-2026-31431",
+      "url": "https://github.com/moaaz-mostafa123/CVE-2026-31431"
+     },
+     {
+      "repo": "malwarekid/CVE-2026-31431",
+      "url": "https://github.com/malwarekid/CVE-2026-31431"
+     },
+     {
+      "repo": "xd20111/CVE-2026-31431",
+      "url": "https://github.com/xd20111/CVE-2026-31431"
+     },
+     {
+      "repo": "MartinPham/copy-fail-CVE-2026-31431-php",
+      "url": "https://github.com/MartinPham/copy-fail-CVE-2026-31431-php"
+     },
+     {
+      "repo": "krish-foren6/CVE-2026-31431-Report-Copy-fail-Vulnerability-",
+      "url": "https://github.com/krish-foren6/CVE-2026-31431-Report-Copy-fail-Vulnerability-"
+     },
+     {
+      "repo": "EynaExp/Copy-Fail-CVE-2026-31431-modernized",
+      "url": "https://github.com/EynaExp/Copy-Fail-CVE-2026-31431-modernized"
+     },
+     {
+      "repo": "Trex1e/copyfail-CVE-2026-31431",
+      "url": "https://github.com/Trex1e/copyfail-CVE-2026-31431"
+     },
+     {
+      "repo": "KanbaraAkihito/CVE-2026-31431-copyfail-rs",
+      "url": "https://github.com/KanbaraAkihito/CVE-2026-31431-copyfail-rs"
+     },
+     {
+      "repo": "mahdi13830510/CVE-2026-31431-mitigation-suite",
+      "url": "https://github.com/mahdi13830510/CVE-2026-31431-mitigation-suite"
+     },
+     {
+      "repo": "suominen/CVE-2026-31431",
+      "url": "https://github.com/suominen/CVE-2026-31431"
+     },
+     {
+      "repo": "M4xSec/CVE-2026-31431-RCE-Exploit",
+      "url": "https://github.com/M4xSec/CVE-2026-31431-RCE-Exploit"
+     },
+     {
+      "repo": "mmionf/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/mmionf/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "cxwx/cpp-CVE-2026-31431",
+      "url": "https://github.com/cxwx/cpp-CVE-2026-31431"
+     },
+     {
+      "repo": "Huchangzhi/autorootlinux",
+      "url": "https://github.com/Huchangzhi/autorootlinux"
+     },
+     {
+      "repo": "Sl4cK0TH/CVE-2026-31431-PoC",
+      "url": "https://github.com/Sl4cK0TH/CVE-2026-31431-PoC"
+     },
+     {
+      "repo": "pulentoski/CVE-2026-31431",
+      "url": "https://github.com/pulentoski/CVE-2026-31431"
+     },
+     {
+      "repo": "joltcan/ansible-role-cve-2026-31431",
+      "url": "https://github.com/joltcan/ansible-role-cve-2026-31431"
+     },
+     {
+      "repo": "sandraschi/copy-fail-mcp",
+      "url": "https://github.com/sandraschi/copy-fail-mcp"
+     },
+     {
+      "repo": "Gr-1m/CVE-2026-31431",
+      "url": "https://github.com/Gr-1m/CVE-2026-31431"
+     },
+     {
+      "repo": "ctzisme/copyfail-guard",
+      "url": "https://github.com/ctzisme/copyfail-guard"
+     },
+     {
+      "repo": "CybroZeus/Copy-Fail-Exploit-CVE-2026-31431",
+      "url": "https://github.com/CybroZeus/Copy-Fail-Exploit-CVE-2026-31431"
+     },
+     {
+      "repo": "AvPrince26/copy-fail-CVE-2026-31431-Python-Golfing",
+      "url": "https://github.com/AvPrince26/copy-fail-CVE-2026-31431-Python-Golfing"
+     },
+     {
+      "repo": "pedromizz/copy-fail",
+      "url": "https://github.com/pedromizz/copy-fail"
+     },
+     {
+      "repo": "astounds/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/astounds/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "jbnetwork-git/copy-fail-check",
+      "url": "https://github.com/jbnetwork-git/copy-fail-check"
+     },
+     {
+      "repo": "danimrtzp/CVE-2026-31431-REVSHELL",
+      "url": "https://github.com/danimrtzp/CVE-2026-31431-REVSHELL"
+     },
+     {
+      "repo": "pyroceper/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/pyroceper/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "ForensicFoundry/cve-2026-31431-check",
+      "url": "https://github.com/ForensicFoundry/cve-2026-31431-check"
+     },
+     {
+      "repo": "vyahello/CVE-2026-31431",
+      "url": "https://github.com/vyahello/CVE-2026-31431"
+     },
+     {
+      "repo": "sibersan/cve-2026-31431-checker",
+      "url": "https://github.com/sibersan/cve-2026-31431-checker"
+     },
+     {
+      "repo": "ncmprbll/copy-fail-rs",
+      "url": "https://github.com/ncmprbll/copy-fail-rs"
+     },
+     {
+      "repo": "jamal-soc21/Weekly-Breach-Investigation--006",
+      "url": "https://github.com/jamal-soc21/Weekly-Breach-Investigation--006"
+     },
+     {
+      "repo": "tfawnies/CVE-2026-31431",
+      "url": "https://github.com/tfawnies/CVE-2026-31431"
+     },
+     {
+      "repo": "ravindercodes/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/ravindercodes/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "ChernStepanov/CopyFail-for-dummies",
+      "url": "https://github.com/ChernStepanov/CopyFail-for-dummies"
+     },
+     {
+      "repo": "kaleth4/CVE-2026-31431",
+      "url": "https://github.com/kaleth4/CVE-2026-31431"
+     },
+     {
+      "repo": "mCub3/CVE-2026-31431",
+      "url": "https://github.com/mCub3/CVE-2026-31431"
+     },
+     {
+      "repo": "juliosuas/copyfail-guard",
+      "url": "https://github.com/juliosuas/copyfail-guard"
+     },
+     {
+      "repo": "codesource/copyfail-check",
+      "url": "https://github.com/codesource/copyfail-check"
+     },
+     {
+      "repo": "xn0kkx/CVE-2026-31431_CopyFail_LinuxKernel_LPE",
+      "url": "https://github.com/xn0kkx/CVE-2026-31431_CopyFail_LinuxKernel_LPE"
+     },
+     {
+      "repo": "MetaspIoit/CVE-2026-31431",
+      "url": "https://github.com/MetaspIoit/CVE-2026-31431"
+     },
+     {
+      "repo": "kvendler/BigFix-CopyFail-AlmaLinux-Content",
+      "url": "https://github.com/kvendler/BigFix-CopyFail-AlmaLinux-Content"
+     },
+     {
+      "repo": "chavezvic/CopyFail-Penguin",
+      "url": "https://github.com/chavezvic/CopyFail-Penguin"
+     },
+     {
+      "repo": "samanzamani/copy-fail-checker",
+      "url": "https://github.com/samanzamani/copy-fail-checker"
+     },
+     {
+      "repo": "ochebotar/copy-fail-CVE-2026-31431-detection-probe",
+      "url": "https://github.com/ochebotar/copy-fail-CVE-2026-31431-detection-probe"
+     },
+     {
+      "repo": "g1nt0n1x/copy-fail-CVE-2026-31431-shell",
+      "url": "https://github.com/g1nt0n1x/copy-fail-CVE-2026-31431-shell"
+     },
+     {
+      "repo": "Qengineering/RK35xx-CopyFail-Hotfix",
+      "url": "https://github.com/Qengineering/RK35xx-CopyFail-Hotfix"
+     },
+     {
+      "repo": "ShahaB108/CVE-2026-31431_Kernel_Checker",
+      "url": "https://github.com/ShahaB108/CVE-2026-31431_Kernel_Checker"
+     },
+     {
+      "repo": "vasyapokemon/cve-2026-31431",
+      "url": "https://github.com/vasyapokemon/cve-2026-31431"
+     },
+     {
+      "repo": "xeloxa/copyfail-exploit",
+      "url": "https://github.com/xeloxa/copyfail-exploit"
+     },
+     {
+      "repo": "Mrhudson69/cve-2026-31431",
+      "url": "https://github.com/Mrhudson69/cve-2026-31431"
+     },
+     {
+      "repo": "net0bsd/Mitigaciones",
+      "url": "https://github.com/net0bsd/Mitigaciones"
+     },
+     {
+      "repo": "imkk000/play-go-copy-fail-cve-2026-31431",
+      "url": "https://github.com/imkk000/play-go-copy-fail-cve-2026-31431"
+     },
+     {
+      "repo": "alvaroguzmancode/CVE-2026-31431-mitigacion",
+      "url": "https://github.com/alvaroguzmancode/CVE-2026-31431-mitigacion"
+     },
+     {
+      "repo": "AdityaBhatt3010/CVE-2026-31431",
+      "url": "https://github.com/AdityaBhatt3010/CVE-2026-31431"
+     },
+     {
+      "repo": "jshDevs/CVE_kernellinux_jsh",
+      "url": "https://github.com/jshDevs/CVE_kernellinux_jsh"
+     },
+     {
+      "repo": "KhaosFarbauti/CVE-2026-31431",
+      "url": "https://github.com/KhaosFarbauti/CVE-2026-31431"
+     },
+     {
+      "repo": "rippsec/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/rippsec/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "Silent4Labs/check-copyfail-cve-2026-31431",
+      "url": "https://github.com/Silent4Labs/check-copyfail-cve-2026-31431"
+     },
+     {
+      "repo": "6abc/Copy-Fail-CVE-2026-31431-dirty-frag-CVE-2026-43284",
+      "url": "https://github.com/6abc/Copy-Fail-CVE-2026-31431-dirty-frag-CVE-2026-43284"
+     },
+     {
+      "repo": "Liverwortenuresis371/copyfail-rs",
+      "url": "https://github.com/Liverwortenuresis371/copyfail-rs"
+     },
+     {
+      "repo": "deadRabbit92/mitigate-copy-fail.yml",
+      "url": "https://github.com/deadRabbit92/mitigate-copy-fail.yml"
+     },
+     {
+      "repo": "sudoytang/copyfail-arm64",
+      "url": "https://github.com/sudoytang/copyfail-arm64"
+     },
+     {
+      "repo": "MrMixies/Copy-Fail---CVE-2026-31431",
+      "url": "https://github.com/MrMixies/Copy-Fail---CVE-2026-31431"
+     },
+     {
+      "repo": "Industri4l-H3ll-Xpl0it3rs/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/Industri4l-H3ll-Xpl0it3rs/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "Rat5ak/CVE-2026-31431-CopyFail-static-ELF--POC",
+      "url": "https://github.com/Rat5ak/CVE-2026-31431-CopyFail-static-ELF--POC"
+     },
+     {
+      "repo": "zhanghangorg/cve-2026-31431",
+      "url": "https://github.com/zhanghangorg/cve-2026-31431"
+     },
+     {
+      "repo": "itsystem/afalg-check",
+      "url": "https://github.com/itsystem/afalg-check"
+     },
+     {
+      "repo": "Detect-DefenseLab/CVE-2026-31431-detection-defense",
+      "url": "https://github.com/Detect-DefenseLab/CVE-2026-31431-detection-defense"
+     },
+     {
+      "repo": "ozergoker/CVE-2026-31431-copy-fail",
+      "url": "https://github.com/ozergoker/CVE-2026-31431-copy-fail"
+     },
+     {
+      "repo": "Raptoratack/CopyFail-Scanner-CVE-2026-31431",
+      "url": "https://github.com/Raptoratack/CopyFail-Scanner-CVE-2026-31431"
+     },
+     {
+      "repo": "devtint/CVE-2026-31431",
+      "url": "https://github.com/devtint/CVE-2026-31431"
+     },
+     {
+      "repo": "mrmtwoj/ubuntu-cve-2026-31431-mitigation",
+      "url": "https://github.com/mrmtwoj/ubuntu-cve-2026-31431-mitigation"
+     },
+     {
+      "repo": "RazvanDuda/GhostShell",
+      "url": "https://github.com/RazvanDuda/GhostShell"
+     },
+     {
+      "repo": "darioomatos/cve-2026-31431-copyfail",
+      "url": "https://github.com/darioomatos/cve-2026-31431-copyfail"
+     },
+     {
+      "repo": "sgkdev/page_inject",
+      "url": "https://github.com/sgkdev/page_inject"
+     },
+     {
+      "repo": "OneDemobird/copy-fail-CVE-2026-31431-pythonlower3.10",
+      "url": "https://github.com/OneDemobird/copy-fail-CVE-2026-31431-pythonlower3.10"
+     },
+     {
+      "repo": "reubensammut/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/reubensammut/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "zenzue/CVE-2026-31431-Checker-Mitigator",
+      "url": "https://github.com/zenzue/CVE-2026-31431-Checker-Mitigator"
+     },
+     {
+      "repo": "voxcia-io/copy-fail",
+      "url": "https://github.com/voxcia-io/copy-fail"
+     },
+     {
+      "repo": "luoqianlin/copyfail-c",
+      "url": "https://github.com/luoqianlin/copyfail-c"
+     },
+     {
+      "repo": "tangjie1/CVE-2026-31431-Check",
+      "url": "https://github.com/tangjie1/CVE-2026-31431-Check"
+     },
+     {
+      "repo": "0xN7y/CVE-2026-31431",
+      "url": "https://github.com/0xN7y/CVE-2026-31431"
+     },
+     {
+      "repo": "Dullpurple-sloop726/CVE-2026-31431-Linux-Copy-Fail",
+      "url": "https://github.com/Dullpurple-sloop726/CVE-2026-31431-Linux-Copy-Fail"
+     },
+     {
+      "repo": "iblamenear/CVE-2026-31431-Copy-Fail---Advanced-LPE-Proof-of-Concept---C-Rewrite",
+      "url": "https://github.com/iblamenear/CVE-2026-31431-Copy-Fail---Advanced-LPE-Proof-of-Concept---C-Rewrite"
+     },
+     {
+      "repo": "grabesec/XCP_ng_CVE-2026-31431_tester",
+      "url": "https://github.com/grabesec/XCP_ng_CVE-2026-31431_tester"
+     },
+     {
+      "repo": "philfry/cve-2026-31431-ftrace",
+      "url": "https://github.com/philfry/cve-2026-31431-ftrace"
+     },
+     {
+      "repo": "hans362/CVE-2026-31431-Copy-Fail-Container-Escape",
+      "url": "https://github.com/hans362/CVE-2026-31431-Copy-Fail-Container-Escape"
+     },
+     {
+      "repo": "StarxSky/CVE-2026-31431",
+      "url": "https://github.com/StarxSky/CVE-2026-31431"
+     },
+     {
+      "repo": "pedro-lucas-melo/Estudo-de-Caso-CVE-2026-31431-CopyFail",
+      "url": "https://github.com/pedro-lucas-melo/Estudo-de-Caso-CVE-2026-31431-CopyFail"
+     },
+     {
+      "repo": "ikow/CVE-2026-31431-live-code-corruption",
+      "url": "https://github.com/ikow/CVE-2026-31431-live-code-corruption"
+     },
+     {
+      "repo": "gagaltotal/cve-2026-31431-copy-fail",
+      "url": "https://github.com/gagaltotal/cve-2026-31431-copy-fail"
+     },
+     {
+      "repo": "Mr-bv/Copy-fail-CVE-2026-31431-Exploit-in-C",
+      "url": "https://github.com/Mr-bv/Copy-fail-CVE-2026-31431-Exploit-in-C"
+     },
+     {
+      "repo": "0xer0/CVE-2026-31431-Copy-Fail-add-arm64",
+      "url": "https://github.com/0xer0/CVE-2026-31431-Copy-Fail-add-arm64"
+     },
+     {
+      "repo": "361way/CVE-2026-31431",
+      "url": "https://github.com/361way/CVE-2026-31431"
+     },
+     {
+      "repo": "adilkurtulmus/linux-copy-fail-CVE-2026-31431",
+      "url": "https://github.com/adilkurtulmus/linux-copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "Vatson112/deny-af-alg-bpf",
+      "url": "https://github.com/Vatson112/deny-af-alg-bpf"
+     },
+     {
+      "repo": "kwilck/copyfail",
+      "url": "https://github.com/kwilck/copyfail"
+     },
+     {
+      "repo": "pvpaulo01/cve-2026-31431",
+      "url": "https://github.com/pvpaulo01/cve-2026-31431"
+     },
+     {
+      "repo": "tang-yikai/copy-fail-mitigation-with-bpftrace",
+      "url": "https://github.com/tang-yikai/copy-fail-mitigation-with-bpftrace"
+     },
+     {
+      "repo": "abdelkabirouadoukou/CVE-2026-31431-Analysis-and-Fix",
+      "url": "https://github.com/abdelkabirouadoukou/CVE-2026-31431-Analysis-and-Fix"
+     },
+     {
+      "repo": "julichaan/CVE-2026-31431-python-copyfail-POC",
+      "url": "https://github.com/julichaan/CVE-2026-31431-python-copyfail-POC"
+     },
+     {
+      "repo": "guiimoraes/CVE-2026-31431",
+      "url": "https://github.com/guiimoraes/CVE-2026-31431"
+     },
+     {
+      "repo": "Morton-Li/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/Morton-Li/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "OpenPixelSystems/c-copy-fail",
+      "url": "https://github.com/OpenPixelSystems/c-copy-fail"
+     },
+     {
+      "repo": "p401a-ops/Copy-Fail",
+      "url": "https://github.com/p401a-ops/Copy-Fail"
+     },
+     {
+      "repo": "infiniroot/ansible-mitigate-copyfail-dirtyfrag",
+      "url": "https://github.com/infiniroot/ansible-mitigate-copyfail-dirtyfrag"
+     },
+     {
+      "repo": "KaraZajac/DIRTYFAIL",
+      "url": "https://github.com/KaraZajac/DIRTYFAIL"
+     },
+     {
+      "repo": "ROSNLR5/MitigationToolkit-ROSN-LR5-Full",
+      "url": "https://github.com/ROSNLR5/MitigationToolkit-ROSN-LR5-Full"
+     },
+     {
+      "repo": "hori0729/CVE-2026-31431-Verificador-Exploit",
+      "url": "https://github.com/hori0729/CVE-2026-31431-Verificador-Exploit"
+     },
+     {
+      "repo": "krisiasty/vcheck",
+      "url": "https://github.com/krisiasty/vcheck"
+     },
+     {
+      "repo": "vorkampfer/copy_fail_mitigation",
+      "url": "https://github.com/vorkampfer/copy_fail_mitigation"
+     },
+     {
+      "repo": "Hunt-Benito/copy-fail-cve-2026-31431-linux-kernel-page-cache-lpe",
+      "url": "https://github.com/Hunt-Benito/copy-fail-cve-2026-31431-linux-kernel-page-cache-lpe"
+     },
+     {
+      "repo": "Helios973/CVE-2026-31431_exp.c",
+      "url": "https://github.com/Helios973/CVE-2026-31431_exp.c"
+     },
+     {
+      "repo": "haydenjames/CVE-2026-31431-check",
+      "url": "https://github.com/haydenjames/CVE-2026-31431-check"
+     },
+     {
+      "repo": "cleozi/Copy_Grail",
+      "url": "https://github.com/cleozi/Copy_Grail"
+     },
+     {
+      "repo": "vorkampfer/copyfail2_electric_boogaloo_fix",
+      "url": "https://github.com/vorkampfer/copyfail2_electric_boogaloo_fix"
+     },
+     {
+      "repo": "AdemZero/CVE-2026-31431",
+      "url": "https://github.com/AdemZero/CVE-2026-31431"
+     },
+     {
+      "repo": "Lutfifakee-Project/CVE-2026-31431",
+      "url": "https://github.com/Lutfifakee-Project/CVE-2026-31431"
+     },
+     {
+      "repo": "u1tr0nex/CVE-2026-31431-CopyFail-Lab",
+      "url": "https://github.com/u1tr0nex/CVE-2026-31431-CopyFail-Lab"
+     },
+     {
+      "repo": "mauricioportela/CVE-2026-31431-Analysis",
+      "url": "https://github.com/mauricioportela/CVE-2026-31431-Analysis"
+     },
+     {
+      "repo": "dgrobinson0/CopyFile_CVE-2026-31431",
+      "url": "https://github.com/dgrobinson0/CopyFile_CVE-2026-31431"
+     },
+     {
+      "repo": "polyakovavv/copyfail",
+      "url": "https://github.com/polyakovavv/copyfail"
+     },
+     {
+      "repo": "gbonacini/CVE-2026-31431",
+      "url": "https://github.com/gbonacini/CVE-2026-31431"
+     },
+     {
+      "repo": "studiogangster/CVE-2026-31431",
+      "url": "https://github.com/studiogangster/CVE-2026-31431"
+     },
+     {
+      "repo": "paulorlima9/copyfail-fix",
+      "url": "https://github.com/paulorlima9/copyfail-fix"
+     },
+     {
+      "repo": "sh4den/CVE-2026-31431-copyfail-aarch64",
+      "url": "https://github.com/sh4den/CVE-2026-31431-copyfail-aarch64"
+     },
+     {
+      "repo": "DroPZsec/SplicePrivillegeEscalationFIX",
+      "url": "https://github.com/DroPZsec/SplicePrivillegeEscalationFIX"
+     },
+     {
+      "repo": "kuniyal08/Copy-Fail-CVE-2026-31431-Lab",
+      "url": "https://github.com/kuniyal08/Copy-Fail-CVE-2026-31431-Lab"
+     },
+     {
+      "repo": "SilverRuler/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/SilverRuler/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "Sebastian294/cve-2026-31431",
+      "url": "https://github.com/Sebastian294/cve-2026-31431"
+     },
+     {
+      "repo": "0xFuffM3/CVE-2026-31431-CopyFail",
+      "url": "https://github.com/0xFuffM3/CVE-2026-31431-CopyFail"
+     },
+     {
+      "repo": "dotPY-hax/CopyFail",
+      "url": "https://github.com/dotPY-hax/CopyFail"
+     },
+     {
+      "repo": "zKaaanon/ProyectoFinalSO",
+      "url": "https://github.com/zKaaanon/ProyectoFinalSO"
+     },
+     {
+      "repo": "adityasingh108/CVE-2026-31431-Metasploit-exploit",
+      "url": "https://github.com/adityasingh108/CVE-2026-31431-Metasploit-exploit"
+     },
+     {
+      "repo": "Maxime288/CVE-2026-31431-Copy-Fail-R-pertoire-de-Pr-vention",
+      "url": "https://github.com/Maxime288/CVE-2026-31431-Copy-Fail-R-pertoire-de-Pr-vention"
+     },
+     {
+      "repo": "Pithase/asm-copyfail",
+      "url": "https://github.com/Pithase/asm-copyfail"
+     },
+     {
+      "repo": "4xura/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/4xura/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "royayub/CVE-2026-31431",
+      "url": "https://github.com/royayub/CVE-2026-31431"
+     },
+     {
+      "repo": "Yakovyakov/cve-2026-31431-mitigation",
+      "url": "https://github.com/Yakovyakov/cve-2026-31431-mitigation"
+     },
+     {
+      "repo": "cj667113/OCI-Ansible-Fix-CVE-2026-31431",
+      "url": "https://github.com/cj667113/OCI-Ansible-Fix-CVE-2026-31431"
+     },
+     {
+      "repo": "GubiczaP/cve-2026-31431-checker",
+      "url": "https://github.com/GubiczaP/cve-2026-31431-checker"
+     },
+     {
+      "repo": "sgkdev/ptrace_may_dream",
+      "url": "https://github.com/sgkdev/ptrace_may_dream"
+     },
+     {
+      "repo": "yangh-beep/CVE-2026-31431-C",
+      "url": "https://github.com/yangh-beep/CVE-2026-31431-C"
+     },
+     {
+      "repo": "JimmyPughtron/CVE-2026-31431-Copy-Fail---Minified-LPE-PoC",
+      "url": "https://github.com/JimmyPughtron/CVE-2026-31431-Copy-Fail---Minified-LPE-PoC"
+     },
+     {
+      "repo": "4n4s4zi/copyfail-alpine",
+      "url": "https://github.com/4n4s4zi/copyfail-alpine"
+     },
+     {
+      "repo": "ridhinva/linux-kernel-algif-aead-checker",
+      "url": "https://github.com/ridhinva/linux-kernel-algif-aead-checker"
+     },
+     {
+      "repo": "Iamliuxiaozhen/copy_fail",
+      "url": "https://github.com/Iamliuxiaozhen/copy_fail"
+     },
+     {
+      "repo": "songzzzz/CVE-2026-31431",
+      "url": "https://github.com/songzzzz/CVE-2026-31431"
+     },
+     {
+      "repo": "vishvacyber/Detection-Tool-Kit-for-CVE-2026-31431",
+      "url": "https://github.com/vishvacyber/Detection-Tool-Kit-for-CVE-2026-31431"
+     },
+     {
+      "repo": "nonameuserosint-hue/Copyfail-sh",
+      "url": "https://github.com/nonameuserosint-hue/Copyfail-sh"
+     },
+     {
+      "repo": "tematemaru/CVE-2026-31431-simple-test",
+      "url": "https://github.com/tematemaru/CVE-2026-31431-simple-test"
+     },
+     {
+      "repo": "1neptune/CopyFail",
+      "url": "https://github.com/1neptune/CopyFail"
+     },
+     {
+      "repo": "zs1n/copy-fail-CVE-2026-31431",
+      "url": "https://github.com/zs1n/copy-fail-CVE-2026-31431"
+     },
+     {
+      "repo": "t1ckprivate/CVE-2026-31431-Copy-Fail",
+      "url": "https://github.com/t1ckprivate/CVE-2026-31431-Copy-Fail"
+     },
+     {
+      "repo": "kinryulabs/rootpacket-cve-2026-31431",
+      "url": "https://github.com/kinryulabs/rootpacket-cve-2026-31431"
+     },
+     {
+      "repo": "SugiB3o/CVE-2026-31431",
+      "url": "https://github.com/SugiB3o/CVE-2026-31431"
+     },
+     {
+      "repo": "jihwan77/Linux-Kernel-Copy-Fail-CVE-2026-31431-",
+      "url": "https://github.com/jihwan77/Linux-Kernel-Copy-Fail-CVE-2026-31431-"
+     },
+     {
+      "repo": "TeamN4C/SG-2026-0013",
+      "url": "https://github.com/TeamN4C/SG-2026-0013"
+     },
+     {
+      "repo": "TrevoCastles/CVE-2026-31431-copy-fail",
+      "url": "https://github.com/TrevoCastles/CVE-2026-31431-copy-fail"
+     },
+     {
+      "repo": "dev1681/CVE-2026-31431",
+      "url": "https://github.com/dev1681/CVE-2026-31431"
+     },
+     {
+      "repo": "joaocalciolari07/copyfail-guard",
+      "url": "https://github.com/joaocalciolari07/copyfail-guard"
+     },
+     {
+      "repo": "FranklinF25/cve-2026-31431",
+      "url": "https://github.com/FranklinF25/cve-2026-31431"
+     },
+     {
+      "repo": "silentbyte69/copy-fail-CVE-2026-31431-cpp",
+      "url": "https://github.com/silentbyte69/copy-fail-CVE-2026-31431-cpp"
+     },
+     {
+      "repo": "Minime794/copyfail",
+      "url": "https://github.com/Minime794/copyfail"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-43284",
+    "score": 8.8,
+    "severity": "HIGH",
+    "published": "2026-05-08",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.28]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nxfrm: esp: avoid in-place decrypt on shared skb frags\n\nMSG_SPLICE_PAGES can attach pages from a pipe directly to an skb. TCP\nmarks such skbs with SKBFL_SHARED_FRAG after skb_splice_from_iter(),\nso later paths that may modify packet data can first make a private\ncopy. The IPv4/IPv6 datagram append paths did not set this flag when\nsplicing pages into UDP skbs.\n\nThat leaves an ESP-in-UDP packet made from shared pipe pages looking\nlike an ordinary uncloned nonlinear skb. ESP input then takes the no-COW\nfast path for uncloned skbs",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "Percivalll/Dirty-Frag-Kubernetes-PoC",
+      "url": "https://github.com/Percivalll/Dirty-Frag-Kubernetes-PoC"
+     },
+     {
+      "repo": "scriptzteam/Paranoid-Dirty-Frag-CVE-2026-43284",
+      "url": "https://github.com/scriptzteam/Paranoid-Dirty-Frag-CVE-2026-43284"
+     },
+     {
+      "repo": "mym0us3r/DIRTY-FRAG-Detection-with-Wazuh-4.14.4",
+      "url": "https://github.com/mym0us3r/DIRTY-FRAG-Detection-with-Wazuh-4.14.4"
+     },
+     {
+      "repo": "0xBlackash/CVE-2026-43284",
+      "url": "https://github.com/0xBlackash/CVE-2026-43284"
+     },
+     {
+      "repo": "suominen/CVE-2026-43284",
+      "url": "https://github.com/suominen/CVE-2026-43284"
+     },
+     {
+      "repo": "AK777177/Dirty-Frag-Analysis",
+      "url": "https://github.com/AK777177/Dirty-Frag-Analysis"
+     },
+     {
+      "repo": "haydenjames/dirty-frag-check",
+      "url": "https://github.com/haydenjames/dirty-frag-check"
+     },
+     {
+      "repo": "metalx1993/dirtyfrag-patches",
+      "url": "https://github.com/metalx1993/dirtyfrag-patches"
+     },
+     {
+      "repo": "ryan2929/CVE-2026-43284-",
+      "url": "https://github.com/ryan2929/CVE-2026-43284-"
+     },
+     {
+      "repo": "linnemanlabs/dirtyfrag-arm64",
+      "url": "https://github.com/linnemanlabs/dirtyfrag-arm64"
+     },
+     {
+      "repo": "gagaltotal/CVE-2026-43284-CVE-2026-43500-scan",
+      "url": "https://github.com/gagaltotal/CVE-2026-43284-CVE-2026-43500-scan"
+     },
+     {
+      "repo": "Aiyakami/rust_dirtyfrag",
+      "url": "https://github.com/Aiyakami/rust_dirtyfrag"
+     },
+     {
+      "repo": "XRSecCD/202605_dirty_frag",
+      "url": "https://github.com/XRSecCD/202605_dirty_frag"
+     },
+     {
+      "repo": "liamromanis101/DirtyFrag-Detector",
+      "url": "https://github.com/liamromanis101/DirtyFrag-Detector"
+     },
+     {
+      "repo": "FrosterDL/CVE-2026-43284",
+      "url": "https://github.com/FrosterDL/CVE-2026-43284"
+     },
+     {
+      "repo": "ChernStepanov/DirtyFrag-for-dummies",
+      "url": "https://github.com/ChernStepanov/DirtyFrag-for-dummies"
+     },
+     {
+      "repo": "xd20111/CVE-2026-43284",
+      "url": "https://github.com/xd20111/CVE-2026-43284"
+     },
+     {
+      "repo": "grabesec/XCP_ng_CVE-2026-43284_tester",
+      "url": "https://github.com/grabesec/XCP_ng_CVE-2026-43284_tester"
+     },
+     {
+      "repo": "cyber-niz/Dirty-Frag",
+      "url": "https://github.com/cyber-niz/Dirty-Frag"
+     },
+     {
+      "repo": "LucasPDiniz/CVE-2026-43284",
+      "url": "https://github.com/LucasPDiniz/CVE-2026-43284"
+     },
+     {
+      "repo": "kuniyal08/Dirty-Frag-CVE-2026-43284",
+      "url": "https://github.com/kuniyal08/Dirty-Frag-CVE-2026-43284"
+     },
+     {
+      "repo": "DylanClaudio/Reporte-de-Escalada-de-Privilegios-Local-Dirty-Frag",
+      "url": "https://github.com/DylanClaudio/Reporte-de-Escalada-de-Privilegios-Local-Dirty-Frag"
+     },
+     {
+      "repo": "AtlasVector/Dirty-Frag-CVE-2026-43284",
+      "url": "https://github.com/AtlasVector/Dirty-Frag-CVE-2026-43284"
+     },
+     {
+      "repo": "jayhutajulu1/CVE-2026-43284-DirtyFrag-PoC",
+      "url": "https://github.com/jayhutajulu1/CVE-2026-43284-DirtyFrag-PoC"
+     },
+     {
+      "repo": "nonameuserosint-hue/DirtyFrag-go",
+      "url": "https://github.com/nonameuserosint-hue/DirtyFrag-go"
+     },
+     {
+      "repo": "1neptune/DirtyFrag",
+      "url": "https://github.com/1neptune/DirtyFrag"
+     },
+     {
+      "repo": "t1ckprivate/CVE-2026-43284-Dirty-Frag",
+      "url": "https://github.com/t1ckprivate/CVE-2026-43284-Dirty-Frag"
+     },
+     {
+      "repo": "g0thamRabb1t/CVE-2026-43284-dirtyfrag-detection",
+      "url": "https://github.com/g0thamRabb1t/CVE-2026-43284-dirtyfrag-detection"
+     },
+     {
+      "repo": "lukeslp/redtail-ioc",
+      "url": "https://github.com/lukeslp/redtail-ioc"
+     },
+     {
+      "repo": "armircetaj/tetragon-dirtyfrag",
+      "url": "https://github.com/armircetaj/tetragon-dirtyfrag"
+     },
+     {
+      "repo": "nabhan-mohy/Dirty-Frag-Research-CVE-2026-43284-",
+      "url": "https://github.com/nabhan-mohy/Dirty-Frag-Research-CVE-2026-43284-"
+     },
+     {
+      "repo": "RevyHub/CVE-2026-43284---DirtyFrag-Analysis-THM-",
+      "url": "https://github.com/RevyHub/CVE-2026-43284---DirtyFrag-Analysis-THM-"
+     },
+     {
+      "repo": "millikanjohnl-blip/dirtyfrag-detection-rules",
+      "url": "https://github.com/millikanjohnl-blip/dirtyfrag-detection-rules"
+     },
+     {
+      "repo": "TeamN4C/SG-2026-0024",
+      "url": "https://github.com/TeamN4C/SG-2026-0024"
+     },
+     {
+      "repo": "Minime794/DirtyFrag",
+      "url": "https://github.com/Minime794/DirtyFrag"
+     },
+     {
+      "repo": "nihan-silent-reign/CVE-2026-43284-DIRTY-FRAG-",
+      "url": "https://github.com/nihan-silent-reign/CVE-2026-43284-DIRTY-FRAG-"
+     },
+     {
+      "repo": "v4bel/dirtyfrag",
+      "url": "https://github.com/v4bel/dirtyfrag"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-43503",
+    "score": 8.8,
+    "severity": "HIGH",
+    "published": "2026-05-23",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.33]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: skbuff: propagate shared-frag marker through frag-transfer helpers\n\nTwo frag-transfer helpers (__pskb_copy_fclone() and skb_shift()) fail\nto propagate the SKBFL_SHARED_FRAG bit in skb_shinfo()->flags when\nmoving frags from source to destination.  __pskb_copy_fclone() defers\nthe rest of the shinfo metadata to skb_copy_header() after copying\nfrag descriptors, but that helper only carries over gso_{size,segs,\ntype} and never touches skb_shinfo()->flags; skb_shift() moves frag\ndescriptors directly and leaves flags untouched.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "0xBlackash/CVE-2026-43503",
+      "url": "https://github.com/0xBlackash/CVE-2026-43503"
+     },
+     {
+      "repo": "mooder1/dirtyclone-CVE-2026-43503",
+      "url": "https://github.com/mooder1/dirtyclone-CVE-2026-43503"
+     },
+     {
+      "repo": "sec0x/CVE-2026-43503",
+      "url": "https://github.com/sec0x/CVE-2026-43503"
+     },
+     {
+      "repo": "douglasmun/pagecache-lpe-containment-kit",
+      "url": "https://github.com/douglasmun/pagecache-lpe-containment-kit"
+     },
+     {
+      "repo": "gl1tch0x1/DirtyClone",
+      "url": "https://github.com/gl1tch0x1/DirtyClone"
+     },
+     {
+      "repo": "entra1337/DirtyClone",
+      "url": "https://github.com/entra1337/DirtyClone"
+     },
+     {
+      "repo": "SecureWithUmer/CVE-2026-43503",
+      "url": "https://github.com/SecureWithUmer/CVE-2026-43503"
+     },
+     {
+      "repo": "lieehrdiansyah12/CVE-2026-43503",
+      "url": "https://github.com/lieehrdiansyah12/CVE-2026-43503"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-53075",
+    "score": 8.8,
+    "severity": "HIGH",
+    "published": "2026-06-24",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.33]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nppp: require CAP_NET_ADMIN in target netns for unattached ioctls\n\n/dev/ppp open is currently authorized against file->f_cred->user_ns,\nwhile unattached administrative ioctls operate on current->nsproxy->net_ns.\n\nAs a result, a local unprivileged user can create a new user namespace\nwith CLONE_NEWUSER, gain CAP_NET_ADMIN only in that new user namespace,\nand still issue PPPIOCNEWUNIT, PPPIOCATTACH, or PPPIOCATTCHAN against\nan inherited network namespace.\n\nRequire CAP_NET_ADMIN in the user namespace that owns the target network\n",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "foxirain/linux-kernel-codex-harness-v2",
+      "url": "https://github.com/foxirain/linux-kernel-codex-harness-v2"
+     },
+     {
+      "repo": "lottiedeyan/CVE-2026-53075poc",
+      "url": "https://github.com/lottiedeyan/CVE-2026-53075poc"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2020-27815",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2021-05-26",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>4.4.249]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "A flaw was found in the JFS filesystem code in the Linux Kernel which allows a local attacker with the ability to set extended attributes to panic the system, causing memory corruption or escalating privileges. The highest threat from this vulnerability is to confidentiality, integrity, as well as system availability.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "Trinadh465/linux-4.19.72_CVE-2020-27815",
+      "url": "https://github.com/Trinadh465/linux-4.19.72_CVE-2020-27815"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2021-20194",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2021-02-23",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>5.2]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "There is a vulnerability in the linux kernel versions higher than 5.2 (if kernel compiled with config params CONFIG_BPF_SYSCALL=y , CONFIG_BPF=y , CONFIG_CGROUPS=y , CONFIG_CGROUP_BPF=y , CONFIG_HARDENED_USERCOPY not set, and BPF hook to getsockopt is registered). As result of BPF execution, the local user can trigger bug in __cgroup_bpf_run_filter_getsockopt() function that can lead to heap overflow (because of non-hardened usercopy). The impact of attack could be deny of service or possibly privileges escalation.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2025-71089",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-01-13",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.4]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\niommu: disable SVA when CONFIG_X86 is set\n\nPatch series \"Fix stale IOTLB entries for kernel address space\", v7.\n\nThis proposes a fix for a security vulnerability related to IOMMU Shared\nVirtual Addressing (SVA).  In an SVA context, an IOMMU can cache kernel\npage table entries.  When a kernel page table page is freed and\nreallocated for another purpose, the IOMMU might still hold stale,\nincorrect entries.  This can be exploited to cause a use-after-free or\nwrite-after-free condition, potentially leading to privilege escalation",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-23111",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-02-13",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.10]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nf_tables: fix inverted genmask check in nft_map_catchall_activate()\n\nnft_map_catchall_activate() has an inverted element activity check\ncompared to its non-catchall counterpart nft_mapelem_activate() and\ncompared to what is logically required.\n\nnft_map_catchall_activate() is called from the abort path to re-activate\ncatchall map elements that were deactivated during a failed transaction.\nIt should skip elements that are already active (they don't need\nre-activation) and process elements that are inactive (they nee",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "HORKimhab/CVE-2026-23111",
+      "url": "https://github.com/HORKimhab/CVE-2026-23111"
+     },
+     {
+      "repo": "criann/check-cve-2026-23111",
+      "url": "https://github.com/criann/check-cve-2026-23111"
+     },
+     {
+      "repo": "0xBlackash/CVE-2026-23111",
+      "url": "https://github.com/0xBlackash/CVE-2026-23111"
+     },
+     {
+      "repo": "seguridadentrerios/CVE-2026-23111",
+      "url": "https://github.com/seguridadentrerios/CVE-2026-23111"
+     },
+     {
+      "repo": "ishankaru/CVE-2026-23111-nftables-lab",
+      "url": "https://github.com/ishankaru/CVE-2026-23111-nftables-lab"
+     },
+     {
+      "repo": "Baba01hacker666/CVE-2026-23111",
+      "url": "https://github.com/Baba01hacker666/CVE-2026-23111"
+     },
+     {
+      "repo": "bakano98/cve-2026-23111-poc",
+      "url": "https://github.com/bakano98/cve-2026-23111-poc"
+     },
+     {
+      "repo": "vrtlbob/Linux-Kernel-Vulnerabilities-CVE-2026-23111",
+      "url": "https://github.com/vrtlbob/Linux-Kernel-Vulnerabilities-CVE-2026-23111"
+     },
+     {
+      "repo": "Knz-source/CVE-2026-23111-POC-noddlenpottato",
+      "url": "https://github.com/Knz-source/CVE-2026-23111-POC-noddlenpottato"
+     },
+     {
+      "repo": "vvsy46/CVE-2026-23111-PoC",
+      "url": "https://github.com/vvsy46/CVE-2026-23111-PoC"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-23268",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-03-18",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.18]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\napparmor: fix unprivileged local user can do privileged policy management\n\nAn unprivileged local user can load, replace, and remove profiles by\nopening the apparmorfs interfaces, via a confused deputy attack, by\npassing the opened fd to a privileged process, and getting the\nprivileged process to write to the interface.\n\nThis does require a privileged target that can be manipulated to do\nthe write for the unprivileged process, but once such access is\nachieved full policy management is possible and all the possible\nimplications",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-43206",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-05-06",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.16]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/amdkfd: Fix out-of-bounds write in kfd_event_page_set()\n\nThe kfd_event_page_set() function writes KFD_SIGNAL_EVENT_LIMIT * 8\nbytes via memset without checking the buffer size parameter. This allows\nunprivileged userspace to trigger an out-of bounds kernel memory write\nby passing a small buffer, leading to  potential privilege\nescalation.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-43500",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-05-11",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>5.3 <6.18.29]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nrxrpc: Also unshare DATA/RESPONSE packets when paged frags are present\n\nThe DATA-packet handler in rxrpc_input_call_event() and the RESPONSE\nhandler in rxrpc_verify_response() copy the skb to a linear one before\ncalling into the security ops only when skb_cloned() is true.  An skb\nthat is not cloned but still carries externally-owned paged fragments\n(e.g. SKBFL_SHARED_FRAG set by splice() into a UDP socket via\n__ip_append_data, or a chained skb_has_frag_list()) falls through to\nthe in-place decryption path, which binds the fr",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "attaattaatta/CVE-2026-43500",
+      "url": "https://github.com/attaattaatta/CVE-2026-43500"
+     },
+     {
+      "repo": "vorkampfer/dirty_frag_mitigation",
+      "url": "https://github.com/vorkampfer/dirty_frag_mitigation"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-46300",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-05-23",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.33]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: skbuff: preserve shared-frag marker during coalescing\n\nskb_try_coalesce() can attach paged frags from @from to @to.  If @from\nhas SKBFL_SHARED_FRAG set, the resulting @to skb can contain the same\nexternally-owned or page-cache-backed frags, but the shared-frag marker\nis currently lost.\n\nThat breaks the invariant relied on by later in-place writers.  In\nparticular, ESP input checks skb_has_shared_frag() before deciding\nwhether an uncloned nonlinear skb can skip skb_cow_data().  If TCP\nreceive coalescing has moved shared f",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "HORKimhab/CVE-2026-46300",
+      "url": "https://github.com/HORKimhab/CVE-2026-46300"
+     },
+     {
+      "repo": "Sentebale/CVE-2026-46300",
+      "url": "https://github.com/Sentebale/CVE-2026-46300"
+     },
+     {
+      "repo": "0xBlackash/CVE-2026-46300",
+      "url": "https://github.com/0xBlackash/CVE-2026-46300"
+     },
+     {
+      "repo": "ExploitEoom/CVE-2026-46300",
+      "url": "https://github.com/ExploitEoom/CVE-2026-46300"
+     },
+     {
+      "repo": "First-John/cve_2026_frag_family_fix",
+      "url": "https://github.com/First-John/cve_2026_frag_family_fix"
+     },
+     {
+      "repo": "Maxime288/Fragnesia-CVE-2026-46300",
+      "url": "https://github.com/Maxime288/Fragnesia-CVE-2026-46300"
+     },
+     {
+      "repo": "nonameuserosint-hue/Fragnesia-go",
+      "url": "https://github.com/nonameuserosint-hue/Fragnesia-go"
+     },
+     {
+      "repo": "AzDevops143/FRAGNESIA-Charan-cve-2026-46300",
+      "url": "https://github.com/AzDevops143/FRAGNESIA-Charan-cve-2026-46300"
+     },
+     {
+      "repo": "1neptune/Fragnesia",
+      "url": "https://github.com/1neptune/Fragnesia"
+     },
+     {
+      "repo": "BenedictEjepu/CVE-2026-46300-Fragnesia---TryHackMe-Lab-Project",
+      "url": "https://github.com/BenedictEjepu/CVE-2026-46300-Fragnesia---TryHackMe-Lab-Project"
+     },
+     {
+      "repo": "azilRababe/CVE-2026-46300",
+      "url": "https://github.com/azilRababe/CVE-2026-46300"
+     },
+     {
+      "repo": "MadExploits/CVE-2026-46300",
+      "url": "https://github.com/MadExploits/CVE-2026-46300"
+     },
+     {
+      "repo": "Kentox493/CVE-2026-46300_Fragnesia",
+      "url": "https://github.com/Kentox493/CVE-2026-46300_Fragnesia"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-46319",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-06-09",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.33]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: act_ct: Only release RCU read lock after ct_ft\n\nWhen looking up a flow table in act_ct in tcf_ct_flow_table_get(),\nrhashtable_lookup_fast() internally opens and closes an RCU read critical\nsection before returning ct_ft.\nThe tcf_ct_flow_table_cleanup_work() can complete before refcount_inc_not_zero()\nis invoked on the returned ct_ft resulting in a UAF on the already freed ct_ft\nobject. This vulnerability can lead to privilege escalation.\n\nAnalysis from zdi-disclosures@trendmicro.com:\nWhen initializing act_ct, tcf_c",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-46331",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-06-16",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.36]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: fix pedit partial COW leading to page cache corruption\n\ntcf_pedit_act() computes the COW range for skb_ensure_writable()\nonce before the key loop using tcfp_off_max_hint, but the hint does\nnot account for the runtime header offset added by typed keys. This\ncan leave part of the write region un-COW'd.\n\nFix by moving skb_ensure_writable() inside the per-key loop where\nthe actual write offset is known, and add overflow checking on the\noffset arithmetic. For negative offsets (e.g. Ethernet header edits\nat ingress), use",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "sgkdev/packet_edit_meme",
+      "url": "https://github.com/sgkdev/packet_edit_meme"
+     },
+     {
+      "repo": "0xBlackash/CVE-2026-46331",
+      "url": "https://github.com/0xBlackash/CVE-2026-46331"
+     },
+     {
+      "repo": "HORKimhab/CVE-2026-46331",
+      "url": "https://github.com/HORKimhab/CVE-2026-46331"
+     },
+     {
+      "repo": "vulnquest58/dirtyclone-exploit",
+      "url": "https://github.com/vulnquest58/dirtyclone-exploit"
+     },
+     {
+      "repo": "Quaerendir/cve-2026-46331-audit",
+      "url": "https://github.com/Quaerendir/cve-2026-46331-audit"
+     },
+     {
+      "repo": "seguridadentrerios/CVE-2026-46331",
+      "url": "https://github.com/seguridadentrerios/CVE-2026-46331"
+     },
+     {
+      "repo": "g0thamRabb1t/CVE-2026-46331-pedit-COW-detection",
+      "url": "https://github.com/g0thamRabb1t/CVE-2026-46331-pedit-COW-detection"
+     },
+     {
+      "repo": "V0IDNETWORK/CVE-2026-46331",
+      "url": "https://github.com/V0IDNETWORK/CVE-2026-46331"
+     },
+     {
+      "repo": "yanxinwu946/CVE-2026-46331",
+      "url": "https://github.com/yanxinwu946/CVE-2026-46331"
+     },
+     {
+      "repo": "MarwahHadi/CVE-2026-46331-pedit-cow",
+      "url": "https://github.com/MarwahHadi/CVE-2026-46331-pedit-cow"
+     },
+     {
+      "repo": "rjt-gupta/page-cache-corruption-lpes",
+      "url": "https://github.com/rjt-gupta/page-cache-corruption-lpes"
+     },
+     {
+      "repo": "cherrycherrymay/PoC-CVE-2026-46331",
+      "url": "https://github.com/cherrycherrymay/PoC-CVE-2026-46331"
+     },
+     {
+      "repo": "nawalacheker1/CVE-2026-46331",
+      "url": "https://github.com/nawalacheker1/CVE-2026-46331"
+     },
+     {
+      "repo": "theendofabbys/pedit-cow",
+      "url": "https://github.com/theendofabbys/pedit-cow"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-52943",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-06-24",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.35]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: skbuff: fix missing zerocopy reference in pskb_carve helpers\n\npskb_carve_inside_header() and pskb_carve_inside_nonlinear() both copy\nthe old skb_shared_info header into a new buffer via memcpy(), which\nincludes the destructor_arg pointer (uarg) for MSG_ZEROCOPY skbs.\nNeither function calls net_zcopy_get() for the new shinfo, creating an\nunaccounted holder: every skb_shared_info with destructor_arg set will\ncall skb_zcopy_clear() once when freed, but the corresponding\nnet_zcopy_get() was never called for the new copy. Rep",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "vn-lazyming/CVE-2026-52943",
+      "url": "https://github.com/vn-lazyming/CVE-2026-52943"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-64600",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-07-23",
+    "kev": false,
+    "matched_by": "kernel",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "linux:linux_kernel",
+      "constraint": "linux:linux_kernel [>=6.13 <6.18.39]",
+      "installed": "6.14.0-35-generic"
+     }
+    ],
+    "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nxfs: resample the data fork mapping after cycling ILOCK\n\nxfs_reflink_fill_{cow_hole,delalloc} are both presented with an inode,\na data fork mapping, and a cow fork mapping.  Unfortunately, these two\nhelpers cycle the ILOCK to grab a transaction, which means that the\nmappings are stale as soon as we reacquire the ILOCK.  Currently we\nrefresh the cow fork mapping by re-calling xfs_find_trim_cow_extent, but\nwe don't refresh the data fork mapping beforehand, which means that the\nxfs_bmap_trim_cow in that function queries the refc",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "0xBlackash/CVE-2026-64600",
+      "url": "https://github.com/0xBlackash/CVE-2026-64600"
+     },
+     {
+      "repo": "HORKimhab/CVE-2026-64600",
+      "url": "https://github.com/HORKimhab/CVE-2026-64600"
+     },
+     {
+      "repo": "vulnquest58/VQ-RefluxCore",
+      "url": "https://github.com/vulnquest58/VQ-RefluxCore"
+     },
+     {
+      "repo": "Debajyoti0-0/CVE-2026-64600",
+      "url": "https://github.com/Debajyoti0-0/CVE-2026-64600"
+     },
+     {
+      "repo": "litosmartin/CVE-2026-64600-Refluxfs-PoC",
+      "url": "https://github.com/litosmartin/CVE-2026-64600-Refluxfs-PoC"
+     },
+     {
+      "repo": "bha-vin/CVE-2026-64600-Exploit",
+      "url": "https://github.com/bha-vin/CVE-2026-64600-Exploit"
+     },
+     {
+      "repo": "letsr00t/RefluxFS_CVE-2026-64600",
+      "url": "https://github.com/letsr00t/RefluxFS_CVE-2026-64600"
+     },
+     {
+      "repo": "masrikky/CVE-2026-64600-RefluXFS",
+      "url": "https://github.com/masrikky/CVE-2026-64600-RefluXFS"
+     },
+     {
+      "repo": "0xSec1/CVE-2026-64600-RefluXFS-PoC",
+      "url": "https://github.com/0xSec1/CVE-2026-64600-RefluXFS-PoC"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-24072",
+    "score": 8.8,
+    "severity": "HIGH",
+    "published": "2026-05-04",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "apache:http_server",
+      "constraint": "apache:http_server [<2.4.67]",
+      "installed": "apache2 2.4.58-1ubuntu8.8"
+     }
+    ],
+    "description": "An escalation of privilege bug in various modules in Apache HTTP 2.4.66 and earlier allows local .htaccess authors to read files with the privileges of the httpd user.\n\nUsers are recommended to upgrade to version 2.4.67, which fixes this issue.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "meh098/CVE-2026-24072-Analysis",
+      "url": "https://github.com/meh098/CVE-2026-24072-Analysis"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-53803",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-08-13",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "samba:rsync",
+      "constraint": "samba:rsync [<3.5.0]",
+      "installed": "rsync 3.2.7-1ubuntu1.2"
+     }
+    ],
+    "description": "rsync before 3.5.0 contains a symlink following vulnerability that allows local attackers to overwrite arbitrary files by placing a symlink at a predictable output path such as --log-file, --write-batch, or daemon-mode log and statistics paths. Attackers can exploit rsync's failure to reject symlinks during ancillary file writes to redirect output to arbitrary filesystem locations, achieving local privilege escalation on installations where rsync runs with elevated privileges such as setuid or privileged daemon configurations.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-35535",
+    "score": 7.4,
+    "severity": "HIGH",
+    "published": "2026-04-03",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "sudo_project:sudo",
+      "constraint": "sudo_project:sudo [<1.9.17]",
+      "installed": "sudo 1.9.15p5-3ubuntu5.24.04.1"
+     }
+    ],
+    "description": "In Sudo through 1.9.17p2 before 3e474c2, a failure of a setuid, setgid, or setgroups call, during a privilege drop before running the mailer, is not a fatal error and can lead to privilege escalation.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2015-5652",
+    "score": 7.2,
+    "severity": "HIGH",
+    "published": "2015-10-06",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python-apt-common 2.7.7ubuntu5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python-babel-localedata 2.10.3-3build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-apport 2.28.1-0ubuntu3.8"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-apt 2.7.7ubuntu5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-babel 2.10.3-3build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-blinker 1.7.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-bpfcc 0.29.1+ds-1ubuntu7"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-cap-ng 0.8.4-2build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-cffi-backend 1.16.0-2build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-colorama 0.4.6-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-dbus 1.3.2-5build3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-debconf 1.5.86ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-distro 1.9.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-distro-info 1.7build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-firewall 2.1.1-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-httplib2 0.20.4-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-jinja2 3.1.2-1ubuntu1.3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-json-pointer 2.0-0ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-jsonpatch 1.32-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-jwt 2.7.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-launchpadlib 1.11.0-6"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-lazr.restfulclient 0.14.6-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-lazr.uri 1.0.6-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-markdown-it 3.0.0-2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-markupsafe 2.1.5-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-mdurl 0.1.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-netaddr 0.8.0-2ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-netplan 1.1.2-2~ubuntu24.04.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-nftables 1.0.9-1build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-ntp 1.2.2+dfsg1-4build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-oauthlib 3.2.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-problem-report 2.28.1-0ubuntu3.8"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-pygments 2.17.2+dfsg-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-pyparsing 3.1.1-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-pyrsistent 0.20.0-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-requests 2.31.0+dfsg-1ubuntu1.1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-serial 3.5-2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-six 1.16.0-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-software-properties 0.99.49.3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-urllib3 2.0.7-1ubuntu0.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-wadllib 1.3.6-5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.5.0]",
+      "installed": "python3-xkit 0.5.0ubuntu6"
+     }
+    ],
+    "description": "Untrusted search path vulnerability in python.exe in Python through 3.5.0 on Windows allows local users to gain privileges via a Trojan horse readline.pyd file in the current working directory.  NOTE: the vendor says \"It was determined that this is a longtime behavior of Python that cannot really be altered at this point.\"",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2022-26488",
+    "score": 7.0,
+    "severity": "HIGH",
+    "published": "2022-03-10",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python-apt-common 2.7.7ubuntu5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python-babel-localedata 2.10.3-3build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-apport 2.28.1-0ubuntu3.8"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-apt 2.7.7ubuntu5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-babel 2.10.3-3build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-blinker 1.7.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-bpfcc 0.29.1+ds-1ubuntu7"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-cap-ng 0.8.4-2build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-cffi-backend 1.16.0-2build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-colorama 0.4.6-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-dbus 1.3.2-5build3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-debconf 1.5.86ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-distro 1.9.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-distro-info 1.7build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-firewall 2.1.1-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-httplib2 0.20.4-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-idna 3.6-2ubuntu0.1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-jinja2 3.1.2-1ubuntu1.3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-json-pointer 2.0-0ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-jsonpatch 1.32-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-jwt 2.7.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-launchpadlib 1.11.0-6"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-lazr.restfulclient 0.14.6-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-lazr.uri 1.0.6-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-markdown-it 3.0.0-2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-markupsafe 2.1.5-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-mdurl 0.1.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-netaddr 0.8.0-2ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-netplan 1.1.2-2~ubuntu24.04.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-nftables 1.0.9-1build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-ntp 1.2.2+dfsg1-4build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-oauthlib 3.2.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-problem-report 2.28.1-0ubuntu3.8"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-pygments 2.17.2+dfsg-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-pyparsing 3.1.1-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-pyrsistent 0.20.0-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-requests 2.31.0+dfsg-1ubuntu1.1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-serial 3.5-2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-six 1.16.0-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-software-properties 0.99.49.3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-urllib3 2.0.7-1ubuntu0.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-wadllib 1.3.6-5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=3.7.12]",
+      "installed": "python3-xkit 0.5.0ubuntu6"
+     }
+    ],
+    "description": "In Python before 3.10.3 on Windows, local users can gain privileges because the search path is inadequately secured. The installer may allow a local attacker to add user-writable directories to the system search path. To exploit, an administrator must have installed Python for all users and enabled PATH entries. A non-administrative user can trigger a repair that incorrectly adds user-writable paths into PATH, enabling search-path hijacking of other users and system services. This affects Python (CPython) through 3.7.12, 3.8.x through 3.8.12, 3.9.x through 3.9.10, and 3.10.x through 3.10.2.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "techspence/PyPATHPwner",
+      "url": "https://github.com/techspence/PyPATHPwner"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-29518",
+    "score": 7.0,
+    "severity": "HIGH",
+    "published": "2026-05-20",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "samba:rsync",
+      "constraint": "samba:rsync [<3.4.3]",
+      "installed": "rsync 3.2.7-1ubuntu1.2"
+     }
+    ],
+    "description": "Rsync versions before 3.4.3 contain a time-of-check to time-of-use (TOCTOU) race condition in daemon file handling that allows attackers to redirect file writes outside intended directories by replacing parent directory components with symbolic links. Attackers with write access to a module path can exploit this race condition to create or overwrite arbitrary files, potentially modifying sensitive system files and achieving privilege escalation when the daemon runs with elevated privileges. This vulnerability can only be triggered if the chroot setting is false.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2018-1000117",
+    "score": 6.7,
+    "severity": "MEDIUM",
+    "published": "2018-03-07",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [>=3.6.0 <3.6.5]",
+      "installed": "python3-idna 3.6-2ubuntu0.1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [>=3.2.0 <3.4.9]",
+      "installed": "python3-oauthlib 3.2.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [>=3.5.0 <3.5.6]",
+      "installed": "python3-serial 3.5-2"
+     }
+    ],
+    "description": "Python Software Foundation CPython version From 3.2 until 3.6.4 on Windows contains a Buffer Overflow vulnerability in os.symlink() function on Windows that can result in Arbitrary code execution, likely escalation of privilege. This attack appears to be exploitable via a python script that creates a symlink with an attacker controlled name or location. This vulnerability appears to have been fixed in 3.7.0 and 3.6.5.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "u0pattern/CVE-2018-1000117-Exploit",
+      "url": "https://github.com/u0pattern/CVE-2018-1000117-Exploit"
+     }
+    ]
+   },
+   {
+    "id": "CVE-2026-53799",
+    "score": 6.3,
+    "severity": "MEDIUM",
+    "published": "2026-08-13",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "samba:rsync",
+      "constraint": "samba:rsync [<3.5.0]",
+      "installed": "rsync 3.2.7-1ubuntu1.2"
+     }
+    ],
+    "description": "rsync before 3.5.0\u00a0contains a symlink race condition vulnerability that allows local attackers to cause rsync to apply arbitrary ACLs or extended attributes to unintended files by substituting a symlink at a predictable destination path between the file write and the subsequent acl_set_file() or lsetxattr() call. Attackers can exploit this timing window to redirect ACL and xattr application through a crafted symlink to files outside the intended destination tree, potentially granting elevated permissions and enabling local privilege escalation.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2009-0360",
+    "score": 6.2,
+    "severity": "MEDIUM",
+    "published": "2009-02-13",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "eyrie:pam-krb5",
+      "constraint": "eyrie:pam-krb5 [<=3.12]",
+      "installed": "krb5-locales 1.20.1-6ubuntu2.6"
+     }
+    ],
+    "description": "Russ Allbery pam-krb5 before 3.13, when linked against MIT Kerberos, does not properly initialize the Kerberos libraries for setuid use, which allows local users to gain privileges by pointing an environment variable to a modified Kerberos configuration file, and then launching a PAM-based setuid application.",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2006-1542",
+    "score": 3.7,
+    "severity": "LOW",
+    "published": "2006-03-30",
+    "kev": false,
+    "matched_by": "package",
+    "confidence": "high",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-blinker 1.7.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-bpfcc 0.29.1+ds-1ubuntu7"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-cap-ng 0.8.4-2build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-cffi-backend 1.16.0-2build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-colorama 0.4.6-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-dbus 1.3.2-5build3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-debconf 1.5.86ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-distro 1.9.0-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-distro-info 1.7build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-firewall 2.1.1-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-httplib2 0.20.4-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-json-pointer 2.0-0ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-jsonpatch 1.32-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-launchpadlib 1.11.0-6"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-lazr.restfulclient 0.14.6-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-lazr.uri 1.0.6-3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-markupsafe 2.1.5-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-mdurl 0.1.2-1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-netaddr 0.8.0-2ubuntu1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-netplan 1.1.2-2~ubuntu24.04.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-nftables 1.0.9-1build1"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-ntp 1.2.2+dfsg1-4build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-pyrsistent 0.20.0-1build2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-six 1.16.0-4"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-software-properties 0.99.49.3"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-urllib3 2.0.7-1ubuntu0.2"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-wadllib 1.3.6-5"
+     },
+     {
+      "cpe": "python:python",
+      "constraint": "python:python [<=2.4.2]",
+      "installed": "python3-xkit 0.5.0ubuntu6"
+     }
+    ],
+    "description": "Stack-based buffer overflow in Python 2.4.2 and earlier, running on Linux 2.6.12.5 under gcc 4.0.3 with libc 2.3.5, allows local users to cause a \"stack overflow,\" and possibly gain privileges, by running a script from a current working directory that has a long name, related to the realpath function.  NOTE: this might not be a vulnerability. However, the fact that it appears in a programming language interpreter could mean that some applications are affected, although attack scenarios might be limited because the attacker might already need to cross privilege boundaries to cause an exploitabl",
+    "has_poc": false,
+    "pocs": []
+   },
+   {
+    "id": "CVE-2026-3888",
+    "score": 7.8,
+    "severity": "HIGH",
+    "published": "2026-03-17",
+    "kev": false,
+    "matched_by": "distro_pin",
+    "confidence": "possible",
+    "likely_backported": false,
+    "escape_class": false,
+    "matches": [
+     {
+      "cpe": "canonical:ubuntu_linux",
+      "constraint": "canonical:ubuntu_linux [24.04]",
+      "installed": "ubuntu 24.04"
+     }
+    ],
+    "description": "Local privilege escalation in snapd on Linux allows local attackers to get root privilege by re-creating snap's private /tmp directory when systemd-tmpfiles is configured to automatically clean up this directory. This issue affects Ubuntu 16.04 LTS, 18.04 LTS, 20.04 LTS, 22.04 LTS, and 24.04 LTS.",
+    "has_poc": true,
+    "pocs": [
+     {
+      "repo": "fevar54/CVE-2026-3888-POC-all-from-the-Qualys-platform.",
+      "url": "https://github.com/fevar54/CVE-2026-3888-POC-all-from-the-Qualys-platform."
+     },
+     {
+      "repo": "Many-Hat-Group/Ubuntu-CVE-2026-3888-patcher",
+      "url": "https://github.com/Many-Hat-Group/Ubuntu-CVE-2026-3888-patcher"
+     },
+     {
+      "repo": "netw0rk7/CVE-2026-3888-PoC",
+      "url": "https://github.com/netw0rk7/CVE-2026-3888-PoC"
+     },
+     {
+      "repo": "TheCyberGeek/CVE-2026-3888-snap-confine-systemd-tmpfiles-LPE",
+      "url": "https://github.com/TheCyberGeek/CVE-2026-3888-snap-confine-systemd-tmpfiles-LPE"
+     },
+     {
+      "repo": "noambouillet/CVE-2026-3888",
+      "url": "https://github.com/noambouillet/CVE-2026-3888"
+     },
+     {
+      "repo": "DanielTangnes/CVE-2026-3888",
+      "url": "https://github.com/DanielTangnes/CVE-2026-3888"
+     },
+     {
+      "repo": "hewhomusntbenamed/CVE-2026-3888-fixed",
+      "url": "https://github.com/hewhomusntbenamed/CVE-2026-3888-fixed"
+     }
+    ]
+   }
+  ]
+ },
+ "stats": {
+  "peas_total": 38,
+  "cve_total": 27,
+  "kev": 1,
+  "backport_flagged": 0,
+  "escape_flagged": 0,
+  "by_tier": {
+   "kernel": 16,
+   "package": 10,
+   "os_build": 0,
+   "distro_pin": 1
+  },
+  "by_severity": {
+   "HIGH": 23,
+   "MEDIUM": 3,
+   "LOW": 1
+  }
+ }
+}
