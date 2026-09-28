@@ -8,3 +8,6 @@ lpescan/kits/
 cve-lpe/pocs/build-log*.csv
 cve-lpe/pocs/clone-log*.csv
 *.log
+
+# Autopwn output (bukti run lab — jangan di-push)
+lpescan/autopwn-out/

