@@ -2493,6 +2493,7 @@ CVE-1999-0130	1996-11-16	7.2	HIGH	0	0	linux	eric_allman:sendmail	eric_allman:sen
 CVE-1999-0130	1996-11-16	7.2	HIGH	0	0	linux	eric_allman:sendmail	eric_allman:sendmail [8.8]	EXACT	8.8	8 8	-	-	-	-	-	-
 CVE-1999-0130	1996-11-16	7.2	HIGH	0	0	linux	eric_allman:sendmail	eric_allman:sendmail [8.8.1]	EXACT	8.8.1	8 8 1	-	-	-	-	-	-
 CVE-1999-0130	1996-11-16	7.2	HIGH	0	0	linux	eric_allman:sendmail	eric_allman:sendmail [8.8.2]	EXACT	8.8.2	8 8 2	-	-	-	-	-	-
+CVE-1999-1296	1997-04-29	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.5.2]	EXACT	1.5.2	1 5 2	-	-	-	-	-	-
 CVE-1999-1182	1997-07-17	7.2	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [4.0]	EXACT	4.0	4	-	-	-	-	-	-
 CVE-1999-1182	1997-07-17	7.2	HIGH	0	0	linux	suse:suse_linux	suse:suse_linux [5.0]	EXACT	5.0	5	-	-	-	-	-	-
 CVE-1999-0971	1997-07-22	7.2	HIGH	0	0	other	university_of_cambridge:exim	university_of_cambridge:exim [<=1.62]	<=	1.62	1 62	-	-	-	-	-	-
@@ -2511,6 +2512,7 @@ CVE-1999-0433	1999-03-21	4.6	MEDIUM	0	0	linux	suse:suse_linux	suse:suse_linux [6
 CVE-1999-0434	1999-03-30	7.5	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [2.0]	EXACT	2.0	2	-	-	-	-	-	-
 CVE-1999-0434	1999-03-30	7.5	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [2.1]	EXACT	2.1	2 1	-	-	-	-	-	-
 CVE-1999-0434	1999-03-30	7.5	HIGH	0	0	linux	suse:suse_linux	suse:suse_linux [5.3]	EXACT	5.3	5 3	-	-	-	-	-	-
+CVE-1999-0713	1999-06-11	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [all]	ALL	-	-	-	-	-	-	-	-
 CVE-1999-0742	1999-06-22	5.0	MEDIUM	0	0	linux	debian:debian_linux	debian:debian_linux [2.1]	EXACT	2.1	2 1	-	-	-	-	-	-
 CVE-1999-1166	1999-07-11	7.2	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.0.37]	EXACT	2.0.37	2 0 37	-	-	-	-	-	-
 CVE-1999-1352	1999-09-28	4.6	MEDIUM	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.2.0]	EXACT	2.2.0	2 2	-	-	-	-	-	-
@@ -2539,6 +2541,18 @@ CVE-2000-0433	2000-05-02	4.6	MEDIUM	0	0	linux	suse:suse_linux	suse:suse_linux [6
 CVE-2000-0433	2000-05-02	4.6	MEDIUM	0	0	linux	suse:suse_linux	suse:suse_linux [6.2]	EXACT	6.2	6 2	-	-	-	-	-	-
 CVE-2000-0433	2000-05-02	4.6	MEDIUM	0	0	linux	suse:suse_linux	suse:suse_linux [6.3]	EXACT	6.3	6 3	-	-	-	-	-	-
 CVE-2000-0433	2000-05-02	4.6	MEDIUM	0	0	linux	suse:suse_linux	suse:suse_linux [6.4]	EXACT	6.4	6 4	-	-	-	-	-	-
+CVE-2000-0389	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos	mit:kerberos [4.0]	EXACT	4.0	4	-	-	-	-	-	-
+CVE-2000-0389	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.0]	EXACT	1.0	1	-	-	-	-	-	-
+CVE-2000-0389	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.1.1]	EXACT	1.1.1	1 1 1	-	-	-	-	-	-
+CVE-2000-0390	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos	mit:kerberos [4.0]	EXACT	4.0	4	-	-	-	-	-	-
+CVE-2000-0390	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.0]	EXACT	1.0	1	-	-	-	-	-	-
+CVE-2000-0390	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.1.1]	EXACT	1.1.1	1 1 1	-	-	-	-	-	-
+CVE-2000-0391	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos	mit:kerberos [4.0]	EXACT	4.0	4	-	-	-	-	-	-
+CVE-2000-0391	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.0]	EXACT	1.0	1	-	-	-	-	-	-
+CVE-2000-0391	2000-05-16	10.0	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.1.1]	EXACT	1.1.1	1 1 1	-	-	-	-	-	-
+CVE-2000-0392	2000-05-16	7.2	HIGH	0	0	linux	mit:kerberos	mit:kerberos [4.0]	EXACT	4.0	4	-	-	-	-	-	-
+CVE-2000-0392	2000-05-16	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.0]	EXACT	1.0	1	-	-	-	-	-	-
+CVE-2000-0392	2000-05-16	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.1.1]	EXACT	1.1.1	1 1 1	-	-	-	-	-	-
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.0]	EXACT	2.0	2	-	-	-	-	-	-
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.0.30]	EXACT	2.0.30	2 0 30	-	-	-	-	-	-
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.0.33]	EXACT	2.0.33	2 0 33	-	-	-	-	-	-
@@ -2556,6 +2570,8 @@ CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kern
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.2.15]	EXACT	2.2.15	2 2 15	-	-	-	-	-	-
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.2.15_pre20]	EXACT	2.2.15_pre20	2 2 15	-	-	-	-	-	-
 CVE-2000-0506	2000-06-09	10.0	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.2.16]	EXACT	2.2.16	2 2 16	-	-	-	-	-	-
+CVE-2000-0514	2000-06-14	10.0	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.1]	EXACT	1.1	1 1	-	-	-	-	-	-
+CVE-2000-0514	2000-06-14	10.0	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.1.1]	EXACT	1.1.1	1 1 1	-	-	-	-	-	-
 CVE-2000-0606	2000-06-21	7.2	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [2.0]	EXACT	2.0	2	-	-	-	-	-	-
 CVE-2000-0606	2000-06-21	7.2	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [2.1]	EXACT	2.1	2 1	-	-	-	-	-	-
 CVE-2000-0606	2000-06-21	7.2	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [2.2]	EXACT	2.2	2 2	-	-	-	-	-	-
@@ -3561,6 +3577,16 @@ CVE-2006-3809	2006-07-27	7.5	HIGH	0	0	other	mozilla:firefox	mozilla:firefox [1.5
 CVE-2006-3809	2006-07-27	7.5	HIGH	0	0	other	mozilla:thunderbird	mozilla:thunderbird [1.5]	EXACT	1.5	1 5	-	-	-	-	-	-
 CVE-2006-3809	2006-07-27	7.5	HIGH	0	0	other	mozilla:thunderbird	mozilla:thunderbird [1.5.0.2]	EXACT	1.5.0.2	1 5 0 2	-	-	-	-	-	-
 CVE-2006-3809	2006-07-27	7.5	HIGH	0	0	other	mozilla:thunderbird	mozilla:thunderbird [1.5.0.4]	EXACT	1.5.0.4	1 5 0 4	-	-	-	-	-	-
+CVE-2006-3083	2006-08-09	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.4]	EXACT	1.4	1 4	-	-	-	-	-	-
+CVE-2006-3083	2006-08-09	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.4.1]	EXACT	1.4.1	1 4 1	-	-	-	-	-	-
+CVE-2006-3083	2006-08-09	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.4.2]	EXACT	1.4.2	1 4 2	-	-	-	-	-	-
+CVE-2006-3083	2006-08-09	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.4.3]	EXACT	1.4.3	1 4 3	-	-	-	-	-	-
+CVE-2006-3083	2006-08-09	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [1.5]	EXACT	1.5	1 5	-	-	-	-	-	-
+CVE-2006-3084	2006-08-09	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.4]	EXACT	1.4	1 4	-	-	-	-	-	-
+CVE-2006-3084	2006-08-09	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.4.1]	EXACT	1.4.1	1 4 1	-	-	-	-	-	-
+CVE-2006-3084	2006-08-09	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.4.2]	EXACT	1.4.2	1 4 2	-	-	-	-	-	-
+CVE-2006-3084	2006-08-09	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.4.3]	EXACT	1.4.3	1 4 3	-	-	-	-	-	-
+CVE-2006-3084	2006-08-09	7.2	HIGH	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.5]	EXACT	1.5	1 5	-	-	-	-	-	-
 CVE-2006-3745	2006-08-23	7.2	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [<=2.6.17.9]	<=	2.6.17.9	2 6 17 9	-	-	-	-	-	-
 CVE-2006-3745	2006-08-23	7.2	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.4.23]	EXACT	2.4.23	2 4 23	-	-	-	-	-	-
 CVE-2006-3745	2006-08-23	7.2	HIGH	0	0	linux	linux:linux_kernel	linux:linux_kernel [2.4.24]	EXACT	2.4.24	2 4 24	-	-	-	-	-	-
@@ -3807,6 +3833,7 @@ CVE-2007-2444	2007-05-14	7.2	HIGH	0	0	linux	debian:debian_linux	debian:debian_li
 CVE-2007-2444	2007-05-14	7.2	HIGH	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [6.06]	EXACT	6.06	6 6	-	-	-	-	-	-
 CVE-2007-2444	2007-05-14	7.2	HIGH	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [6.10]	EXACT	6.10	6 10	-	-	-	-	-	-
 CVE-2007-2444	2007-05-14	7.2	HIGH	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [7.04]	EXACT	7.04	7 4	-	-	-	-	-	-
+CVE-2007-3149	2007-06-11	7.2	HIGH	0	0	linux	mit:kerberos_5	mit:kerberos_5 [all]	ALL	-	-	-	-	-	-	-	-
 CVE-2007-3149	2007-06-11	7.2	HIGH	0	0	linux	todd_miller:sudo	todd_miller:sudo [1.6.8_p12]	EXACT	1.6.8_p12	1 6 8	-	-	-	-	-	-
 CVE-2007-3105	2007-07-27	4.6	MEDIUM	0	0	linux	linux:linux_kernel	linux:linux_kernel [<=2.6.22]	<=	2.6.22	2 6 22	-	-	-	-	-	-
 CVE-2007-3851	2007-08-13	6.0	MEDIUM	0	0	linux	linux:linux_kernel	linux:linux_kernel [<=2.6.22.1]	<=	2.6.22.1	2 6 22 1	-	-	-	-	-	-
@@ -8516,6 +8543,16 @@ CVE-2010-2963	2010-11-26	6.2	MEDIUM	0	0	linux	canonical:ubuntu_linux	canonical:u
 CVE-2010-2963	2010-11-26	6.2	MEDIUM	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [9.10]	EXACT	9.10	9 10	-	-	-	-	-	-
 CVE-2010-2963	2010-11-26	6.2	MEDIUM	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [10.04]	EXACT	10.04	10 4	-	-	-	-	-	-
 CVE-2010-2963	2010-11-26	6.2	MEDIUM	0	0	linux	canonical:ubuntu_linux	canonical:ubuntu_linux [10.10]	EXACT	10.10	10 10	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.7]	EXACT	1.7	1 7	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.7.1]	EXACT	1.7.1	1 7 1	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8]	EXACT	1.8	1 8	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.1]	EXACT	1.8.1	1 8 1	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.2]	EXACT	1.8.2	1 8 2	-	-	-	-	-	-
+CVE-2010-1324	2010-12-02	3.7	LOW	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.3]	EXACT	1.8.3	1 8 3	-	-	-	-	-	-
+CVE-2010-4020	2010-12-02	6.3	MEDIUM	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8]	EXACT	1.8	1 8	-	-	-	-	-	-
+CVE-2010-4020	2010-12-02	6.3	MEDIUM	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.1]	EXACT	1.8.1	1 8 1	-	-	-	-	-	-
+CVE-2010-4020	2010-12-02	6.3	MEDIUM	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.2]	EXACT	1.8.2	1 8 2	-	-	-	-	-	-
+CVE-2010-4020	2010-12-02	6.3	MEDIUM	0	0	other	mit:kerberos_5	mit:kerberos_5 [1.8.3]	EXACT	1.8.3	1 8 3	-	-	-	-	-	-
 CVE-2010-3904	2010-12-06	7.8	HIGH	1	0	linux	linux:linux_kernel	linux:linux_kernel [<2.6.36]	<	2.6.36	2 6 36	-	-	-	-	-	-
 CVE-2010-3904	2010-12-06	7.8	HIGH	1	0	linux	opensuse:opensuse	opensuse:opensuse [11.2]	EXACT	11.2	11 2	-	-	-	-	-	-
 CVE-2010-3904	2010-12-06	7.8	HIGH	1	0	linux	opensuse:opensuse	opensuse:opensuse [11.3]	EXACT	11.3	11 3	-	-	-	-	-	-
@@ -15421,6 +15458,7 @@ CVE-2022-26691	2022-05-26	6.7	MEDIUM	0	0	linux	debian:debian_linux	debian:debian
 CVE-2022-26691	2022-05-26	6.7	MEDIUM	0	0	linux	debian:debian_linux	debian:debian_linux [11.0]	EXACT	11.0	11	-	-	-	-	-	-
 CVE-2022-26691	2022-05-26	6.7	MEDIUM	0	0	linux	fedoraproject:fedora	fedoraproject:fedora [35]	EXACT	35	35	-	-	-	-	-	-
 CVE-2022-26691	2022-05-26	6.7	MEDIUM	0	0	linux	fedoraproject:fedora	fedoraproject:fedora [36]	EXACT	36	36	-	-	-	-	-	-
+CVE-2022-26691	2022-05-26	6.7	MEDIUM	0	0	linux	openprinting:cups	openprinting:cups [<2.4.2]	<	2.4.2	2 4 2	-	-	-	-	-	-
 CVE-2019-9971	2022-06-07	8.8	HIGH	0	0	linux	debian:debian_linux	debian:debian_linux [all]	ALL	-	-	-	-	-	-	-	-
 CVE-2022-31214	2022-06-09	7.8	HIGH	0	0	linux	fedoraproject:fedora	fedoraproject:fedora [35]	EXACT	35	35	-	-	-	-	-	-
 CVE-2022-31214	2022-06-09	7.8	HIGH	0	0	linux	fedoraproject:fedora	fedoraproject:fedora [36]	EXACT	36	36	-	-	-	-	-	-

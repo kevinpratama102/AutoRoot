@@ -37,6 +37,21 @@ def is_escape_class(r):
     return any(a.split(" [")[0] in ESCAPE_PRODUCTS for a in (r.get("affected") or []))
 
 
+def fix_dual_numbering(aff):
+    """Kurasi numbering ganda: entry apple:cups [<N..] dengan N >= 100 adalah
+    versi CUPS bawaan macOS (mis. 499.4), bukan CUPS upstream 2.x — libcups
+    2.4.14 < 499.4 lolos secara numerik padahal aman (CVE-2022-26691; bound
+    openprinting:cups [<2.4.2] tetap berlaku). Hanya 1 CVE seperti ini di
+    dataset; rule dikunci ke apple:cups saja."""
+    out = []
+    for a in aff:
+        m = re.match(r"apple:cups \[<(\d+)", a)
+        if m and int(m.group(1)) >= 100:
+            continue
+        out.append(a)
+    return out
+
+
 def main():
     os.makedirs(DIST, exist_ok=True)
 
@@ -47,7 +62,7 @@ def main():
         cves.append({
             "id": r["id"], "published": r["published"], "score": r.get("score"),
             "severity": r.get("severity"), "description": r.get("description", ""),
-            "affected": r.get("affected") or [], "os": r["os"], "kev": bool(r.get("kev")),
+            "affected": fix_dual_numbering(r.get("affected") or []), "os": r["os"], "kev": bool(r.get("kev")),
             "escape": is_escape_class(r),
         })
     n_esc = sum(1 for c in cves if c["escape"])

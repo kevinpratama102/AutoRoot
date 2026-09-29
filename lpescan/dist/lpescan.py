@@ -61,9 +61,17 @@ PKG_TO_CPE = {
     "perl":            [("perl", "perl")],
     "perl-base":       [("perl", "perl")],
     "perl-*":          [("perl", "perl")],
-    "python3*":        [("python", "python")],
-    "python2*":        [("python", "python")],
-    "python-*":        [("python", "python")],
+    # interpreter-only: python3*/python-* terlalu greedy — python-apt-common 3.0.0
+    # & python3-aiodns 3.5.0-1 (modul pihak ketiga) kebetulan masuk constraint
+    # python:python. Cuma paket yang MEMBAWA interpreter yang dipetakan.
+    # Lini python2 TIDAK dipetakan: constraint satu-sisi (mis. [<=3.7.12]) akan
+    # menangkap 2.7.18 secara numerik (CVE-2022-26488 vs python2-minimal) —
+    # false positive antar-major-line; py2 EOL & box murni-py2 praktis tidak ada.
+    "python3":         [("python", "python")],
+    "python3.[0-9]*":  [("python", "python")],
+    "python3-minimal": [("python", "python")],
+    "python3-dev":     [("python", "python")],
+    "libpython3*":     [("python", "python")],
     "rpm":             [("rpm", "rpm")],
     "rpm-libs":        [("rpm", "rpm")],
     "xen*":            [("xen", "xen")],
@@ -89,7 +97,19 @@ PKG_TO_CPE = {
     "libsqlite3*":     [("sqlite", "sqlite")],
     "systemd":         [("systemd_project", "systemd")],
     "systemd-*":       [("systemd_project", "systemd")],
-    "cups*":           [("apple", "cups"), ("linuxfoundation", "cups-filters")],
+    # cups* dipecah: cups-pk-helper 0.2.6 (helper polkit, versi sendiri) &
+    # apcupsd (daemon UPS) kebetulan masuk constraint apple:cups/cups-filters
+    # secara numerik (CVE-2022-26691 [<499.4], CVE-2013-6476 [<=1.0.46]).
+    # Hanya paket dari sumber CUPS / cups-filters yang dipetakan.
+    "cups":            [("apple", "cups"), ("openprinting", "cups")],
+    "cups-common":     [("apple", "cups"), ("openprinting", "cups")],
+    "cups-client":     [("apple", "cups"), ("openprinting", "cups")],
+    "cups-server":     [("apple", "cups"), ("openprinting", "cups")],
+    "cups-daemon":     [("apple", "cups"), ("openprinting", "cups")],
+    "libcups*":        [("apple", "cups"), ("openprinting", "cups")],
+    "cups-filters":    [("linuxfoundation", "cups-filters")],
+    "cups-filters-*":  [("linuxfoundation", "cups-filters")],
+    "libcupsfilters*": [("linuxfoundation", "cups-filters")],
     "apache2":         [("apache", "http_server")],
     "httpd":           [("apache", "http_server")],
     "tomcat*":         [("apache", "tomcat")],
@@ -107,12 +127,17 @@ PKG_TO_CPE = {
     "tmux":            [("nicholas_marriott", "tmux")],
     "procps":          [("procps-ng_project", "procps-ng")],
     "procps-ng":       [("procps-ng_project", "procps-ng")],
-    "openssh*":        [("openbsd", "openssh")],
+    # exact-only: openssh* ikut menangkap openssh-client-ssh1 (legacy 1:7.5p1)
+    # & openssh-sftp-server — versi lama yang menyesatkan match CVE openssh
     "openssh-server":  [("openbsd", "openssh")],
     "openssh-client":  [("openbsd", "openssh")],
     "bind9*":          [("isc", "bind")],
     "bind":            [("isc", "bind")],
-    "krb5-*":          [("eyrie", "pam-krb5")],
+    # krb5-* = MIT Kerberos (1.x); eyrie:pam-krb5 itu modul PAM versi 3.x/4.x —
+    # krb5-locales 1.22.1 kebetulan lolos constraint pam-krb5 [<=3.12] secara
+    # numerik (CVE-2009-0360), salah produk. kerberos_project:kerberos (Heimdal
+    # 7.x) TIDAK dipetakan — sama rawan coincidence antar-major-line.
+    "krb5-*":          [("mit", "kerberos_5"), ("mit", "kerberos")],
     "libpam-krb5":     [("eyrie", "pam-krb5")],
     "shadow":          [("shadow_project", "shadow"), ("suse", "shadow")],
     "login":           [("shadow_project", "shadow")],
